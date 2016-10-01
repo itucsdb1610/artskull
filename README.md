@@ -1,4 +1,8 @@
 # artskull
+
+Projeyi IBM|Bluemix'e deploy etmek için düğmeye tıklayın!
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/ozcelikfu/artskull)
+
 Bir İTÜ projesi.
 
 Proje üyeleri:
