@@ -11,4 +11,4 @@ Proje üyeleri:
 2. Furkan Özçelik
 3. Mahmut Lutfullah Özbilen
 4. Muhammed Kadir Yücel - 150140119
-5. Murat Özkök
+5. Murat Özkök - 150140013
