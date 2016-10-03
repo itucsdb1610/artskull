@@ -9,6 +9,6 @@ Proje üyeleri:
 
 1. Doğay Kamar - 150140044
 2. Furkan Özçelik - 150140128
-3. Mahmut Lutfullah Özbilen
+3. Mahmut Lutfullah Özbilen - 150140121
 4. Muhammed Kadir Yücel - 150140119
 5. Murat Özkök - 150140013
