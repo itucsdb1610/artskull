@@ -14,5 +14,3 @@ Proje √ºyeleri:
 4. Muhammed Kadir Y√ºcel - 150140119
 5. Murat √ñzk√∂k - 150140013
 
-© 2016 DK F÷ ML÷ MKY M÷ ALL RIGHTS RESERVED
-
