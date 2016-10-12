@@ -14,3 +14,4 @@ Proje üyeleri:
 4. Muhammed Kadir Yücel - 150140119
 5. Murat Özkök - 150140013
 
+DK FÖ MLÖ MKY MÖ all rights reserved
