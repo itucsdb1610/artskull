@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Bungee+Inline');
+body{
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+
+footer{
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: black;
+    color: #C7C7C7;
+}
+
+footer ul{
+    list-style: none;
+}
+
+footer ul li{
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline;
+}
+
+footer a{
+    color: #D6D6D6;
+}
+
+footer a:visited{
+    color: #D6D6D6;
+}
+
+footer a:hover{
+    color: #C7C7C7;
+}
+
+header{
+    margin: 0;
+    width: 100%;
+    background-color: #000000;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+header h1{
+    font-family: 'Bungee Inline', cursive;
+    font-size: 22px;
+    float: left;
+    width: 20%;
+}
+
+header form{
+    float: left;
+    width: 80%;
+}
+
+.logintb{
+    border-radius: 4px;
+    padding: 3px;
+    border: 1px solid #dadada
+}
+
+.logintb:focus{
+    outline: none;
+    border-color: #FFBB00;
+    box-shadow: 0 0 10px #FFBB00;
+}
+
+.loginbutton{
+    padding: 3px;
+
+}
