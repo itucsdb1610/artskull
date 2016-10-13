@@ -3,16 +3,33 @@
     <head>
         <meta charset="utf-8">
         <title>Artskull</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
 
     <body>
         <header>
-            <nav>
+            <h1>Artskull</h1>
+            <form id="loginform">
+                <input class="logintb" name="usernamelogin" id="usernamelogin" type="text" placeholder="Username" required>
+                <input class="logintb" name="passwordlogin" id="passwordlogin" type="password" placeholder="Password" required>
+                <input class="loginbutton" type="submit" value="Login">
+            </form>
+            <!--<nav>
                 <li><a href="{{ url_for('home') }}">Home</a></li>
-            </nav>
+            </nav>-->
         </header>
 
         {% block content %}{% endblock %}
+		
+		<footer>
+            <ul>
+                 <a href="https://github.com/itucsdb1610/itucsdb1610/blob/master/README.md"><li>About Us</li></a>
+                 <a href="https://github.com/itucsdb1610/itucsdb1610/wiki"><li>Wiki</li></a>
+                 <a href="https://github.com/itucsdb1610/itucsdb1610"><li>GitHub</li></a>
+             </ul>
+             <!--<img src="" alt="Project logo" />-->
+             <p>An open-source ITU project by team itucsdb1610.</p>
+             <p>2016</p>
+		</footer>
     </body>
 </html>
