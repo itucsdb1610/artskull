@@ -8,14 +8,36 @@
 
     <body>
         <header>
-            <h1>Artskull</h1>
+            <div class="topleft">
+                <h1>Artskull</h1>
+            </div>
+            
             <div class="topright">
-                <form id="loginform">
-                    <input class="logintb" name="usernamelogin" id="usernamelogin" type="text" placeholder="Username" required>
-                    <input class="logintb" name="passwordlogin" id="passwordlogin" type="password" placeholder="Password" required>
-                    <input class="loginbutton" type="submit" value="Login">
+                <form id="loginform" method="post">
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<input class="logintb" name="usernamelogin" id="usernamelogin" type="text" placeholder="Username" required>
+								</td>
+								<td>
+									<input class="logintb" name="passwordlogin" id="passwordlogin" type="password" placeholder="Password" required>
+								</td>
+								<td>
+									<input class="loginbutton" type="submit" value="Login">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#signup">Sign Up</a>
+								</td>
+								<td>
+									<a href="">Forgot Account?</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
                 </form>
-            <a href="#signup">Sign Up</a>
             </div>
             <!--<nav>
                 <li><a href="{{ url_for('home') }}">Home</a></li>
