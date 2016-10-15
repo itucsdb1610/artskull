@@ -12,5 +12,5 @@ def home():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=port) #for bluemix
-    #app.run(host='localhost', port='5000') #comment this while publishing to bluemix
+    #app.run(host='0.0.0.0', port=port) #for bluemix
+    app.run(host='localhost', port='5000') #comment this while publishing to bluemix
