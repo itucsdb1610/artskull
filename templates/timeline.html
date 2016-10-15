@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="insidetop">
+			<h1>Dummy Text</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id urna in nunc posuere lobortis. 
+			Maecenas ultricies velit sed arcu vehicula, sollicitudin faucibus ligula dignissim. 
+			Suspendisse volutpat leo eget ultrices dapibus. Aenean rutrum urna vitae tellus pharetra, 
+			sed molestie velit ullamcorper. Fusce ac finibus turpis. Etiam rhoncus euismod nibh ac pretium. 
+			Phasellus augue nulla, egestas ut laoreet in, blandit eu diam. Donec eu lorem arcu. Phasellus vitae lacus eu libero egestas suscipit 
+			vitae eu nisi. Nunc semper, elit at aliquam posuere, diam risus viverra tellus, ac pharetra felis orci non est.
+			Aenean sit amet mi rhoncus, pharetra magna ac, vulputate arcu. Sed vestibulum lectus risus, sed egestas odio sollicitudin non. 
+			Integer quis tincidunt sem. Curabitur urna eros, ultrices at luctus a, dapibus ac quam. Aliquam ornare, nisl vel congue rhoncus, 
+			neque orci tempus nisi, tincidunt molestie urna velit ac turpis. In efficitur eleifend elementum.</p>
+		</div>
+		
+		<div class="content">
+			<div class="trending">
+				<h1>Trending Performs</h1>
+				<p>Etiam semper leo quis orci cursus, nec gravida nisl laoreet. 
+				Nulla facilisis tortor leo, id elementum massa tincidunt vitae.
+				Sed non congue libero.</p>
+			</div>
+			<div id="signup" class="signup">
+				<h1>Sign Up</h1>
+				<form id="signupform" method="post">
+					<table>
+						<tbody>
+							<tr>
+								<td class="tdleftside">
+									<label for="username">Username:</label>
+								</td>
+								<td>
+									<input class="signupinput" name="username" type="text">
+								</td>
+							</tr>
+							<tr>
+								<td class="tdleftside">
+									<label for="epost">E-Mail:</label>
+								</td>
+								<td>
+									<input class="signupinput" name="epost" type="email">
+								</td>
+							</tr>
+							<tr>
+								<td class="tdleftside">
+									<label for="password">Password:</label>
+								</td>
+								<td>
+									<input class="signupinput" name="password" type="password">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="submit" value="Sign Up">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+{% endblock %}
