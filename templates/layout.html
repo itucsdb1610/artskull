@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Artskull</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        <script src="https://use.fontawesome.com/267f2ef860.js"></script>
     </head>
 
     <body>
@@ -13,6 +14,8 @@
             </div>
             
             <div class="topright">
+                <!-- if user not logged in -->
+                {% if not session.logged_in %}
                 <form id="loginform" method="post">
 					<table>
 						<tbody>
@@ -24,7 +27,7 @@
 									<input class="logintb" name="passwordlogin" id="passwordlogin" type="password" placeholder="Password" required>
 								</td>
 								<td>
-									<input class="loginbutton" type="submit" value="Login">
+									<button action='/login' class="loginbutton" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i></button>
 								</td>
 							</tr>
 							<tr>
@@ -38,6 +41,32 @@
 						</tbody>
 					</table>
                 </form>
+                {% endif %}
+                <!-- if user logged in -->
+                {% if session.logged_in %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="tdsearch">
+                                <form id="searchform" method="post">
+                                    <input class="searchbox" name="searchbox" placeholder="Search" type="text">
+                                    <button type="submit" class="searchbutton"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </td>
+                            <td class="tdmenu">
+                                <ul class="menu">
+                                    <!-- menu items will change, these are for test purposes -->
+                                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('timeline') }}">Timeline</a></li>
+                                    <li><a href="{{ url_for('profile') }}'">Profile</a></li>
+                                    <li><a href="{{ url_for('content') }}">Content</a></li>
+                                    <li><a href="{{ url_for('admin') }}">Admin Panel</a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
             </div>
             <!--<nav>
                 <li><a href="{{ url_for('home') }}">Home</a></li>
