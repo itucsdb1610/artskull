@@ -2,25 +2,51 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="insidetop">
-			<h1>Dummy Text</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id urna in nunc posuere lobortis. 
-			Maecenas ultricies velit sed arcu vehicula, sollicitudin faucibus ligula dignissim. 
-			Suspendisse volutpat leo eget ultrices dapibus. Aenean rutrum urna vitae tellus pharetra, 
-			sed molestie velit ullamcorper. Fusce ac finibus turpis. Etiam rhoncus euismod nibh ac pretium. 
-			Phasellus augue nulla, egestas ut laoreet in, blandit eu diam. Donec eu lorem arcu. Phasellus vitae lacus eu libero egestas suscipit 
-			vitae eu nisi. Nunc semper, elit at aliquam posuere, diam risus viverra tellus, ac pharetra felis orci non est.
-			Aenean sit amet mi rhoncus, pharetra magna ac, vulputate arcu. Sed vestibulum lectus risus, sed egestas odio sollicitudin non. 
-			Integer quis tincidunt sem. Curabitur urna eros, ultrices at luctus a, dapibus ac quam. Aliquam ornare, nisl vel congue rhoncus, 
-			neque orci tempus nisi, tincidunt molestie urna velit ac turpis. In efficitur eleifend elementum.</p>
-		</div>
+<div class="insidetop" style="background-image: url('{{url_for('static', filename='toppart_index_back.jpg')}}');">
+			<span>
+				<h1>Dummy Text</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id urna in nunc posuere lobortis. 
+				Maecenas ultricies velit sed arcu vehicula, sollicitudin faucibus ligula dignissim. 
+				Suspendisse volutpat leo eget ultrices dapibus. Aenean rutrum urna vitae tellus pharetra, 
+				sed molestie velit ullamcorper. Fusce ac finibus turpis. Etiam rhoncus euismod nibh ac pretium. 
+				Phasellus augue nulla, egestas ut laoreet in, blandit eu diam. Donec eu lorem arcu. Phasellus vitae lacus eu libero egestas suscipit 
+				vitae eu nisi. Nunc semper, elit at aliquam posuere, diam risus viverra tellus, ac pharetra felis orci non est.
+				Aenean sit amet mi rhoncus, pharetra magna ac, vulputate arcu. Sed vestibulum lectus risus, sed egestas odio sollicitudin non. 
+				Integer quis tincidunt sem. Curabitur urna eros, ultrices at luctus a, dapibus ac quam. Aliquam ornare, nisl vel congue rhoncus, 
+				neque orci tempus nisi, tincidunt molestie urna velit ac turpis. In efficitur eleifend elementum.</p>
+			</span>
+</div>
 		
 		<div class="content">
 			<div class="trending">
 				<h1>Trending Performs</h1>
-				<p>Etiam semper leo quis orci cursus, nec gravida nisl laoreet. 
-				Nulla facilisis tortor leo, id elementum massa tincidunt vitae.
-				Sed non congue libero.</p>
+				<ul class="trendinglist">
+					<li>
+						<img src="{{url_for('static', filename='trending1.jpg')}}" alt="trending1">
+						<h1>Trending#1</h1>
+						<p>City#1</p>
+					</li>
+					<li>
+						<img src="{{url_for('static', filename='trending2.jpg')}}" alt="trending2">
+						<h1>Trending#2</h1>
+						<p>City#2</p>
+					</li>
+					<li>
+						<img src="{{url_for('static', filename='trending3.jpg')}}" alt="trending3">
+						<h1>Trending#3</h1>
+						<p>City#3</p>
+					</li>
+					<li>
+						<img src="{{url_for('static', filename='trending4.jpg')}}" alt="trending4">
+						<h1>Trending#4</h1>
+						<p>City#4</p>
+					</li>
+					<li>
+						<img src="{{url_for('static', filename='trending5.jpg')}}" alt="trending5">
+						<h1>Trending#5</h1>
+						<p>City#5</p>
+					</li>
+				</ul>
 			</div>
 			<div id="signup" class="signup">
 				<h1>Sign Up</h1>
