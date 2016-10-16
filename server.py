@@ -11,19 +11,19 @@ port = int(os.getenv('VCAP_APP_PORT', 8080))
 def home():
     return render_template('index.html')
 
-@app.route('/timeline')
+@app.route('timeline')
 def timeline():
     return render_template('timeline.html')
 
-@app.route('/profile')
+@app.route('profile')
 def profile():
     return render_template('profile.html')
 
-@app.route('/content')
+@app.route('content')
 def content():
     return render_template('content.html')
 
-@app.route('/admin')
+@app.route('admin')
 def admin():
     return render_template('contentadmin.html')
 
