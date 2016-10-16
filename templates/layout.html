@@ -14,7 +14,7 @@
             </div>
             
             <div class="topright">
-                <!-- if user not logged in -->
+                <!-- if user not logged in
                 {% if not session.logged_in %}
                 <form id="loginform" method="post">
 					<table>
@@ -42,8 +42,9 @@
 					</table>
                 </form>
                 {% endif %}
-                <!-- if user logged in -->
-                {% if session.logged_in %}
+		-->
+                <!-- if user logged in
+                {% if session.logged_in %} -->
                 <table>
                     <tbody>
                         <tr>
@@ -66,11 +67,8 @@
                         </tr>
                     </tbody>
                 </table>
-                {% endif %}
+                <!--{% endif %}-->
             </div>
-            <!--<nav>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-            </nav>-->
         </header>
 
         {% block content %}{% endblock %}
