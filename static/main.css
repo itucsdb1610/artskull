@@ -152,6 +152,12 @@ header h1{
     vertical-align: middle;
     display: inline-block;
 }
+
+.insidetop .profile{
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
 .signup form{
     margin: 0 auto;
     width: 400px;
@@ -164,6 +170,26 @@ header h1{
     padding: 10px;
     box-shadow: 0px 2px 10px #888888;
     clear: both;
+    height: auto;
+    overflow: auto;
+}
+
+.content .contentleft{
+width: 65%;
+padding: 25px;
+float: left;
+height: auto;
+overflow: auto;
+border-right:2px solid gray;
+}
+
+.content .contentright{
+width: 25%;
+padding: 25px;
+float: left;
+height: auto;
+overflow: auto;
+
 }
 
 .content .trending {
