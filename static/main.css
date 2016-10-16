@@ -157,6 +157,23 @@ header h1{
     margin-left: 70px;
     margin-right: 70px;
 }
+.insidetop .performance{
+    height:380px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.insidetop .performance .perftitle{
+width:300px;
+float:left;
+}
+.insidetop .performance img{
+    float:right;
+    height:340px;
+    width:340px;
+    vertical-align:middle;
+    top:20px;
+    bottom:20px;
+}
 
 .signup form{
     margin: 0 auto;
@@ -191,6 +208,10 @@ height: auto;
 overflow: auto;
 
 }
+.content .contentright .friends{
+margin-left:200px;
+}
+
 
 .content .trending {
     text-align: center;
