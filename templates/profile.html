@@ -2,35 +2,38 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="insidetop">
+<div class="insidetop profileinsidetop">
 	<div class="profile">		
-			<img float=left src="{{ url_for('static', filename='PPex.png') }}" width=250 height=250 alt="example profile picture"> 	
+			<img float=left src="{{url_for('static', filename='PPex.png') }}" width=250 height=250 alt="example profile picture"> 	
 			<h1> FirstName1 LastName1</h1>						
 		</div>
 	</div>
 		<div class="content">
 			<div class="contentleft">
-				<ul style="list-style-type: none">
+				<ul class="profilelist" style="list-style-type: none">
 					<li>
 						<p>comments about Play Title #1</p>
 						<div class="contentleft"><h1>Play Title #1</h1>
 							<p>short info</p>
 						</div>
-						<div class="contentright"><img float=left src="{{ url_for('static', filename='trending1.jpg') }}" width=70 height=100 alt="example1"></div>
+						<div class="contentright"><img src="{{ url_for('static', filename='trending1.jpg')}}" width=70 alt="example1"></div>
 					</li>
 					<li>
 						<p>comments about Play Title #1</p>
 						<div class="contentleft"><h1>Play Title #2</h1>
 							<p>short info</p>
 						</div>
-						<div class="contentright"><img float=left src="{{ url_for('static', filename='trending2.jpg') }}" width=70 height=100 alt="example2"></div>
+						<div class="contentright"><img src="{{ url_for('static', filename='trending2.jpg')}}" width=70 alt="example2"></div>
 					</li>
 					<li>
 						<p>comments about Play Title #1</p>
-						<div class="contentleft"><h1>Play Title #3</h1>
+						<div class="contentleft">
+                            <h1>Play Title #3</h1>
 							<p>short info</p>
 						</div>
-						<div class="contentright"><img float=left src="{{ url_for('static', filename='trending3.jpg') }}" width=70 height=100 alt="example3"></div>
+						<div class="contentright">
+                            <img src="{{ url_for('static', filename='trending3.jpg')}}" width=70 alt="example3">
+                        </div>
 					</li>
 				</ul>
 			</div>
