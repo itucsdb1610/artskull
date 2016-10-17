@@ -515,6 +515,7 @@ border-right:2px solid gray;
     margin-right: 80px;
     background-color: #f5f5fb;
     width: 70%;
+    list-style: none;
 }
 
 .content .timelinecontentright ul li {
@@ -523,6 +524,7 @@ border-right:2px solid gray;
     height: 120px;
     border-bottom: 3px solid hotpink;
     padding-bottom: 40px;
+    list-style: none;
 }
 
 .content .timelinecontentright ul li img{
