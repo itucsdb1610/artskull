@@ -274,10 +274,11 @@ padding: 25px;
 float: left;
 height: auto;
 overflow: auto;
-
+color:black;
 }
 .content .contentright .friends{
-margin-left:200px;
+margin:auto;
+color:black;
 }
 
 
@@ -302,7 +303,6 @@ margin-left:200px;
 .content .trending .trendinglist li h1 {
     font-size: 15px;
     font-weight: bold;
-    color: black;
 }
 
 .content .trending .trendinglist li p {
