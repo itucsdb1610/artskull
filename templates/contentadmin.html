@@ -1,71 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Admin Panel</title>
-        <link rel="stylesheet" href="main.css">
-        <script src="https://use.fontawesome.com/267f2ef860.js"></script>
-    </head>
-
-    <body>
-        <header>
-            <div class="topleft">
-                <h1>Artskull</h1>
-            </div>
-            
-            <div class="topright">
-                <!-- if user not logged in
-                <form id="loginform" method="post">
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<input class="logintb" name="usernamelogin" id="usernamelogin" type="text" placeholder="Username" required>
-								</td>
-								<td>
-									<input class="logintb" name="passwordlogin" id="passwordlogin" type="password" placeholder="Password" required>
-								</td>
-								<td>
-									<button action='/login' class="loginbutton" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="#signup">Sign Up</a>
-								</td>
-								<td>
-									<a href="">Forgot Account?</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-                </form>
-                -->
-                <!-- if user logged in-->
-                <table>
-                    <tbody>
-                        <tr>
-                            <td class="tdsearch">
-                                <form id="searchform" method="post">
-                                    <input class="searchbox" name="searchbox" placeholder="Search" type="text">
-                                    <button type="submit" class="searchbutton"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                </form>
-                            </td>
-                            <td class="tdmenu">
-                                <ul class="menu">
-                                    <!-- menu items will change, these are for test purposes -->
-                                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                                    <li><a href="{{ url_for('timeline') }}">Timeline</a></li>
-                                    <li><a href="{{ url_for('profile') }}'">Profile</a></li>
-                                    <li><a href="{{ url_for('content') }}">Content</a></li>
-                                    <li><a href="{{ url_for('admin') }}">Admin Panel</a></li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </header>
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
 
 	
 <!---if user has admin rights user can see this content, else user will be warned with an unauthorized field message.-->
@@ -102,15 +37,4 @@
 
 			
 	</div>
-		<footer>
-            <ul>
-                 <a href="https://github.com/itucsdb1610/itucsdb1610/blob/master/README.md"><li>About Us</li></a>
-                 <a href="https://github.com/itucsdb1610/itucsdb1610/wiki"><li>Wiki</li></a>
-                 <a href="https://github.com/itucsdb1610/itucsdb1610"><li>GitHub</li></a>
-             </ul>
-             <!--<img src="" alt="Project logo" />-->
-             <p>An open-source ITU project by team itucsdb1610.</p>
-             <p>2016</p>
-		</footer>
-    </body>
-</html>
+		{% endblock %}
