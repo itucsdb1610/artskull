@@ -166,6 +166,44 @@ header h1{
 
 /* changes for profile.html */
 
+.contenttop{
+    background-image:url("/static/content3.jpg");
+    padding-left: 25px;
+    padding-right: 25px;
+    color: white;
+    height: 380px;
+    clear: both;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    text-shadow: 0px 0px 10px #000000;
+
+}
+.contenttop .performance{
+    height:80%;
+    width:30%;
+    margin-left: 70px;
+    margin-right: 70px;
+float:left;
+}
+.contenttop .performance .perftitle{
+width:100%;
+float:left;
+}
+
+.contenttop img{
+    float:right;
+    height:340px;
+    width:340px;
+    vertical-align:middle;
+    margin-top:20px;
+    margin-right:10%;
+    border-style: solid;
+    border-color:black;
+    border-width:5px;
+}
+
+
 .profilelist {
     list-style: none;
 }
