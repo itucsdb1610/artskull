@@ -27,6 +27,10 @@ def content():
 def admin():
     return render_template('contentadmin.html')
 
+@app.route('/search')
+def search():
+    return render_template('searchresult.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     session['logged_in'] = True
