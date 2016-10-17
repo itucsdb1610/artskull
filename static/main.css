@@ -512,13 +512,13 @@ border-right:2px solid gray;
     float: inherit;
     padding: 5px;
     text-align: center;
-    margin-right: 130px;
+    margin-right: 80px;
     background-color: #f5f5fb;
+    width: 70%;
 }
 
 .content .timelinecontentright ul li {
     border-bottom: rebeccapurple;
-    width: 130%;
     background-color: #f5f5fb;
     height: 120px;
     border-bottom: 3px solid hotpink;
