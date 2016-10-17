@@ -159,7 +159,35 @@ header h1{
 .insidetop .profile{
     margin-left: 70px;
     margin-right: 70px;
+    line-height: normal;
+    vertical-align: middle;
+    display: inline-block;
 }
+
+/* changes for profile.html */
+
+.profilelist {
+    list-style: none;
+}
+
+.profilelist li {
+    display: block;
+    border-bottom: 1px  solid black;
+}
+
+.profilelist li p {
+    /*display: block;*/
+    clear: both;
+}
+
+.profileinsidetop {
+    height: 300px;
+    line-height: 300px;
+    padding: 20px;
+}
+
+/* end of changes for profile.html */
+
 .insidetop .performance{
     height:240px;
     margin-left: 70px;
@@ -195,16 +223,15 @@ header h1{
 }
 
 .content .contentleft{
-width: 65%;
-padding: 25px;
-float: left;
-height: auto;
-overflow: auto;
-border-right:2px solid gray;
+    width: 65%;
+    padding: 25px;
+    float: left;
+    height: auto;
+    overflow: auto;
+    border-right:2px solid gray;
 }
 
 .content .contentright{
-width: 25%;
 padding: 25px;
 float: left;
 height: auto;
