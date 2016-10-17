@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="content">
+    <div class="contentleft">
+        <h1>Search results for ".."</h1>
+        <ul class="searchresult">
+            <li>
+                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result1">
+                <span>
+                    <h1>Result#1</h1>
+                    <p>Information about result</p>
+                </span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result2">
+                <span>
+                    <h1>Result#1</h1>
+                    <p>Information about result</p>
+                </span>
+            </li>
+            <li>
+                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result3">
+                <span>
+                    <h1>Result#1</h1>
+                    <p>Information about result</p>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="contentright">
+        <h1>Plays in your city</h1>
+        <ul class="playsincity">
+            <li>
+                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="play" >
+                <span>
+                    <h1>Play#1</h1>
+                    <p>More information about play</p>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}
