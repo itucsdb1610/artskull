@@ -2,63 +2,97 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="insidetop">
-			<h1>Dummy Text</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id urna in nunc posuere lobortis. 
-			Maecenas ultricies velit sed arcu vehicula, sollicitudin faucibus ligula dignissim. 
-			Suspendisse volutpat leo eget ultrices dapibus. Aenean rutrum urna vitae tellus pharetra, 
-			sed molestie velit ullamcorper. Fusce ac finibus turpis. Etiam rhoncus euismod nibh ac pretium. 
-			Phasellus augue nulla, egestas ut laoreet in, blandit eu diam. Donec eu lorem arcu. Phasellus vitae lacus eu libero egestas suscipit 
-			vitae eu nisi. Nunc semper, elit at aliquam posuere, diam risus viverra tellus, ac pharetra felis orci non est.
-			Aenean sit amet mi rhoncus, pharetra magna ac, vulputate arcu. Sed vestibulum lectus risus, sed egestas odio sollicitudin non. 
-			Integer quis tincidunt sem. Curabitur urna eros, ultrices at luctus a, dapibus ac quam. Aliquam ornare, nisl vel congue rhoncus, 
-			neque orci tempus nisi, tincidunt molestie urna velit ac turpis. In efficitur eleifend elementum.</p>
-		</div>
-		
-		<div class="content">
-			<div class="trending">
-				<h1>Trending Performs</h1>
-				<p>Etiam semper leo quis orci cursus, nec gravida nisl laoreet. 
-				Nulla facilisis tortor leo, id elementum massa tincidunt vitae.
-				Sed non congue libero.</p>
-			</div>
-			<div id="signup" class="signup">
-				<h1>Sign Up</h1>
-				<form id="signupform" method="post">
-					<table>
-						<tbody>
-							<tr>
-								<td class="tdleftside">
-									<label for="username">Username:</label>
-								</td>
-								<td>
-									<input class="signupinput" name="username" type="text">
-								</td>
-							</tr>
-							<tr>
-								<td class="tdleftside">
-									<label for="epost">E-Mail:</label>
-								</td>
-								<td>
-									<input class="signupinput" name="epost" type="email">
-								</td>
-							</tr>
-							<tr>
-								<td class="tdleftside">
-									<label for="password">Password:</label>
-								</td>
-								<td>
-									<input class="signupinput" name="password" type="password">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input type="submit" value="Sign Up">
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-		</div>
+
+<div class="content">
+	<div class="timelinecontentleft">
+		<ul class="timelinelist">
+			<li>
+				<div class="userinfo">				
+					<img src="{{url_for('static', filename='samplepp1.jpg')}}" alt="samplepp1">
+					<p>
+						@ozcelikfu thinks to go the play "Macbeth"
+					</p>
+				</div>
+				<div class="playinfo">
+					<img src="{{url_for('static', filename='sampleplayp1.jpg')}}" alt="sampleplayp1">
+					<p> 
+						Macbeth is a tragedy by William Shakespeare, thought to have been first performed in 1606. It dramatises the damaging physical and psychological effects of political ambition on those who seek power for its own sake.
+					    Of all the plays that Shakespeare wrote during the reign of James I, who was patron of Shakespeare's acting company, Macbeth most clearly reflects the playwright's relationship with his sovereign.
+						It was first published in the Folio of 1623, possibly from a prompt book, and is his shortest tragedy.
+					</p>				
+				</div>
+				<div class="playcomments">
+					<ul>
+						<li>
+							@ozcelikfu: I really really really really think to go that show. It looks very promising show. I think it doesnt bother my followers
+							that thinking cause i dont really go play.
+			            </li>
+						<li>
+							@kamard: Ive been there and it was fascinating and I love it love it love it CASUE I DONT HAVE ANY STANDARTS.
+						</li>									
+				</div>					
+			</li>
+			<li>
+				<div class="userinfo">				
+					<img src="{{url_for('static', filename='samplepp2.jpg')}}" alt="samplepp2">
+					<p>
+						@ozbilenm watched the show "The Addams Family"
+					</p>
+				</div>
+				<div class="playinfo">
+					<img src="{{url_for('static', filename='sampleplayp2.jpg')}}" alt="sampleplayp2">
+					<p> 
+						The weird and wonderful family comes to devilishly delightful life in THE ADDAMS FAMILY. This magnificently macabre new musical comedy is created by Jersey Boys authors Marshall Brickman and Rick Elice, Drama Desk Award winner Andrew Lippa (The Wild Party), choreographer Sergio Trujillo (Jersey Boys), and Olivier Award-winning original directors and designers Phelim McDermott and Julian Crouch (Shockheaded Peter) with direction by four-time Tony Award® winner Jerry Zaks.
+					</p>				
+				</div>
+				<div class="playcomments">
+					<ul>
+						<li>
+							@ozbilenm: I didn't like this play.
+			            </li>
+						<li>
+							@yucelmuh: Why didn't you?
+						</li>
+						<li>
+							@ozbilenm: Am I going to pass this hecking second incident.
+						</li>
+						<li>
+							@ozkokmu: Now look Mr Ozbilen and Mr Ozyucel. We are living in a free world. Everybody has right to do everything.
+						</li>
+						<li>
+							@kamard: My GOD! It was beatiful. I LOVE the addams show. Especially players were perfect. So natural. Very natural. Absolute natural. It feels like living in a Addams house. Oh GOD!!!1!1!!!
+						</li>									
+				</div>					
+			</li>
+		</ul>
+	</div>
+	<div class="timelinecontentright">
+		<h1>
+			Plays you may interest
+		</h1>
+		<ul>
+			<li>
+				<img src="{{url_for('static', filename='samplerecommendp1.jpg')}}" alt="samplerecommendp1">
+				<p> Macbeth </p>
+				<p> Location: Seben Theatre </p>
+				<p> Date: 20.10.2016 </p>
+				<p> Time: 20.00 </p>
+			</li>
+			<li>
+				<img src="{{url_for('static', filename='samplerecommendp2.jpg')}}" alt="samplerecommendp2">
+				<p> Faust </p>
+				<p> Location: İzmir Kocatepe </p>
+				<p> Date: 21.10.2016 </p>
+				<p> Time: 19.55 </p>
+			</li>
+			<li>
+				<img src="{{url_for('static', filename='samplerecommendp3.jpg')}}" alt="samplerecommendp3">
+				<p> 12 Angry Men </p>
+				<p> Location: Sanayi Mahallesi Grand Theatre </p>
+				<p> Date: 22.10.2016 </p>
+				<p> Time: 23.00 </p>
+			</li>
+		</ul>
+	</div>
+</div>
 {% endblock %}
