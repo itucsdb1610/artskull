@@ -533,5 +533,27 @@ border-right:2px solid gray;
     float: left;
     margin: 15px;
 }
+.adminleft{
+	width: 65%;
+    padding: 25px;
+    float: left;
+    height: auto;
+    overflow: auto;
+    border-right:2px solid gray;
+}
+.adminright{
+	padding: 15px;
+	float: right;
+	height: auto;
+	overflow: auto;
+}
+
+.adminright a{
+	text-decoration: underline;
+	font-size:20px;
+}
+.adminrigt a:visited {
+    text-decoration: none;
+}
 
 /* end of classes for timeline.html*/
