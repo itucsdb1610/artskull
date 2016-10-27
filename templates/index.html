@@ -6,41 +6,40 @@
 	<ol class="carousel-indicators">
 		<li class="active" data-target="#myCarousel" data-slide-to="0">
 		</li>
-		<li class="" data-target="#myCarousel" data-slide-to="1">
+		<li data-target="#myCarousel" data-slide-to="1">
 		</li>
 	</ol>
 
 	<div class="carousel-inner" role="listbox">
 		<div class="item active">
-			<img class="first-slide" alt="First Slide" src="{{ url_for('static', filename='toppart_index_back.jpg')}}">
-			<div class="container">
-				<div class="carousel-caption">
-					<h1>Example headline.</h1>
-					<p>Hello world</p>
-				</div>
+			<img alt="First Slide"  height="400px" src="{{ url_for('static', filename='toppart_index_back.jpg')}}">
+			<div class="carousel-caption">
+				<h1>Example headline.</h1>
+				<p>Hello world</p>
 			</div>
 		</div>
 
 		<div class="item">
-			<img class="second-slide" alt="First Slide" src="{{ url_for('static', filename='toppart_index_back.jpg')}}">
-			<div class="container">
-				<div class="carousel-caption">
-					<h1>Artskull</h1>
-					<p>Hello world</p>
-				</div>	
+			<img alt="Second Slide" height="400px" src="{{ url_for('static', filename='toppart_index_back.jpg')}}">
+			<div class="carousel-caption">
+				<h1>Artskull</h1>
+				<p>Hello world</p>
 			</div>
 		</div>
 
-		<a clas="left carousel-control" role="button" href="#myCarousel" data-slide="prev">
+		<!-- Left and right controls -->
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
 			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 			<span class="sr-only">Previous</span>
 		</a>
-		<a class="right carousel-control" role="button" href="#myCarousel" data-slide="next">
-			<span class="glyphicon glyphiocn-cehevron-right" aria-hidden="true"></span>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 			<span class="sr-only">Next</span>
 		</a>
 	</div>
 </div>
+
+
 <div class="container marketing">
 	<h2>Trending Performs</h2>
 	<div class="row">
@@ -64,16 +63,35 @@
 	</div>
 
 	<hr class="featurette-divider" />
-	<form id="signupform" class="form-signin" method="post">
-		<h2 class="form-signin-heading">Sign Up</h2>
-		<label class="sr-only" for="inputEmail">Email address</label>
-		<input class="form-control" id="inputEmail" autofocus="" required="" type="email" placeholder="Email">
-		<label class="sr-only" for="inputUsername">Username</label>
-		<input class="form-control" id="inputUsername" required="" type="text" placeholder="Username">
-		<label class="sr-only" for="inputPassword">Password</label>
-		<input class="form-control" id="inputPassword" required="" type="password" placeholder="Password">
+	<form role="form" action="" id="signupform" class="form-horizontal" method="post">
+		<h2 class="form-horizontal-heading">Sign Up</h2>
 
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inputEmail">Email address</label>
+			<div class="col-sm-10">
+				<input class="form-control" id="inputEmail" required="" type="email" placeholder="Email">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inputUsername">Username</label>
+			<div class="col-sm-10">
+				<input class="form-control" id="inputUsername" required="" type="text" placeholder="Username">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="inputPassword">Password</label>
+			<div class="col-sm-10">
+				<input class="form-control" id="inputPassword" required="" type="password" placeholder="Password">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button class="btn btn-primary" type="submit">Sign Up</button>
+			</div>
+		</div>
 	</form>
 </div>
 {% endblock %}
