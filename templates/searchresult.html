@@ -2,46 +2,46 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="content">
-    <div class="contentleft">
+<div class="container" role="main">
+    <div class="page-header">
         <h1>Search results for ".."</h1>
-        <ul class="searchresult">
-            <li>
-                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result1">
-                <span>
-                    <h1>Result#1</h1>
-                    <p>Information about result</p>
-                </span>
-            </li>
-            <li>
-                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result2">
-                <span>
-                    <h1>Result#1</h1>
-                    <p>Information about result</p>
-                </span>
-            </li>
-            <li>
-                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="result3">
-                <span>
-                    <h1>Result#1</h1>
-                    <p>Information about result</p>
-                </span>
-            </li>
-        </ul>
-    </div>
-    <div class="contentright">
-        <h1>Plays in your city</h1>
-        <ul class="playsincity">
-            <li>
-                <img src="{{ url_for('static', filename='trending1.jpg')}}" alt="play" >
-                <span>
-                    <h1>Play#1</h1>
-                    <p>More information about play</p>
-                </span>
-            </li>
-        </ul>
     </div>
 
+
+    <ul class="media-list">
+        <li class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Result#1</h4>
+                Search result#1
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Result#1</h4>
+                Search result#1
+            </div>
+        </li>
+        <li class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Result#1</h4>
+                Search result#1
+            </div>
+        </li>
+    </ul>
 </div>
-
 {% endblock %}
