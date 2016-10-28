@@ -2,51 +2,65 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<div class="insidetop profileinsidetop">
-	<div class="profile">		
+<div class="jumbotron">
+	<div class="container">		
 			<img float=left src="{{url_for('static', filename='PPex.png') }}" width=250 height=250 alt="example profile picture"> 	
 			<h1> FirstName1 LastName1</h1>						
 		</div>
 	</div>
-		<div class="content">
-			<div class="contentleft">
-				<ul class="profilelist" style="list-style-type: none">
-					<li>
-						<p>comments about Play Title #1</p>
-						<div class="contentleft"><h1>Play Title #1</h1>
-							<p>short info</p>
-						</div>
-						<div class="contentright"><img src="{{ url_for('static', filename='trending1.jpg')}}" width=70 alt="example1"></div>
-					</li>
-					<li>
-						<p>comments about Play Title #1</p>
-						<div class="contentleft"><h1>Play Title #2</h1>
-							<p>short info</p>
-						</div>
-						<div class="contentright"><img src="{{ url_for('static', filename='trending2.jpg')}}" width=70 alt="example2"></div>
-					</li>
-					<li>
-						<p>comments about Play Title #1</p>
-						<div class="contentleft">
-                            <h1>Play Title #3</h1>
-							<p>short info</p>
-						</div>
-						<div class="contentright">
-                            <img src="{{ url_for('static', filename='trending3.jpg')}}" width=70 alt="example3">
-                        </div>
-					</li>
+		<div class="container">
+			<div class="left col-md-8">			
+				<ul class="media-list">
+					<li class="media mt-2">
+						<p> Comment about Play Title #1 </p>
+    					<div class="media-body">
+      						<h4 class="media-heading">Play Title #1</h4>
+      						Short info about Play Title #1
+    					</div>
+    					<div class="media-right">
+      						<a href="#">
+       							<img class="media-object" src="{{ url_for('static', filename='trending1.jpg')}}" width=70 alt="Ex1">
+      						</a>
+    					</div>
+ 					</li>
+					<li class="media mt-2">
+						<p> Comment about Play Title #2 </p>
+    					<div class="media-body">
+      						<h4 class="media-heading">Play Title #2</h4>
+      						Short info about Play Title #2
+    					</div>
+    					<div class="media-right">
+      						<a href="#">
+       							<img class="media-object" src="{{ url_for('static', filename='trending2.jpg')}}" width=70 alt="Ex2">
+      						</a>
+    					</div>
+ 					</li>
+					<li class="media mt-2">
+						<p> Comment about Play Title #3 </p>
+    					<div class="media-body">
+      						<h4 class="media-heading">Play Title #3</h4>
+      						Short info about Play Title #3
+    					</div>
+    					<div class="media-right">
+      						<a href="#">
+       							<img class="media-object" src="{{ url_for('static', filename='trending3.jpg')}}" width=70 alt="Ex3">
+      						</a>
+    					</div>
+ 					</li>
 				</ul>
+
 			</div>
 			
-			<div class="contentright">
+			<div class="right col-md-4">
 				<h1><a href="#">0 Followers</a></h1>
 				<h1><a href="#">0 Following</a></h1>
 				<div style="margin-top: 50px">
-					<h1>Favorite Genres:</h1>
-					<ul>
-						<li>Comedy</li>
-						<li>Other Stuff</li>
-					</ul>
+					<h2>Favorite Genres:</h2>
+ 					<div class="list-group">
+ 						<a href="#" class="list-group-item">Comedy</a>
+  						<a href="#" class="list-group-item">Drama</a>
+ 						<a href="#" class="list-group-item">Other stuff</a>
+					</div>
 				</div>
 			</div>		
 		</div>
