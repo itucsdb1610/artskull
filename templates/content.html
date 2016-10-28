@@ -1,44 +1,129 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
-<div class="contenttop">
-	<div class="performance"> 
-		<div class="perftitle"><h1>Hamlet</h1>
-<h2>Writer:William Shakespeare</h2><h2>Stage Manager:Ayse Emel Mesci</h2>
+<div class="row" style="background-image:url(/static/content3.jpg);color:white;
+    color:white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-shadow: 0px 0px 10px #000000;">
+    <div class="container">
+            <div class="left col-lg-9">
+                <h1>Hamlet</h1>
+                <h2>Writer:William Shakespeare</h2><h2>Stage Manager:Ayse Emel Mesci</h2>
+            </div>
+            <div class="right col-lg-3">
+                <img src="/static/hamlet.jpg" height="400px" width="300px" class="img-thumbnail" alt="example play picture">
+            </div>
+    </div>
+ 
 </div>
-				
 
-		
-		</div>
-<img src="/static/hamlet.jpg" alt="example play picture">
-	</div>
-		<div class="content">
-			<div class="contentleft">
-			<h2>About Play:</h2>
-	<p>Hamlet, Prince of Denmark, returns home to find his father murdered and his mother remarrying the murderer, his uncle. Meanwhile, war is brewing.</p>
+        <div class="container marketing">
+            <div class="row">
+                <div class="left col-lg-9">
+                    <div class="left col-lg-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li role="presentation" class="active"><a href="#">About Play</a></li>
+                            <li role="presentation"><a href="#">Duration</a></li>
+                            <li role="presentation"><a href="#">Opening Date</a></li>
+                            <li role="presentation"><a href="#">Cast</a></li>
+                        </ul>
+                    </div>
+                    <div class="right col-lg-9">
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">About Play</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p>Hamlet, Prince of Denmark, returns home to find his father murdered and his mother remarrying the murderer, his uncle. Meanwhile, war is brewing.</p>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Duration</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p>3 hours,10 minutes</p>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Opening Date</h2>
+                            </div>
+                            <div class="panel-body">
+                                <p>3Oct 10,2016</p>
+                            </div>
+                        </div>
 
-
-
-
-
-<h2>Duration:</h2>
-		<p>3 hours,10 minutes</p>
-<h2>Opening Date:</h2>
-		<p>Oct 10,2016</p>
-
-
-<h2>Cast:</h2>
-		<p>Jude Law, Gugu Mbatha-Raw, Kevin McNally, Harry Attwell, Ron Cook, John MacMillan, Matt Ryan, Gwilym Lee</p>
-
-			</div>
-			<div class="contentright">
-			<h2>Your Friends Following This Play:</h2>
-			<div class="friends"> 
-			<img src="/static/samplepp1.jpg" width=50 height=50 alt="friend1">
-			<img src="/static/samplepp2.JPG" width=50 height=50 alt="friend2">
-						</div>
-			</div>
-			<p></p>			
-		</div>
-{% endblock %}
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading"><h2>Cast</h2></div>
+                            <!-- Table -->
+                            <table class="table">
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                </tr>
+                                <tr>
+                                    <td>Jude</td>
+                                    <td>Law</td>
+                                </tr>
+                                <tr>
+                                    <td>Gugu</td>
+                                    <td>Mbatha-Raw</td>
+                                </tr>
+                                <tr>
+                                    <td>Kevin</td>
+                                    <td>McNally</td>
+                                </tr>
+                                <tr>
+                                    <td>Harry</td>
+                                    <td>Attwell</td>
+                                </tr>
+                                <tr>
+                                    <td>Ron</td>
+                                    <td>Cook</td>
+                                </tr>
+                                <tr>
+                                    <td>John</td>
+                                    <td>MacMillan</td>
+                                </tr>
+                                <tr>
+                                    <td>Matt</td>
+                                    <td>Ryan</td>
+                                </tr>
+                                <tr>
+                                    <td>Gwilym</td>
+                                    <td>Lee</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                        
+                    </div>
+                <div class="right col-lg-3">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading"><h2>Friends Following Play</h2></div>
+                        <!-- Table -->
+                        <table class="table">
+                            <tr>
+                                <td><img src="/static/samplepp1.jpg" width=50 height=50 alt="friend1"></td>
+                                <td>Furkan</td>
+                                <td>Ozcelik</td>
+                            </tr>
+                            <tr>
+                                <td><img src="/static/samplepp2.JPG" width=50 height=50 alt="friend2"></td>
+                                <td>Mahmut Lutfullah</td>
+                                <td>Ozbilen</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
