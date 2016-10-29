@@ -1,5 +1,7 @@
 import psycopg2 as dbapi2
 
+
+# Start for Muhammed Kadir YÜCEL
 def drop_usertable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
@@ -11,7 +13,7 @@ def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """CREATE TABLE USERS
+        query = """CREATE TABLE IF NOT EXISTS USERS
                     (
                         ID SERIAL NOT NULL,
                         USERNAME TEXT NOT NULL,
@@ -32,3 +34,4 @@ def init_usertable(getconf, user):
                     )"""
         cursor.execute(query, (user.username, user.passwd, user.email, user.name, user.surname))
         connection.commit()
+# End for Muhammed Kadir YÜCEL
