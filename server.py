@@ -25,12 +25,6 @@ def clear_userdb():
     drop_usertable(app.config['dsn'])
     return redirect(url_for('home'))
 
-@app.route('/adduserdb')
-def add_userdb():
-    user = User("muhammed", "123456ed", "mkykadir@hotmail.com", "muhammed kadir", "yucel", None, None)
-    init_usertable(app.config['dsn'], user)
-    return redirect(url_for('home'))
-
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
@@ -43,44 +37,7 @@ def home():
         surname = request.form['inputSurname']
         user = User(username, password, email, name, surname, None, None)
         init_usertable(app.config['dsn'], user)
-        return render_template('index.html')
-
-@app.route('/inituserdb')
-def initialize_userdatabase():
-    init_userdb(app.config['dsn'])
-    return redirect(url_for('home'))
-
-@app.route('/initdb')
-def initialize_database():
-    with dbapi2.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query = """DROP TABLE IF EXISTS COUNTER"""
-        cursor.execute(query)
-
-        query = """CREATE TABLE COUNTER (N INTEGER)"""
-        cursor.execute(query)
-
-        query = """INSERT INTO COUNTER (N) VALUES (0)"""
-        cursor.execute(query)
-
-        connection.commit()
-
-    return redirect(url_for('home'))
-
-@app.route('/count')
-def counter_page():
-    with dbapi2.connect(app.config['dsn']) as connection:
-        cursor = connection.cursor()
-
-        query = """UPDATE COUNTER SET N = N+1"""
-        cursor.execute(query)
-        connection.commit()
-
-        query = """SELECT N FROM COUNTER"""
-        cursor.execute(query)
-        count = cursor.fetchone()[0]
-    return "This page was accessed %d times" % count
+        return redirect(url_for('home'))
 
 @app.route('/timeline')
 def timeline():
