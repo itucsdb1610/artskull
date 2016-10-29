@@ -18,8 +18,8 @@ def main():
     app = create_app()
     debug = app.config['DEBUG']
     port = app.config['PORT']
-    #app.run(host='0.0.0.0', port=port) #for bluemix
-    app.run(host='localhost', port=port, debug=debug) #comment this while publishing to bluemix
+    app.run(host='0.0.0.0', port=port) #for bluemix
+    #app.run(host='localhost', port=port, debug=debug) #comment this while publishing to bluemix
 
 
 if __name__ == '__main__':
