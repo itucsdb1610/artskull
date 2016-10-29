@@ -1,2 +1,2 @@
-DEBUG = True
-PORT = 5000
+DEBUG = False
+PORT = 8080
