@@ -1,8 +1,10 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 import os
 import json
 import re
 import psycopg2 as dbapi2
+from initdb import *
+from user import User
 
 app = Flask(__name__)
 
@@ -18,9 +20,35 @@ def get_elephantsql_dsn(vcap_services):
     return dsn
 
 
-@app.route('/')
+@app.route('/clearuserdb')
+def clear_userdb():
+    drop_usertable(app.config['dsn'])
+    return redirect(url_for('home'))
+
+@app.route('/adduserdb')
+def add_userdb():
+    user = User("muhammed", "123456ed", "mkykadir@hotmail.com", "muhammed kadir", "yucel", None, None)
+    init_usertable(app.config['dsn'], user)
+    return redirect(url_for('home'))
+
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html')
+    if request.method == 'GET':
+        return render_template('index.html')
+    else:
+        username = request.form['inputUsername']
+        password = request.form['inputPassword']
+        email = request.form['inputEmail']
+        name = request.form['inputName']
+        surname = request.form['inputSurname']
+        user = User(username, password, email, name, surname, None, None)
+        init_usertable(app.config['dsn'], user)
+        return render_template('index.html')
+
+@app.route('/inituserdb')
+def initialize_userdatabase():
+    init_userdb(app.config['dsn'])
+    return redirect(url_for('home'))
 
 @app.route('/initdb')
 def initialize_database():
