@@ -1,37 +1,49 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
 	
 <!---if user has admin rights user can see this content, else user will be warned with an unauthorized field message.-->
-<div class="content">
+<div class="container-fluid">
 <h1> Welcome to Admin Panel, 'Firstname' 'Lastname'</h1>	
 <hr/>	
-			<div class="adminleft">
+			<div class="left col-sm-9">
 				<h3>Add Content</h3>
-				<form action="#addcontent">
-				Performance Title<br/><input type="text" name="PerformanceTitle"><br/>
-				Writer<br/><input type="text" name="Writer"><br/>
-				Stage Manager<br/><input type="text" name="StageManager"><br/>
-				About Play	<br/>
-				<textarea rows="4" cols="50" name="comment">
-										</textarea>
-				<br/><input type="submit" value="Submit"></form>
+				<form id="addcontent" action="#addcontent" method="post">
+					<div class="form-group">
+						<label for="title">Performance Title:</label><br/>
+						<input type="text" class="form-control" id="title">
+					</div>
+					<div class="form-group">
+						<label for="writer">Writer:</label><br/>
+						<input type="text" class="form-control" id="writer">
+					</div>
+					<div class="form-group">
+						<label for="manager">Stage Manager:</label><br/>
+						<input type="text" class="form-control" id="manager">
+					</div>
+					<div class="form-group">
+						<label for="aboutplay">About Play:</label><br/>
+					
+						<textarea rows="4" cols="50" class="form-control" id="about"></textarea>
+					</div>
+				<br/><button type="submit" class="btn btn-default">Submit</button>
+				</form>
 			</div>
-			<div class="adminright">
-				<ul>
-					<li><a href="#">USER OPERATIONS</a></li>
-					<ul class="subuser"><li><a href="#">Add User</a></li>
-										<li><a href="#">Delete User</a></li>
-										<li><a href="#">Update User</a></li>
+			<div class="right col-sm-3">
+				<ul class ="list-group">
+					<li class="list-group-item"><a href="#">USER OPERATIONS</a></li>
+					<ul class="list-group"><li class="list-group-item"><a href="#">Add User</a></li>
+										<li class="list-group-item"><a href="#">Delete User</a></li>
+										<li class="list-group-item"><a href="#">Update User</a></li>
 					</ul>
-					<li><a href="#">CONTENT OPERATIONS</a></li>
-					<ul class="subcontent"><li><a href="#">Add Content</a></li>
-										<li><a href="#">Delete Content</a></li>
-										<li><a href="#">Update Content</a></li>
+					<li class="list-group-item"><a href="#">CONTENT OPERATIONS</a></li>
+					<ul class="list-group"><li class="list-group-item"><a href="#">Add Content</a></li>
+										<li class="list-group-item"><a href="#">Delete Content</a></li>
+										<li class="list-group-item"><a href="#">Update Content</a></li>
 					</ul>
-					<li><a href="#">COMMENT OPERATIONS</a></li>
-					<ul class="subcontent"><li><a href="#">Manage Comments	</a></li>
+					<li class="list-group-item"><a href="#">COMMENT OPERATIONS</a></li>
+					<ul class="list-group">
+						<li class="list-group-item"><a href="#">Manage Comments</a></li>
 					</ul>
 				</ul>
 				
@@ -39,4 +51,4 @@
 
 			
 	</div>
-		{% endblock %}
+    {% endblock %}
