@@ -89,3 +89,62 @@ def init_contenttable(getconf, content):
         connection.commit()
 
 # End for Furkan Özçelik
+
+# Start for Doğay Kamar
+def init_followerstable(getconf, id1, id2):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS Followers
+                    (
+                        following_ID INTEGER NOT NULL REFERENCES USERS(ID),
+                        following_ID INTEGER NOT NULL REFERENCES USERS(ID),
+                        CONSTRAINT pk_FOLLOWERS PRIMARY KEY (following_ID, follower_ID)
+                    )"""
+        cursor.execute(query)
+
+        query = """INSERT INTO Followers
+                    (
+                        following_ID, follower_ID)
+                        VALUES (%d, %d
+                    )"""
+        cursor.execute(query, (id1, id2))
+        connection.commit()
+        cursor.close()
+
+def init_actortable(getconf, name, surname, birthday):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS Actors
+                    (
+                        ActorID SERIAL NOT NULL,
+                        NAME TEXT NOT NULL,
+                        SURNAME TEXT NOT NULL,
+                        BIRTHDAY TEXT NOT NULL,
+                        PRIMARY KEY (ActorID)
+                    )"""
+        cursor.execute(query)
+
+        query = """INSERT INTO Actors
+                    (
+                        NAME, SURNAME, BIRTHDAY)
+                        VALUES (%s, %s, %s
+                    )"""
+        cursor.execute(query, (name, surname, birthday))
+        connection.commit()
+        cursor.close()
+
+
+def deleteactor(getconf, deleteID):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM Actors
+        WHERE ActorID = %s"""
+        cursor.execute(query, (deleteID))
+        connection.commit()
+        cursor.close()
+
+
+# End for Doğay Kamar
