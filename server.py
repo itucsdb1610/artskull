@@ -37,9 +37,14 @@ def home():
         email = request.form['inputEmail']
         name = request.form['inputName']
         surname = request.form['inputSurname']
-        user = User(username, password, email, name, surname, None, None)
+        user = User(username, password, email, name, surname, None, "dummyprofile.png")
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('home'))
+
+@app.route('/userslist')
+def users_list():
+    alldata = getall_usertable(app.config['dsn'])
+    return render_template('userslist.html', users = alldata)
 
 @app.route('/timeline')
 def timeline():
