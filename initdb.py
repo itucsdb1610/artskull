@@ -31,12 +31,25 @@ def init_usertable(getconf, user):
 
         query = """INSERT INTO USERS
                     (
-                        USERNAME, SALT, HASH, EMAIL, NAME, SURNAME)
-                        VALUES (%s, %s, %s, %s, %s, %s
+                        USERNAME, SALT, HASH, EMAIL, NAME, SURNAME, PROFPIC)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s
                     )"""
-        cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname))
+        cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname, user.profpic))
         connection.commit()
         cursor.close()
+
+def getall_usertable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT NAME, SURNAME, USERNAME, EMAIL, PROFPIC FROM USERS"""
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
 # End for Muhammed Kadir YÜCEL
 
 # Start for Murat Özkök
