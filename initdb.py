@@ -16,9 +16,10 @@ def init_usertable(getconf, user):
         query = """CREATE TABLE IF NOT EXISTS USERS
                     (
                         ID SERIAL NOT NULL,
-                        USERNAME TEXT NOT NULL,
-                        PASSWD TEXT NOT NULL,
-                        EMAIL TEXT NOT NULL,
+                        USERNAME TEXT UNIQUE NOT NULL,
+                        SALT TEXT NOT NULL,
+                        HASH TEXT NOT NULL, 
+                        EMAIL TEXT UNIQUE NOT NULL,
                         NAME TEXT NOT NULL,
                         SURNAME TEXT NOT NULL,
                         GENRES TEXT,
@@ -29,10 +30,10 @@ def init_usertable(getconf, user):
 
         query = """INSERT INTO USERS
                     (
-                        USERNAME, PASSWD, EMAIL, NAME, SURNAME)
-                        VALUES (%s, %s, %s, %s, %s
+                        USERNAME, SALT, HASH, EMAIL, NAME, SURNAME)
+                        VALUES (%s, %s, %s, %s, %s, %s
                     )"""
-        cursor.execute(query, (user.username, user.passwd, user.email, user.name, user.surname))
+        cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname))
         connection.commit()
 # End for Muhammed Kadir YÜCEL
 
