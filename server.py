@@ -69,6 +69,22 @@ def admin():
 def search():
     return render_template('searchresult.html')
 
+@app.route('/actor', methods=['GET', 'POST'])
+def actor():
+    if request.method == 'GET':
+        return render_template('actor.html')
+    elif request.method == 'POST':
+        if request.form['submit'] == 'Add':
+            actorname = request.form['ActorName']
+            actorsurname = request.form['ActorSurname']
+            actorbirthday = request.form['ActorBirthday']
+            init_actortable(app.config['dsn'], actorname, actorsurname, actorbirthday)
+            return render_template('actor.html')
+        elif request.form['submit'] == 'Delete':
+            actorID = request.form['ActorID']
+            deleteactor(app.config['dsn'], actorID)
+            return render_template('actor.html')
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
