@@ -61,3 +61,31 @@ def init_commentTable(getconf,comment):
 		connection.commit()
 		
 #End for Murat Özkök
+
+# Start for Furkan Özçelik
+def init_contenttable(getconf, content):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE CONTENT
+                    (
+                        ID SERIAL NOT NULL,
+                        TITLE TEXT NOT NULL,
+                        ARTIST TEXT NOT NULL,
+                        DURATION TEXT NOT NULL,
+                        DATE TEXT NOT NULL,
+                        GENRES TEXT,
+                        CONTENTPIC TEXT,
+                        PRIMARY KEY (id)
+                    )"""
+        cursor.execute(query)
+
+        query = """INSERT INTO CONTENT
+                    (
+                        TITLE,ARTIST,DURATION,DATE,GENRES,CONTENTPIC)
+                        VALUES (%s, %s, %s, %s, %s,%s
+                    )"""
+        cursor.execute(query, (content.title,content.artist,content.duration,content.date,content.genres,content.contentpic))
+        connection.commit()
+
+# End for Furkan Özçelik
