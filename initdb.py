@@ -67,7 +67,7 @@ def init_contenttable(getconf, content):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """CREATE TABLE CONTENT
+        query = """CREATE TABLE IF NOT EXISTS CONTENTS
                     (
                         ID SERIAL NOT NULL,
                         TITLE TEXT NOT NULL,
@@ -87,6 +87,7 @@ def init_contenttable(getconf, content):
                     )"""
         cursor.execute(query, (content.title,content.artist,content.duration,content.date,content.genres,content.contentpic))
         connection.commit()
+        cursor.close()
 
 # End for Furkan Özçelik
 
