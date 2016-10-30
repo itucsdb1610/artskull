@@ -8,6 +8,7 @@ def drop_usertable(getconf):
         query = """DROP TABLE IF EXISTS USERS"""
         cursor.execute(query)
         connection.commit()
+        cursor.close()
 
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
@@ -35,6 +36,7 @@ def init_usertable(getconf, user):
                     )"""
         cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname))
         connection.commit()
+        cursor.close()
 # End for Muhammed Kadir YÜCEL
 
 # Start for Murat Özkök
