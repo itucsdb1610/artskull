@@ -5,6 +5,7 @@ import re
 import psycopg2 as dbapi2
 from initdb import *
 from user import User
+from comment import Comment
 
 app = Flask(__name__)
 
@@ -41,7 +42,13 @@ def home():
 
 @app.route('/timeline')
 def timeline():
-    return render_template('timeline.html')
+#This function creates COMMENTS table and inserts an example data into the table.
+	username='Example Username'
+	comment='Example Comment'
+	contentid=1
+	cmm = Comment(comment,contentid,username)
+	init_commentTable(app.config['dsn'], cmm)
+	return render_template('timeline.html')
 
 @app.route('/profile')
 def profile():
@@ -70,6 +77,6 @@ if __name__ == '__main__':
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
-        app.config['dsn'] = """user='postgres' password='123456ed' host='localhost' port=5432 dbname='itucsdb1610'"""
+        app.config['dsn'] = """user='postgres' password='123456' host='localhost' port=5432 dbname='itucsdb1610'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
     

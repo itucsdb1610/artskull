@@ -35,3 +35,28 @@ def init_usertable(getconf, user):
         cursor.execute(query, (user.username, user.passwd, user.email, user.name, user.surname))
         connection.commit()
 # End for Muhammed Kadir YÜCEL
+
+# Start for Murat Özkök
+def init_commentTable(getconf,comment):
+	with dbapi2.connect(getconf) as connection:
+		cursor = connection.cursor()
+		query = """CREATE TABLE IF NOT EXISTS COMMENTS
+				(
+					COMMENTID SERIAL NOT NULL,
+					COMMENT TEXT NOT NULL,
+					CONTENTID INT NOT NULL,
+					USERNAME TEXT NOT NULL
+				)"""				
+		cursor.execute(query)
+		
+		
+		
+		query="""INSERT INTO COMMENTS
+					(
+						COMMENT, CONTENTID, USERNAME)
+						VALUES(%s, %s, %s
+						)"""
+		cursor.execute(query, (comment.comm, comment.contentid, comment.username) )
+		connection.commit()
+		
+#End for Murat Özkök
