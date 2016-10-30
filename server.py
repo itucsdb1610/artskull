@@ -7,6 +7,7 @@ from initdb import *
 from user import User
 from comment import Comment
 from content import Content
+from action import Action
 
 app = Flask(__name__)
 
@@ -54,6 +55,9 @@ def timeline():
 	contentid=1
 	cmm = Comment(comment,contentid,username)
 	init_commentTable(app.config['dsn'], cmm)
+#test for creating action table and inserting a tuple. by Mahmut L Ozbilen
+	action = Action(1,1,"sometype","somecomment","somedate")
+	init_actionTable(app.config['dsn'],action)
 	return render_template('timeline.html')
 
 @app.route('/profile')

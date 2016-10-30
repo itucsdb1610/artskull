@@ -164,3 +164,33 @@ def deleteactor(getconf, deleteID):
 
 
 # End for Doğay Kamar
+
+#Start for Mahmut Lutfullah Özbilen
+
+def init_actionTable(getconf,action):
+	with dbapi2.connect(getconf) as connection:
+		cursor = connection.cursor()
+		query = """CREATE TABLE IF NOT EXISTS ACTIONS
+				(
+					ACTIONID SERIAL NOT NULL,
+					USERID INTEGER NOT NULL,
+					CONTENTID INTEGER NOT NULL,
+					ACTIONTYPE TEXT,
+                    ACTIONCOMMENT TEXT,
+                    DATE TEXT NOT NULL,
+                    PRIMARY KEY (ACTIONID)
+				)"""				
+		cursor.execute(query)
+		
+		
+		
+		query="""INSERT INTO ACTIONS
+					(
+						USERID, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
+						VALUES(%s, %s, %s, %s, %s
+						)"""
+		cursor.execute(query, (action.userid, action.contentid, action.actiontype, action.actioncomment, action.date) )
+		connection.commit()
+		cursor.close()
+
+#end for Mahmut Lutfullah Özbilen
