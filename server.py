@@ -6,6 +6,7 @@ import psycopg2 as dbapi2
 from initdb import *
 from user import User
 from comment import Comment
+from content import Content
 
 app = Flask(__name__)
 
@@ -56,6 +57,8 @@ def profile():
 
 @app.route('/content')
 def content():
+    cont=Content("Professional", "Dusan Kovacevic", "135 min", "10/26/2016", "Theater", "professional.jpg")
+    init_contenttable(app.config['dsn'], cont)
     return render_template('content.html')
 
 @app.route('/admin')
