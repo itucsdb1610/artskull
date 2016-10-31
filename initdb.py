@@ -63,6 +63,28 @@ def getuser_usertable(getconf, username):
         cursor.close()
 
         return getuser
+		
+def fixdrop_usertable(getconf):		
+	with dbapi2.connect(getconf) as connection:		
+		cursor = connection.cursor()		
+
+        query = """CREATE TABLE IF NOT EXISTS USERS		
+                   (		
+                    ID SERIAL NOT NULL,		
+                    USERNAME TEXT UNIQUE NOT NULL,		
+                    SALT TEXT NOT NULL,		
+                    HASH TEXT NOT NULL, 		
+                    EMAIL TEXT UNIQUE NOT NULL,		
+                    NAME TEXT NOT NULL,		
+                    SURNAME TEXT NOT NULL,		
+                    GENRES TEXT,		
+                    PROFPIC TEXT,		
+                    PRIMARY KEY (id)		
+                )"""		
+        cursor.execute(query)		
+		
+        connection.commit()		
+        cursor.close()
 
 
 def deletefrom_usertable(getconf, username):
