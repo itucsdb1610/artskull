@@ -7,26 +7,34 @@
 <h1> Welcome to Admin Panel, 'Firstname' 'Lastname'</h1>	
 <hr/>	
 			<div class="left col-sm-9">
-				<h3>Add Content</h3>
-				<form id="addcontent" action="#addcontent" method="post">
+			<h3>Add Content</h3>
+				<form id="addcontent" action="{{ url_for('admin') }}" method="post">
 					<div class="form-group">
-						<label for="title">Performance Title:</label><br/>
-						<input type="text" class="form-control" id="title">
+						<label for="inputTitle">Performance Title:</label><br/>
+						<input type="text" class="form-control" name="inputTitle" id="inputTitle">
 					</div>
 					<div class="form-group">
-						<label for="writer">Writer:</label><br/>
-						<input type="text" class="form-control" id="writer">
+						<label for="inputArtist">Artist:</label><br/>
+						<input type="text" class="form-control" name="inputArtist" id="inputArtist">
 					</div>
 					<div class="form-group">
-						<label for="manager">Stage Manager:</label><br/>
-						<input type="text" class="form-control" id="manager">
+						<label for="inputDuration">Duration:</label><br/>
+						<input type="text" class="form-control" name="inputDuration" id="inputDuration">
 					</div>
 					<div class="form-group">
-						<label for="aboutplay">About Play:</label><br/>
-					
-						<textarea rows="4" cols="50" class="form-control" id="about"></textarea>
+						<label for="inputDate">Date:</label><br/>
+						<input type="text" class="form-control" name="inputDate" id="inputDate">
 					</div>
-				<br/><button type="submit" class="btn btn-default">Submit</button>
+					<div class="form-group">
+						<label for="inputCp">Content Picture:</label><br/>
+						<input type="text" class="form-control" name="inputCp" id="inputCp">
+					</div>
+					<div class="form-group">
+						<label for="inputGenres">Genres:</label><br/>
+						<input type="text" class="form-control" name="inputGenres" id="inputGenres">
+					</div>
+
+				<br/><button type="submit" class="btn btn-default">Add Content</button>
 				</form>
 			</div>
 			<div class="right col-sm-3">
