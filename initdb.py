@@ -135,7 +135,7 @@ def init_contenttable(getconf, content):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """CREATE TABLE IF NOT EXISTS CONTENTS
+        query = """CREATE TABLE IF NOT EXISTS CONTENT
                     (
                         ID SERIAL NOT NULL,
                         TITLE TEXT NOT NULL,
