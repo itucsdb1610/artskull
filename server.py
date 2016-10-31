@@ -42,10 +42,15 @@ def home():
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('home'))
 
-@app.route('/userdelete/<username>')
+@app.route('/userdelete/<username>', methods=['GET', 'POST'])
 def user_delete(username):
-    deletefrom_usertable(app.config['dsn'], username)
-    return redirect(url_for('users_list'))
+    if request.method == 'POST':
+        deletefrom_usertable(app.config['dsn'], username)
+        return redirect(url_for('users_list'))
+    else:
+        return render_template('confirmuserdelete.html', username=username)
+
+    
 
 @app.route('/userslist')
 def users_list():
