@@ -83,12 +83,14 @@ def user_edit(username):
 def timeline():
     if request.method == 'GET':
         #This function creates COMMENTS table and inserts an example data into the table.
-	    username='Example Username'
-	    comment='Example Comment'
-	    contentid=1
-	    cmm = Comment(comment,contentid,username)
-	    init_commentTable(app.config['dsn'], cmm)
-	    return render_template('timeline.html')
+        username='Example Username'
+        comment = 'Example Comment'
+        contentid=1
+        cmm = Comment(comment,contentid,username)
+        init_commentTable(app.config['dsn'], cmm)
+        init_actionTable(app.config['dsn'])
+        getall = getAllActions(app.config['dsn'])
+        return render_template('timeline.html',actionList = getall)
     else:
         username = request.form['inputUsername']
         contentid = 1
@@ -96,9 +98,14 @@ def timeline():
         actioncomment = request.form['inputCommentary']
         date = "someDate"
         action = Action(username,contentid,actiontype,actioncomment,date)
-        init_actionTable(app.config['dsn'], action)
+        insert_actionTable(app.config['dsn'], action)
         return redirect(url_for('timeline'))
 
+@app.route('/clearactiontable')
+def clearActionTable():
+     dropActionTable(app.config['dsn'])
+     return redirect(url_for('timeline'))
+ 
 
 @app.route('/profile')
 def profile():

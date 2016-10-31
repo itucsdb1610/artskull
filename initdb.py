@@ -295,10 +295,10 @@ def getall_actortable(getconf):
 
 #Start for Mahmut Lutfullah Özbilen
 
-def init_actionTable(getconf,action):
-	with dbapi2.connect(getconf) as connection:
-		cursor = connection.cursor()
-		query = """CREATE TABLE IF NOT EXISTS ACTIONS
+def init_actionTable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
 					USERNAME TEXT NOT NULL,
@@ -308,17 +308,39 @@ def init_actionTable(getconf,action):
                     DATE TEXT NOT NULL,
                     PRIMARY KEY (ACTIONID)
 				)"""				
-		cursor.execute(query)
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
 		
-		
-		
-		query="""INSERT INTO ACTIONS
+def insert_actionTable(getconf,action):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()		
+        query="""INSERT INTO ACTIONS
 					(
 						USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
 						VALUES(%s, %s, %s, %s, %s
 						)"""
-		cursor.execute(query, (action.username, action.contentid, action.actiontype, action.actioncomment, action.date) )
-		connection.commit()
-		cursor.close()
+        cursor.execute(query, (action.username, action.contentid, action.actiontype, action.actioncomment, action.date) )
+        connection.commit()
+        cursor.close()
+
+def dropActionTable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """DROP TABLE IF EXISTS ACTIONS"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def getAllActions(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS"""
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+        return alldata
 
 #end for Mahmut Lutfullah Özbilen
