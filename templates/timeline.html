@@ -24,12 +24,17 @@
 				<button class="btn btn-primary" type="submit">Share!</button>
 		</div>
 	</form>
-		<ul class="list-group" list-style="none">
+	<hr>
+		<ul class="media-list" list-style="none">
+			{% for action in actionList %}
 			<li class="well">
 				<div class="row">				
 					<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='samplepp1.jpg')}}" alt="samplepp1">
 					<p class="col-md-8">
-						@ozcelikfu thinks to go the play "Macbeth"
+						{{ action[0] }} : "{{ action[3] }}"
+					</p>
+					<p>
+						Date :{{ action[4] }}
 					</p>
 				</div>
 				<hr>
@@ -37,9 +42,7 @@
 				
 					<img class="img-rounded col-md-3" height="250px" width="200px" src="{{url_for('static', filename='sampleplayp1.jpg')}}" alt="sampleplayp1">
 					<p class="col-md-8"> 
-						Macbeth is a tragedy by William Shakespeare, thought to have been first performed in 1606. It dramatises the damaging physical and psychological effects of political ambition on those who seek power for its own sake.
-					    Of all the plays that Shakespeare wrote during the reign of James I, who was patron of Shakespeare's acting company, Macbeth most clearly reflects the playwright's relationship with his sovereign.
-						It was first published in the Folio of 1623, possibly from a prompt book, and is his shortest tragedy.
+						Sample Content 
 					</p>				
 				
 				</div>
@@ -63,51 +66,7 @@
 					 <button class="col-sm-offset-11 btn btn-success top-buffer" type="comment">Send</button>
 				</div>					
 			</li>
-			<li class="well">
-				<div class="row">				
-					<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='samplepp2.JPG')}}" alt="samplepp2">
-					<p class="col-md-8">
-						@ozbilenm watched the show "The Addams Family"
-					</p>
-				</div>
-				<hr>
-				<div class="row top-buffer">
-					<img class="img-rounded col-md-3" height="250px" width="200px" src="{{url_for('static', filename='sampleplayp2.jpg')}}" alt="sampleplayp2">
-					<p class="col-md-8"> 
-						The weird and wonderful family comes to devilishly delightful life in THE ADDAMS FAMILY. This magnificently macabre new musical comedy is created by Jersey Boys authors Marshall Brickman and Rick Elice, Drama Desk Award winner Andrew Lippa (The Wild Party), choreographer Sergio Trujillo (Jersey Boys), and Olivier Award-winning original directors and designers Phelim McDermott and Julian Crouch (Shockheaded Peter) with direction by four-time Tony Award® winner Jerry Zaks.
-					</p>				
-				</div>
-				<hr>
-				<div class="row">
-					<h4>  Comments </h4>
-					<ul class="list-group">
-						<li class="top-buffer">
-							<img class="col-sm-1" height="40px" width="40px" src="{{url_for('static', filename='samplepp2.jpg')}}" alt="samplepp1">
-							@ozbilenm: I didn't like this play.
-			            </li>
-						<li class="top-buffer">
-							<img class="col-sm-1" height="40px" width="40px" src="{{url_for('static', filename='samplepp4.jpg')}}" alt="samplepp4">
-							@yucelmuh: Why didn't you?
-						</li>
-						<li class="top-buffer">
-							<img class="col-sm-1" height="40px" width="40px" src="{{url_for('static', filename='samplepp2.jpg')}}" alt="samplepp1">
-							@ozbilenm: Am I going to pass this hecking second incident.
-						</li>
-						<li class="top-buffer">
-							<img class="col-sm-1" height="40px" width="40px" src="{{url_for('static', filename='samplepp5.jpg')}}" alt="samplepp1">
-							@ozkokmu: Now look Mr Ozbilen and Mr Ozyucel. We are living in a free world. Everybody has right to do everything.
-						</li>
-						<li class="top-buffer">
-							<img class="col-sm-1" height="40px" width="40px" src="{{url_for('static', filename='samplepp3.jpg')}}" alt="samplepp1">
-							@kamard: My GOD! It was beatiful. I LOVE the addams show. Especially players were perfect. So natural. Very natural. Absolute natural. It feels like living in a Addams house. Oh GOD!!!1!1!!!
-						</li>									
-				</div>
-				<div class="form-group">
-  					<label for="comment">Join Discussion:</label>
- 					 <textarea class="form-control" rows="5" id="comment" placeholder="Your comment"></textarea>
-					 <button class="col-sm-offset-11 btn btn-success top-buffer" type="comment">Send</button>
-				</div>				
-			</li>
+			{% endfor %}
 		</ul>
 	</div>
 	<div class="right col-lg-3">
