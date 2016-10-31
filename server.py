@@ -8,6 +8,7 @@ from user import User
 from comment import Comment
 from content import Content
 from action import Action
+from actor import Actor
 
 app = Flask(__name__)
 
@@ -54,7 +55,6 @@ def user_delete(username):
 
 @app.route('/userslist')
 def users_list():
-    fixdrop_usertable(app.config['dsn'])
     alldata = getall_usertable(app.config['dsn'])
     return render_template('userslist.html', users = alldata)
 
@@ -83,14 +83,12 @@ def user_edit(username):
 def timeline():
     if request.method == 'GET':
         #This function creates COMMENTS table and inserts an example data into the table.
-        username='Example Username'
-        comment='Example Comment'
-        contentid=1
-        cmm = Comment(comment,contentid,username)
-        init_commentTable(app.config['dsn'],cmm)
-        init_actionTable(app.config['dsn'])
-        getall = getAllActions(app.config['dsn'])
-        return render_template('timeline.html',actionList = getall)
+	    username='Example Username'
+	    comment='Example Comment'
+	    contentid=1
+	    cmm = Comment(comment,contentid,username)
+	    init_commentTable(app.config['dsn'], cmm)
+	    return render_template('timeline.html')
     else:
         username = request.form['inputUsername']
         contentid = 1
@@ -98,13 +96,8 @@ def timeline():
         actioncomment = request.form['inputCommentary']
         date = "someDate"
         action = Action(username,contentid,actiontype,actioncomment,date)
-        insert_actionTable(app.config['dsn'], action)
+        init_actionTable(app.config['dsn'], action)
         return redirect(url_for('timeline'))
-
-@app.route('/clearactiontable')
-def clearActionTable():
-    dropActionTable(app.config['dsn'])
-    return redirect(url_for('timeline'))
 
 
 @app.route('/profile')
@@ -177,6 +170,19 @@ def actor():
             actorID = request.form['ActorID']
             deleteactor(app.config['dsn'], actorID)
             return render_template('actor.html')
+        elif request.form['submit'] == 'Edit':
+            actorID = request.form['ActorID']
+            actorname = request.form['ActorName']
+            actorsurname = request.form['ActorSurname']
+            actorbirthday = request.form['ActorBirthday']
+            actortoedit = Actor(actorname, actorsurname, actorbirthday)
+            editactor(app.config['dsn'], actorID, actortoedit)
+            return render_template('actor.html')
+
+@app.route('/actorlist')
+def actor_list():
+    alldata = getall_actortable(app.config['dsn'])
+    return render_template('actorlist.html', actors = alldata)
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
