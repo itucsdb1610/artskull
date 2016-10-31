@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Actors List{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Actor/Actress List</h1>
+    </div>
+
+    <ul class="media-list">
+        {% for actor in actors %}
+            <li class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">{{ actor[0] }}  {{ actor[1] }}</h4>
+                    <p>Birthday: {{ actor[2] }}</p>
+                    <br/>
+                </div>
+            </li>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
