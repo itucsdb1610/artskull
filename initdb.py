@@ -297,4 +297,12 @@ def init_actionTable(getconf,action):
 		connection.commit()
 		cursor.close()
 
+def dropActionTable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """DROP TABLE IF EXISTS ACTIONS"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
 #end for Mahmut Lutfullah Özbilen

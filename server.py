@@ -98,6 +98,11 @@ def timeline():
         init_actionTable(app.config['dsn'], action)
         return redirect(url_for('timeline'))
 
+@app.route('/clearactiontable')
+def clearActionTable():
+    dropActionTable(app.config['dsn'])
+    return redirect(url_for('timeline'))
+
 
 @app.route('/profile')
 def profile():
