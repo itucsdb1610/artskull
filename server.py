@@ -87,7 +87,7 @@ def timeline():
 	cmm = Comment(comment,contentid,username)
 	init_commentTable(app.config['dsn'], cmm)
 #test for creating action table and inserting a tuple. by Mahmut L Ozbilen
-	action = Action(1,1,"sometype","somecomment","somedate")
+	action = Action("Mahmut",1,"sometype","somecomment","somedate")
 	init_actionTable(app.config['dsn'],action)
 	return render_template('timeline.html')
 

@@ -1,6 +1,6 @@
 class Action:
-	def __init__(self, userid,contentid,actiontype,actioncomment,date):
-		self.userid = userid
+	def __init__(self, username,contentid,actiontype,actioncomment,date):
+		self.username = username
 		self.contentid = contentid
 		self.actiontype = actiontype #this might commenting on play or thinking of going that play
 		self.actioncomment = actioncomment 
