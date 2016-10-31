@@ -64,28 +64,6 @@ def getuser_usertable(getconf, username):
 
         return getuser
 
-def fixdrop_usertable(getconf):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-
-        query = """CREATE TABLE IF NOT EXISTS USERS
-                    (
-                        ID SERIAL NOT NULL,
-                        USERNAME TEXT UNIQUE NOT NULL,
-                        SALT TEXT NOT NULL,
-                        HASH TEXT NOT NULL, 
-                        EMAIL TEXT UNIQUE NOT NULL,
-                        NAME TEXT NOT NULL,
-                        SURNAME TEXT NOT NULL,
-                        GENRES TEXT,
-                        PROFPIC TEXT,
-                        PRIMARY KEY (id)
-                    )"""
-        cursor.execute(query)
-
-        connection.commit()
-        cursor.close()
-
 
 def deletefrom_usertable(getconf, username):
     with dbapi2.connect(getconf) as connection:
@@ -288,12 +266,36 @@ def deleteactor(getconf, deleteID):
         connection.commit()
         cursor.close()
 
+def editactor(getconf, ID, actortoedit):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE Actors SET
+                        NAME = %s,
+                        SURNAME = %s,
+                        BIRTHDAY = %s
+                        WHERE ActorID = %s"""
+        cursor.execute(query, (actortoedit.name, actortoedit.surname, actortoedit.birthday, ID))
+        connection.commit()
+        cursor.close()
+
+def getall_actortable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT NAME, SURNAME, BIRTHDAY FROM Actors"""
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+
+        return alldata
 
 # End for Doğay Kamar
 
 #Start for Mahmut Lutfullah Özbilen
 
-def init_actionTable(getconf):
+def init_actionTable(getconf,action):
 	with dbapi2.connect(getconf) as connection:
 		cursor = connection.cursor()
 		query = """CREATE TABLE IF NOT EXISTS ACTIONS
@@ -307,12 +309,7 @@ def init_actionTable(getconf):
                     PRIMARY KEY (ACTIONID)
 				)"""				
 		cursor.execute(query)
-		connection.commit()
-		cursor.close()
-    
-def insert_actionTable(getconf,action):
-	with dbapi2.connect(getconf) as connection:
-		cursor = connection.cursor()
+		
 		
 		
 		query="""INSERT INTO ACTIONS
@@ -324,23 +321,4 @@ def insert_actionTable(getconf,action):
 		connection.commit()
 		cursor.close()
 
-def dropActionTable(getconf):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-        query = """DROP TABLE IF EXISTS ACTIONS"""
-        cursor.execute(query)
-        connection.commit()
-        cursor.close()
-
-def getAllActions(getconf):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS"""
-        cursor.execute(query)
-        alldata = cursor.fetchall()
-
-        connection.commit()
-        cursor.close()
-
-        return alldata
 #end for Mahmut Lutfullah Özbilen
