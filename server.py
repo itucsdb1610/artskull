@@ -54,6 +54,7 @@ def user_delete(username):
 
 @app.route('/userslist')
 def users_list():
+    fixdrop_usertable(app.config['dsn'])
     alldata = getall_usertable(app.config['dsn'])
     return render_template('userslist.html', users = alldata)
 
