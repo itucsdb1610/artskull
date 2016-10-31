@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Actor/Actress{% endblock %}
 {% block content %}
 
 <div class="jumbotron">
@@ -27,7 +27,28 @@
                 <input type="text" class="form-control" id="ActorID" name="ActorID" placeholder="ID">
             </div>
             <input type="submit" name = "submit" value = "Delete" class="btn btn-default">	
-        </form>						
+        </form>	
+        <form  role="form" action="{{ url_for('actor') }}" id="AddActor" method="post">
+            <h2 class="form-horizontal-heading">Update an Actor/Actress</h2>
+            <div class="form-group">
+                <label for="ActorID">ID of Actor/Actress to be updated</label>
+                <input type="text" class="form-control" id="ActorID" name="ActorID" placeholder="ID">
+            </div>
+            <div class="form-group">
+                <label for="ActorName">New Name</label>
+                <input type="text" class="form-control" id="ActorName" name="ActorName" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="ActorSurname">New Surname</label>
+                <input type="text" class="form-control" id="ActorSurname" name="ActorSurname" placeholder="Surname">
+            </div>
+             <div class="form-group">
+                <label for="ActorBirthday">New Birthday</label>
+                <input type="text" class="form-control" id="ActorBirthday" name="ActorBirthday" placeholder="Birthday">
+            </div>
+            <input type="submit" name = "submit" value = "Edit" class="btn btn-default">
+        </form>	
+        <a class="btn btn-default" href="{{ url_for('actor_list') }}" role="button">Actor/Actress List</a>			
 	</div>
 </div>
 		
