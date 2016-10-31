@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Content Edit{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Content Info</h1>
+        <p>Admins can edit contents in this page</p>
+    </div>
+
+
+    <form role="form" action="{{url_for('content_edit', contentid=contentid)}}" id="contenteditform" class="form-horizontal" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputTitle">Title</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputTitle" name="inputTitle" type="text" required placeholder="Title" value="{{ content[0] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputArtist">Artist</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputArtist" name="inputArtist" type="text" required placeholder="Artist" value="{{ content[1] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputDuration">Duration</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputDuration" name="inputDuration" type="text" required placeholder="Duration" value="{{ content[2] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputDate">Date</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputDate" name="inputDate" type="text" placeholder="Date" value="{{ content[3] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputCp">Picture</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputCp" name="inputCp" type="text" placeholder="Picture" value="{{ content[4] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputGenres">Genres</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputGenres" name="inputGenres" type="text" placeholder="Genres" value="{{ content[5] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<a href="{{ url_for('content_delete', contentid=contentid) }}" class="btn btn-danger" type="button">Delete Content</a>
+				<button class="btn btn-success" type="submit">Save</button>
+			</div>
+		</div>
+    </form>
+
+
+</div>
+
+{% endblock %}
