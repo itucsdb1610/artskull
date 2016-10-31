@@ -42,10 +42,36 @@ def home():
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('home'))
 
+@app.route('/userdelete/<username>')
+def user_delete(username):
+    deletefrom_usertable(app.config['dsn'], username)
+    return redirect(url_for('users_list'))
+
 @app.route('/userslist')
 def users_list():
     alldata = getall_usertable(app.config['dsn'])
     return render_template('userslist.html', users = alldata)
+
+@app.route('/useredit/<username>', methods=['GET', 'POST'])
+def user_edit(username):
+    if request.method == 'GET':
+        getuser = getuser_usertable(app.config['dsn'], username)
+        return render_template('useredit.html', user=getuser, username=username)
+    else:
+        name = request.form['inputName']
+        surname = request.form['inputSurname']
+        email = request.form['inputEmail']
+        password = request.form['inputPassword']
+        if len(password) == 0:
+            user = User(username, "1", email, name, surname, None, "dummyprofile.png")
+            edituserwopass_usertable(app.config['dsn'], user)
+        else:
+            user = User(username, password, email, name, surname, None, "dummyprofile.png")
+            edituserwpass_usertable(app.config['dsn'], user)
+
+        return redirect(url_for('users_list'))
+
+
 
 @app.route('/timeline')
 def timeline():
