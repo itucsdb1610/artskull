@@ -157,6 +157,57 @@ def init_contenttable(getconf, content):
         connection.commit()
         cursor.close()
 
+def getall_contenttable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT"""
+        cursor.execute(query)
+        allcontents = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return allcontents
+
+def deletefrom_contenttable(getconf, contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM CONTENT WHERE ID = %s"""
+        cursor.execute(query, (contentid,))
+        connection.commit()
+        cursor.close()
+
+def getcontent_contenttable(getconf, contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT WHERE ID = %s"""
+        cursor.execute(query, (contentid,))
+        getcontent = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getcontent
+
+def edit_content(getconf, contentid,content):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE CONTENT SET
+                        TITLE = %s,
+                        ARTIST = %s,
+                        DURATION = %s,
+                        DATE = %s,
+                        CONTENTPIC = %s,
+                        GENRES = %s
+                        WHERE ID = %s"""
+
+        cursor.execute(query, (content.title,content.artist,content.duration,content.date,content.genres,content.contentpic,contentid))
+        connection.commit()
+        cursor.close()
 # End for Furkan Özçelik
 
 # Start for Doğay Kamar
@@ -226,7 +277,7 @@ def init_actionTable(getconf,action):
 		query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
-					USERNAME TEXT NOT NULL,
+					USERID INTEGER NOT NULL,
 					CONTENTID INTEGER NOT NULL,
 					ACTIONTYPE TEXT,
                     ACTIONCOMMENT TEXT,
@@ -239,10 +290,10 @@ def init_actionTable(getconf,action):
 		
 		query="""INSERT INTO ACTIONS
 					(
-						USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
+						USERID, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
 						VALUES(%s, %s, %s, %s, %s
 						)"""
-		cursor.execute(query, (action.username, action.contentid, action.actiontype, action.actioncomment, action.date) )
+		cursor.execute(query, (action.userid, action.contentid, action.actiontype, action.actioncomment, action.date) )
 		connection.commit()
 		cursor.close()
 
