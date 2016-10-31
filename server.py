@@ -87,7 +87,7 @@ def timeline():
 	cmm = Comment(comment,contentid,username)
 	init_commentTable(app.config['dsn'], cmm)
 #test for creating action table and inserting a tuple. by Mahmut L Ozbilen
-	action = Action("Mahmut",1,"sometype","somecomment","somedate")
+	action = Action(1,1,"sometype","somecomment","somedate")
 	init_actionTable(app.config['dsn'],action)
 	return render_template('timeline.html')
 
@@ -100,10 +100,47 @@ def content():
     cont=Content("Professional", "Dusan Kovacevic", "135 min", "10/26/2016", "Theater", "professional.jpg")
     init_contenttable(app.config['dsn'], cont)
     return render_template('content.html')
+@app.route('/contentslist')
+def contents_list():
+    allcontents = getall_contenttable(app.config['dsn'])
+    return render_template('contentslist.html', contents = allcontents)
+@app.route('/contentdelete/<contentid>', methods=['GET', 'POST'])
+def content_delete(contentid):
+    if request.method == 'POST':
+        deletefrom_contenttable(app.config['dsn'], contentid)
+        return redirect(url_for('contents_list'))
+    else:
+        return render_template('confirmcontentdelete.html', contentid=contentid)
+@app.route('/contentedit/<contentid>', methods=['GET', 'POST'])
+def content_edit(contentid):
+    if request.method == 'GET':
+        getcontent = getcontent_contenttable(app.config['dsn'], contentid)
+        return render_template('contentedit.html', content=getcontent, contentid=contentid)
+    else:
+        title = request.form['inputTitle']
+        artist = request.form['inputArtist']
+        duration = request.form['inputDuration']
+        date = request.form['inputDate']
+        contentpic = request.form['inputCp']
+        genres = request.form['inputGenres']
+        content = Content(title, artist, duration, date, contentpic, genres)
+        edit_content(app.config['dsn'], contentid,content)
 
-@app.route('/admin')
+        return redirect(url_for('contents_list'))
+@app.route('/admin',methods=['GET', 'POST'])
 def admin():
-    return render_template('contentadmin.html')
+    if request.method=='GET':
+        return render_template('contentadmin.html')
+    else:
+        title = request.form['inputTitle']
+        artist = request.form['inputArtist']
+        duration = request.form['inputDuration']
+        date = request.form['inputDate']
+        contentpic = request.form['inputCp']
+        genres = request.form['inputGenres']
+        content = Content(title,artist,duration,date,contentpic,genres)
+        init_contenttable(app.config['dsn'], content)
+        return redirect(url_for('admin'))
 
 @app.route('/search')
 def search():
