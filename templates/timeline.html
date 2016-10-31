@@ -5,6 +5,25 @@
 
 <div class="container marketing">
 	<div class="left col-lg-9">
+		<hr>
+		<form role="form" action="{{ url_for('timeline') }}" id="commentform" class="form-horizontal" method="post">
+		<h2 class="form-horizontal-heading">Share a Post</h2>
+
+		<div class="form-group">
+			<label class="control-label" for="inputEmail">Your Username?</label>
+			<input class="form-control top-buffer" id="inputUsername" name="inputUsername" required="" type="text" placeholder="Username">
+		</div>
+		<hr>
+		<div class="form-group">
+				<label class="control-label" for="inputEmail">What is your commentaries about play</label>
+				<input class="form-control top-buffer" id="inputCommentary" name="inputCommentary" required="" type="text" placeholder="Your comment is...">
+		</div>
+
+		<div class="form-group">
+				<a href="{{ url_for('clear_userdb') }}" class="btn btn-danger" type="button">Drop ACTIONS table</a>
+				<button class="btn btn-primary" type="submit">Share!</button>
+		</div>
+	</form>
 		<ul class="list-group" list-style="none">
 			<li class="well">
 				<div class="row">				
@@ -92,6 +111,7 @@
 		</ul>
 	</div>
 	<div class="right col-lg-3">
+		<hr>
 		<h3>
 			Plays you may interest
 		</h3>

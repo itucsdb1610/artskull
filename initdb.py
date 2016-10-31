@@ -277,7 +277,7 @@ def init_actionTable(getconf,action):
 		query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
-					USERID INTEGER NOT NULL,
+					USERNAME TEXT NOT NULL,
 					CONTENTID INTEGER NOT NULL,
 					ACTIONTYPE TEXT,
                     ACTIONCOMMENT TEXT,
@@ -290,10 +290,10 @@ def init_actionTable(getconf,action):
 		
 		query="""INSERT INTO ACTIONS
 					(
-						USERID, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
+						USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
 						VALUES(%s, %s, %s, %s, %s
 						)"""
-		cursor.execute(query, (action.userid, action.contentid, action.actiontype, action.actioncomment, action.date) )
+		cursor.execute(query, (action.username, action.contentid, action.actiontype, action.actioncomment, action.date) )
 		connection.commit()
 		cursor.close()
 

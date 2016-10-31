@@ -78,18 +78,26 @@ def user_edit(username):
 
 
 
-@app.route('/timeline')
+@app.route('/timeline',methods=['GET', 'POST'])
 def timeline():
-#This function creates COMMENTS table and inserts an example data into the table.
-	username='Example Username'
-	comment='Example Comment'
-	contentid=1
-	cmm = Comment(comment,contentid,username)
-	init_commentTable(app.config['dsn'], cmm)
-#test for creating action table and inserting a tuple. by Mahmut L Ozbilen
-	action = Action(1,1,"sometype","somecomment","somedate")
-	init_actionTable(app.config['dsn'],action)
-	return render_template('timeline.html')
+    if request.method == 'GET':
+        #This function creates COMMENTS table and inserts an example data into the table.
+	    username='Example Username'
+	    comment='Example Comment'
+	    contentid=1
+	    cmm = Comment(comment,contentid,username)
+	    init_commentTable(app.config['dsn'], cmm)
+	    return render_template('timeline.html')
+    else:
+        username = request.form['inputUsername']
+        contentid = 1
+        actiontype = "comment"
+        actioncomment = request.form['inputCommentary']
+        date = "someDate"
+        action = Action(username,contentid,actiontype,actioncomment,date)
+        init_actionTable(app.config['dsn'], action)
+        return redirect(url_for('timeline'))
+
 
 @app.route('/profile')
 def profile():
