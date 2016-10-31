@@ -50,6 +50,59 @@ def getall_usertable(getconf):
         cursor.close()
 
         return alldata
+
+def getuser_usertable(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT NAME, SURNAME, EMAIL FROM USERS WHERE USERNAME = %s"""
+        cursor.execute(query, (username,))
+        getuser = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getuser
+
+
+def deletefrom_usertable(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM USERS WHERE USERNAME = %s"""
+        cursor.execute(query, (username,))
+        connection.commit()
+        cursor.close()
+
+def edituserwpass_usertable(getconf, user):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE USERS SET 
+                    NAME = %s,
+                    SURNAME = %s,
+                    EMAIL = %s,
+                    SALT = %s,
+                    HASH = %s
+                    WHERE USERNAME = %s"""
+
+        cursor.execute(query, (user.name, user.surname, user.email, user.salt, user.hash, user.username,))
+        connection.commit()
+        cursor.close()
+
+def edituserwopass_usertable(getconf, user):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE USERS SET 
+                    NAME = %s,
+                    SURNAME = %s,
+                    EMAIL = %s
+                    WHERE USERNAME = %s"""
+
+        cursor.execute(query, (user.name, user.surname, user.email, user.username,))
+        connection.commit()
+        cursor.close()
 # End for Muhammed Kadir YÜCEL
 
 # Start for Murat Özkök
