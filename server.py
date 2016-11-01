@@ -106,7 +106,24 @@ def timeline():
 def clearActionTable():
      dropActionTable(app.config['dsn'])
      return redirect(url_for('timeline'))
- 
+
+@app.route('/actionModify/<username>', methods=['GET','POST']) 
+def actionModify(username):
+    if request.method == 'GET':
+        getaction = getAction(app.config['dsn'],username)
+        return render_template('actionModify.html',action = getaction, username = username)
+    else:
+        commment = request.form['inputCommentary']
+        actionModify(app.config['dsn'],action,comment)
+        return redirect(url_for('timeline.html'))
+
+@app.route('/deleteAction/<username>', methods=['GET','POST'])
+def deleteAction(username):
+    if request.method == 'POST':
+        deleteActionFromTable(app.config['dsn'],username)
+        return redirect(url_for('timeline'))
+    else:
+        return render_template('timeline.html',username=username)
 
 @app.route('/profile')
 def profile():

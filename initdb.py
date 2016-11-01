@@ -356,7 +356,7 @@ def dropActionTable(getconf):
 def getAllActions(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS"""
+        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS"
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -364,4 +364,32 @@ def getAllActions(getconf):
         cursor.close()
         return alldata
 
+def getAction(getconf,username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE USERNAME = %s"
+        cursor.execute(query, (username,))
+        action = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+        return action
+
+def actionModify(getconf,action,comment):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """UPDATE ACTIONS
+                    ACTIONCOMMENT = %s
+                    WHERE USERNAME = %s"""
+        cursor.execute(query, (comment,action.username,))
+        connection.commit()
+        cursor.close()
+
+def deleteActionFromTable(getconf,action):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """Delete From ACTIONS
+                WHERE USERNAME = %s"""
+        cursor.execute(query,(username,))
+        connection.commit()
+        cursor.close()
 #end for Mahmut Lutfullah Özbilen

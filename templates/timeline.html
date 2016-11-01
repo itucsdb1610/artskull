@@ -36,6 +36,8 @@
 					<p>
 						Date :{{ action[4] }}
 					</p>
+					<a href="{{ url_for('actionModify', username=action[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
+					<a href="{{ url_for('deleteAction', username=action[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
 				</div>
 				<hr>
 				<div class="row top-buffer">
