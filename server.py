@@ -131,8 +131,6 @@ def profile():
 
 @app.route('/content')
 def content():
-    cont=Content("Professional", "Dusan Kovacevic", "135 min", "10/26/2016", "Theater", "professional.jpg")
-    init_contenttable(app.config['dsn'], cont)
     return render_template('content.html')
 @app.route('/contentslist')
 def contents_list():
