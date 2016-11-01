@@ -384,7 +384,7 @@ def actionModify(getconf,action,comment):
         connection.commit()
         cursor.close()
 
-def deleteActionFromTable(getconf,action):
+def deleteActionFromTable(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = """Delete From ACTIONS

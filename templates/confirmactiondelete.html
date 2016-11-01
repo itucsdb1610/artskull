@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Content Delete{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>SURE?</h1>
+    </div>
+
+    <p>Do you want to delete your post {{ username }} ?</p>
+    <form role="form" action="{{ url_for('deleteAction', username=username) }}" method="post">
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">Sure</button>
+        </div>
+    </form>
+    <img width="400px" src="{{url_for('static', filename='surep1.jpg')}}" alt="sure?">
+</div>
+
+{% endblock %}

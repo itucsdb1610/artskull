@@ -111,11 +111,11 @@ def clearActionTable():
 def actionModify(username):
     if request.method == 'GET':
         getaction = getAction(app.config['dsn'],username)
-        return render_template('actionModify.html',action = getaction, username = username)
+        return render_template('actionModify',action = getaction, username = username)
     else:
         commment = request.form['inputCommentary']
         actionModify(app.config['dsn'],action,comment)
-        return redirect(url_for('timeline.html'))
+        return redirect(url_for('actionModfiy.html'))
 
 @app.route('/deleteAction/<username>', methods=['GET','POST'])
 def deleteAction(username):
@@ -123,7 +123,7 @@ def deleteAction(username):
         deleteActionFromTable(app.config['dsn'],username)
         return redirect(url_for('timeline'))
     else:
-        return render_template('timeline.html',username=username)
+        return render_template('confirmactiondelete.html',username=username)
 
 @app.route('/profile')
 def profile():
