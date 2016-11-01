@@ -110,12 +110,12 @@ def clearActionTable():
 @app.route('/actionModify/<username>', methods=['GET','POST']) 
 def actionModify(username):
     if request.method == 'GET':
-        getaction = getAction(app.config['dsn'],username)
-        return render_template('actionModify',action = getaction, username = username)
+        thisaction = getAction(app.config['dsn'],username)
+        return render_template('actionModify.html',action = thisaction, username = username)
     else:
-        commment = request.form['inputCommentary']
-        actionModify(app.config['dsn'],action,comment)
-        return redirect(url_for('actionModfiy.html'))
+        comment = request.form['inputComment']
+        edit_Action(app.config['dsn'],comment,username)
+        return redirect(url_for('timeline'))
 
 @app.route('/deleteAction/<username>', methods=['GET','POST'])
 def deleteAction(username):

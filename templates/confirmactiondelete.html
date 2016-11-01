@@ -7,7 +7,7 @@
         <h1>SURE?</h1>
     </div>
 
-    <p>Do you want to delete your post {{ username }} ?</p>
+    <p>Do you want to delete your post {{ username }}?</p>
     <form role="form" action="{{ url_for('deleteAction', username=username) }}" method="post">
         <div class="form-group">
             <button class="btn btn-danger" type="submit">Sure</button>
