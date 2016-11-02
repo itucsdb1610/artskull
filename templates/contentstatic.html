@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="row" style="background-image:url(/static/content3.jpg);color:white;
+    color:white;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-shadow: 0px 0px 10px #000000;">
+    <div class="container">
+            <div class="left col-lg-9">
+                <h1>{{content[0]}}</h1>
+                <h2>{{content[1]}}</h2>
+            </div>
+            <div class="right col-lg-3">
+                <img src="/static/contentpics/{{content[4]}}" height="400px" width="300px" class="img-thumbnail" alt="example play picture">
+            </div>
+    </div>
+ 
+</div>
+
+        <div class="container marketing">
+            <div class="row">
+                <div class="left col-lg-9">
+                    <div class="left col-lg-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li role="presentation" class="active"><a href="#duration">Duration</a></li>
+                            <li role="presentation"><a href="#date">Opening Date</a></li>
+                            <li role="presentation"><a href="#genre">Genre</a></li>
+                        </ul>
+                    </div>
+                    <div class="right col-lg-9">
+                        
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="duration">
+                                <h3>Duration</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{content[2]}}</p>
+                            </div>
+                        </div>
+                        <div class="panel panel-default" id="date">
+                            <div class="panel-heading">
+                                <h3>Opening Date</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{content[3]}}</p>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default" id="genre">
+                            <div class="panel-heading">
+                                <h3>Genres</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{content[5]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    </div>
+                <div class="right col-lg-3">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading"><h2>Friends Following Play</h2></div>
+                        <!-- Table -->
+                        <table class="table">
+                            <tr>
+                                <td><img src="/static/samplepp1.jpg" width=50 height=50 alt="friend1"></td>
+                                <td>Furkan</td>
+                                <td>Ozcelik</td>
+                            </tr>
+                            <tr>
+                                <td><img src="/static/samplepp2.JPG" width=50 height=50 alt="friend2"></td>
+                                <td>Mahmut Lutfullah</td>
+                                <td>Ozbilen</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
