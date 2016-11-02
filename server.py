@@ -208,7 +208,7 @@ def admin():
         date = request.form['inputDate']
         contentpic = request.form['inputCp']
         genres = request.form['inputGenres']
-        content = Content(title,artist,duration,date,contentpic,genres)
+        content = Content(title,artist,duration,date,genres,contentpic)
         init_contenttable(app.config['dsn'], content)
         return redirect(url_for('admin'))
 
