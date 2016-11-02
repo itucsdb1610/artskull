@@ -172,6 +172,39 @@ def getall_commenttable(getconf):
         cursor.close()
 
         return alldata	
+def edit_comment(getconf, commentid, comment):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """UPDATE COMMENTS SET
+                        USERNAME=%s,
+						COMMENT=%s,
+						CONTENTID=%s
+                        WHERE COMMENTID = %s"""
+
+        cursor.execute(query, (comment.username,comment.comm,comment.contentid,commentid))
+        connection.commit()
+        cursor.close()
+def getcomment(getconf,commentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+		
+        query = """SELECT COMMENTID, USERNAME, COMMENT, CONTENTID FROM COMMENTS WHERE COMMENTID = %s"""
+        cursor.execute(query, (commentid,))
+        outcomment = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return outcomment
+			
+def deletefrom_commenttable(getconf, commentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM COMMENTS WHERE COMMENTID = %s"""
+        cursor.execute(query, (commentid,))
+        connection.commit()
+        cursor.close()
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
