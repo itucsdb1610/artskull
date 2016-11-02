@@ -205,6 +205,13 @@ def deletefrom_commenttable(getconf, commentid):
         cursor.execute(query, (commentid,))
         connection.commit()
         cursor.close()
+def drop_commenttable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """DROP TABLE IF EXISTS COMMENTS"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
