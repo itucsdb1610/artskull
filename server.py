@@ -158,10 +158,20 @@ def profile():
 @app.route('/content')
 def content():
     return render_template('content.html')
+
+@app.route('/content/<contentid>', methods=['GET', 'POST'])
+def contentstatic(contentid):
+    if request.method == 'GET':
+        getcontent = getcontent_contenttable(app.config['dsn'], contentid)
+        return render_template('contentstatic.html',content = getcontent)
+    else:
+        return render_template('content.html')
+
 @app.route('/contentslist')
 def contents_list():
     allcontents = getall_contenttable(app.config['dsn'])
     return render_template('contentslist.html', contents = allcontents)
+
 @app.route('/contentdelete/<contentid>', methods=['GET', 'POST'])
 def content_delete(contentid):
     if request.method == 'POST':
@@ -169,6 +179,7 @@ def content_delete(contentid):
         return redirect(url_for('contents_list'))
     else:
         return render_template('confirmcontentdelete.html', contentid=contentid)
+
 @app.route('/contentedit/<contentid>', methods=['GET', 'POST'])
 def content_edit(contentid):
     if request.method == 'GET':
@@ -185,6 +196,7 @@ def content_edit(contentid):
         edit_content(app.config['dsn'], contentid,content)
 
         return redirect(url_for('contents_list'))
+
 @app.route('/admin',methods=['GET', 'POST'])
 def admin():
     if request.method=='GET':
