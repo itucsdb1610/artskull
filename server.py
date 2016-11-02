@@ -78,7 +78,36 @@ def user_edit(username):
 
         return redirect(url_for('users_list'))
 
+@app.route('/commentslist')
+def comments_list():
+    fixdrop_usertable(app.config['dsn'])
+    alldata = getall_commenttable(app.config['dsn'])
+    return render_template('commentslist.html', comments = alldata)
+	
+@app.route('/commentedit/<commentid>', methods=['GET', 'POST'])
+def comment_edit(commentid):
+    if request.method == 'GET':
+        actualcomment = getcomment(app.config['dsn'], commentid)
+        return render_template('commentedit.html', comment=getcomment, commentid=commentid)
+    else:
+        inusername = request.form['inusername']
+        incomm = request.form['incomment']
+        comment = Comment(incomm,1,inusername)
+        edit_comment(app.config['dsn'], commentid, comment)
+        return redirect(url_for('comments_list'))
+		
+@app.route('/commentdelete/<commentid>', methods=['GET', 'POST'])
+def comment_delete(commentid):
+    if request.method == 'POST':
+        deletefrom_commenttable(app.config['dsn'], commentid)
+        return redirect(url_for('comments_list'))
+    else:
+        return render_template('confirmcommentdelete.html', commentid=commentid)
 
+@app.route('/dropcomments')
+def dropcomments():
+	drop_commenttable(app.config['dsn'])
+	return redirect(url_for('comments_list'))	
 
 @app.route('/timeline',methods=['GET', 'POST'])
 def timeline():
