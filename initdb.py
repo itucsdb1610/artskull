@@ -152,6 +152,26 @@ def insert_commenttable(getconf,comment):
 		cursor.execute(query, (comment.comm, comment.contentid, comment.username) )
 		connection.commit()
 		cursor.close()
+		
+def getall_commenttable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS COMMENTS
+                (
+                    COMMENTID SERIAL NOT NULL,
+                    COMMENT TEXT NOT NULL,
+                    CONTENTID INT NOT NULL,
+                    USERNAME TEXT NOT NULL
+                )"""				
+        cursor.execute(query)
+        query = """SELECT COMMENTID, USERNAME, COMMENT, CONTENTID FROM COMMENTS """
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata	
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
