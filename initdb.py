@@ -127,7 +127,7 @@ def edituserwopass_usertable(getconf, user):
 # End for Muhammed Kadir YÜCEL
 
 # Start for Murat Özkök
-def init_commentTable(getconf,comment):
+def init_commentTable(getconf):
 	with dbapi2.connect(getconf) as connection:
 		cursor = connection.cursor()
 		query = """CREATE TABLE IF NOT EXISTS COMMENTS
@@ -139,8 +139,11 @@ def init_commentTable(getconf,comment):
 				)"""				
 		cursor.execute(query)
 		
-		
-		
+		connection.commit()
+		cursor.close()
+def insert_commenttable(getconf,comment):
+	with dbapi2.connect(getconf) as connection:
+		cursor = connection.cursor()	
 		query="""INSERT INTO COMMENTS
 					(
 						COMMENT, CONTENTID, USERNAME)
@@ -148,7 +151,7 @@ def init_commentTable(getconf,comment):
 						)"""
 		cursor.execute(query, (comment.comm, comment.contentid, comment.username) )
 		connection.commit()
-		
+		cursor.close()
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
