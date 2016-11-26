@@ -135,7 +135,8 @@ def init_commentTable(getconf):
 					COMMENTID SERIAL NOT NULL,
 					COMMENT TEXT NOT NULL,
 					CONTENTID INT NOT NULL,
-					USERNAME TEXT NOT NULL
+					USERNAME TEXT NOT NULL,
+					PRIMARY KEY (commentid)
 				)"""				
 		cursor.execute(query)
 		
@@ -161,7 +162,8 @@ def getall_commenttable(getconf):
                     COMMENTID SERIAL NOT NULL,
                     COMMENT TEXT NOT NULL,
                     CONTENTID INT NOT NULL,
-                    USERNAME TEXT NOT NULL
+                    USERNAME TEXT NOT NULL,
+					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
         query = """SELECT COMMENTID, USERNAME, COMMENT, CONTENTID FROM COMMENTS """
