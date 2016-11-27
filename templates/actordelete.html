@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Actor Delete{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Actor Delete</h1>
+        <p>If you want to delete the actor, click "Yes" button.</p>
+    </div>
+
+    <div class="alert alert-danger" role="alert">This operation cannot be reverted!</div>
+
+    <p>Are you sure to delete this content ?</p>
+    <form role="form" action="{{ url_for('actor_delete', actorid=actorid) }}" method="post">
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">Yes</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
