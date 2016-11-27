@@ -114,6 +114,35 @@ def user_edit(username):
 
         return redirect(url_for('users_list'))
 
+@app.route('/useredit/editgenre/<username>', methods=['GET', 'POST'])
+def add_genre_user(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'POST':
+        genre = request.form['inputGenres']
+        order = request.form['inputImportance']
+        init_genreTable(app.config['dsn'], username, genre, order)
+        alldata = getall_genres(app.config['dsn'],username)
+    else:
+        alldata = getall_genres(app.config['dsn'],username)        
+
+    return render_template('editgenre.html', genres=alldata, username=username)
+
+@app.route('/useredit/editgenre/deletegenre/<username>', methods=['GET','POST'])
+def genre_delete(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        genre = request.args.get('genre')
+        print(username)
+        print(genre)
+        delete_genreTable(app.config['dsn'], username, genre)
+
+    return redirect(url_for('users_list'))
+
+
 @app.route('/commentslist')
 def comments_list():
     if 'username' not in session:
@@ -216,7 +245,11 @@ def profile():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    return render_template('profile.html')
+    getUsername = session['username']
+    getUser = getuser_usertable(app.config['dsn'], getUsername)
+    getGenres = getall_genres(app.config['dsn'], getUsername)
+    
+    return render_template('profile.html', user=getUser, genres=getGenres)
 
 @app.route('/content')
 def content():
