@@ -302,9 +302,6 @@ def search():
 
 @app.route('/actor', methods=['GET', 'POST'])
 def actor():
-    if 'username' not in session:
-        return redirect(url_for('user_login'))
-
     if request.method == 'GET':
         return render_template('actor.html')
     elif request.method == 'POST':
@@ -314,26 +311,38 @@ def actor():
             actorbirthday = request.form['ActorBirthday']
             init_actortable(app.config['dsn'], actorname, actorsurname, actorbirthday)
             return render_template('actor.html')
-        elif request.form['submit'] == 'Delete':
-            actorID = request.form['ActorID']
-            deleteactor(app.config['dsn'], actorID)
-            return render_template('actor.html')
-        elif request.form['submit'] == 'Edit':
-            actorID = request.form['ActorID']
-            actorname = request.form['ActorName']
-            actorsurname = request.form['ActorSurname']
-            actorbirthday = request.form['ActorBirthday']
-            actortoedit = Actor(actorname, actorsurname, actorbirthday)
-            editactor(app.config['dsn'], actorID, actortoedit)
+        elif request.form['submit'] == 'Search':
+            actortosearch = request.form['ActorName']
+            actorarr = searchactor(app.config['dsn'], actortosearch)
+            return render_template('actorlist.html', actors = actorarr)
             return render_template('actor.html')
 
 @app.route('/actorlist')
 def actor_list():
-    if 'username' not in session:
-        return redirect(url_for('user_login'))
-
     alldata = getall_actortable(app.config['dsn'])
     return render_template('actorlist.html', actors = alldata)
+
+@app.route('/actordelete/<actorid>', methods=['GET', 'POST'])
+def actor_delete(actorid):
+    if request.method == 'POST':
+        deleteactor(app.config['dsn'], actorid)
+        return redirect(url_for('actor'))
+    else:
+        return render_template('actordelete.html', actorid=actorid)
+
+@app.route('/actoredit/<actorid>', methods=['GET', 'POST'])
+def actor_edit(actorid):
+    if request.method == 'GET':
+        actortoedit = searchactor_byid(app.config['dsn'], actorid)
+        return render_template('actoredit.html', editactor=actortoedit, actorid=actorid)
+    else:
+        actorname = request.form['ActorName']
+        actorsurname = request.form['ActorSurname']
+        actorbirthday = request.form['ActorBirthday']
+        actortoedit = Actor(actorname, actorsurname, actorbirthday)
+        editactor(app.config['dsn'], actorid, actortoedit)
+
+        return redirect(url_for('actor'))
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
