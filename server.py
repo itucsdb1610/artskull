@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session, escape, request
 import os
 import json
 import re
@@ -11,7 +11,7 @@ from action import Action
 from actor import Actor
 
 app = Flask(__name__)
-
+app.secret_key = 'MerhabaITUCSDB1610'
 
 def get_elephantsql_dsn(vcap_services):
     """Returns the data source name for ElephantSQL."""
@@ -31,9 +31,10 @@ def clear_userdb():
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == 'GET':
-        return render_template('index.html')
-    else:
+    if 'username' in session:
+        return redirect(url_for('timeline'))
+
+    if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
         email = request.form['inputEmail']
@@ -41,10 +42,39 @@ def home():
         surname = request.form['inputSurname']
         user = User(username, password, email, name, surname, None, "dummyprofile.png")
         init_usertable(app.config['dsn'], user)
-        return redirect(url_for('home'))
+        return redirect(url_for('user_login'))
+
+    return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def user_login():
+    error = None
+    if 'username' in session:
+        return redirect(url_for('timeline'))
+
+    if request.method == 'POST':
+        username = request.form['inputUsername']
+        password = request.form['inputPassword']
+        if isuser_intable(app.config['dsn'], username, password):
+            session['username'] = username
+            return redirect(url_for('timeline'))
+        else:
+            error = "Invalid credentials"
+
+    return render_template('login.html')
+
+@app.route('/logout')
+def user_logout():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    session.pop('username', None)
+    return redirect(url_for('home'))
 
 @app.route('/userdelete/<username>', methods=['GET', 'POST'])
 def user_delete(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'POST':
         deletefrom_usertable(app.config['dsn'], username)
         return redirect(url_for('users_list'))
@@ -55,12 +85,18 @@ def user_delete(username):
 
 @app.route('/userslist')
 def users_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_usertable(app.config['dsn'])
     return render_template('userslist.html', users = alldata)
 
 @app.route('/useredit/<username>', methods=['GET', 'POST'])
 def user_edit(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         getuser = getuser_usertable(app.config['dsn'], username)
         return render_template('useredit.html', user=getuser, username=username)
@@ -80,12 +116,18 @@ def user_edit(username):
 
 @app.route('/commentslist')
 def comments_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_commenttable(app.config['dsn'])
     return render_template('commentslist.html', comments = alldata)
 	
 @app.route('/commentedit/<commentid>', methods=['GET', 'POST'])
 def comment_edit(commentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         actualcomment = getcomment(app.config['dsn'], commentid)
         return render_template('commentedit.html', comment=getcomment, commentid=commentid)
@@ -98,6 +140,9 @@ def comment_edit(commentid):
 		
 @app.route('/commentdelete/<commentid>', methods=['GET', 'POST'])
 def comment_delete(commentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'POST':
         deletefrom_commenttable(app.config['dsn'], commentid)
         return redirect(url_for('comments_list'))
@@ -106,11 +151,17 @@ def comment_delete(commentid):
 
 @app.route('/dropcomments')
 def dropcomments():
-	drop_commenttable(app.config['dsn'])
-	return redirect(url_for('comments_list'))	
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    drop_commenttable(app.config['dsn'])
+    return redirect(url_for('comments_list'))	
 
 @app.route('/timeline',methods=['GET', 'POST'])
 def timeline():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
@@ -130,11 +181,17 @@ def timeline():
 
 @app.route('/clearactiontable')
 def clearActionTable():
-     dropActionTable(app.config['dsn'])
-     return redirect(url_for('timeline'))
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    dropActionTable(app.config['dsn'])
+    return redirect(url_for('timeline'))
 
 @app.route('/actionModify/<username>', methods=['GET','POST']) 
 def actionModify(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         thisaction = getAction(app.config['dsn'],username)
         return render_template('actionModify.html',action = thisaction, username = username)
@@ -145,6 +202,9 @@ def actionModify(username):
 
 @app.route('/deleteAction/<username>', methods=['GET','POST'])
 def deleteAction(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'POST':
         deleteActionFromTable(app.config['dsn'],username)
         return redirect(url_for('timeline'))
@@ -153,14 +213,23 @@ def deleteAction(username):
 
 @app.route('/profile')
 def profile():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     return render_template('profile.html')
 
 @app.route('/content')
 def content():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     return render_template('content.html')
 
 @app.route('/content/<contentid>', methods=['GET', 'POST'])
 def contentstatic(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
         return render_template('contentstatic.html',content = getcontent)
@@ -169,11 +238,17 @@ def contentstatic(contentid):
 
 @app.route('/contentslist')
 def contents_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     allcontents = getall_contenttable(app.config['dsn'])
     return render_template('contentslist.html', contents = allcontents)
 
 @app.route('/contentdelete/<contentid>', methods=['GET', 'POST'])
 def content_delete(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'POST':
         deletefrom_contenttable(app.config['dsn'], contentid)
         return redirect(url_for('contents_list'))
@@ -182,6 +257,9 @@ def content_delete(contentid):
 
 @app.route('/contentedit/<contentid>', methods=['GET', 'POST'])
 def content_edit(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
         return render_template('contentedit.html', content=getcontent, contentid=contentid)
@@ -199,6 +277,9 @@ def content_edit(contentid):
 
 @app.route('/admin',methods=['GET', 'POST'])
 def admin():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method=='GET':
         return render_template('contentadmin.html')
     else:
@@ -214,10 +295,16 @@ def admin():
 
 @app.route('/search')
 def search():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     return render_template('searchresult.html')
 
 @app.route('/actor', methods=['GET', 'POST'])
 def actor():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     if request.method == 'GET':
         return render_template('actor.html')
     elif request.method == 'POST':
@@ -242,6 +329,9 @@ def actor():
 
 @app.route('/actorlist')
 def actor_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
     alldata = getall_actortable(app.config['dsn'])
     return render_template('actorlist.html', actors = alldata)
 
