@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Edit Genres{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>{{ username }}</h1>
+        <p>Edit genres of given user</p>
+    </div>
+
+    <div class="form-group">
+        <form role="form" method="post" name="addgenre" action="{{ url_for('add_genre_user', username=username)}}" id="adduser">
+            <select class="form-control" name="inputGenres">
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Horror">Horror</option>
+                <option value="Fiction">Fiction</option>
+            </select>
+            <select class="form-control" name="inputImportance">
+                <option value="1">Omg, delete them!</option>
+                <option value="2">Meh</option>
+                <option value="3">OK</option>
+                <option value="4">I like it</option>
+                <option value="5">The best</option>
+            </select>
+            <button class="btn btn-success" type="submit">Add</button>
+        </form>
+
+    </div>
+    <ul>
+        {% for genre in genres %}
+            <li>
+                {{ genre[0] }} - {{ genre[1] }} <a href="{{ url_for('genre_delete', username=username, genre= genre[0]) }}" class="btn btn-default" type="button">Delete</a>
+            </li>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
