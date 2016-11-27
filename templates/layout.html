@@ -26,12 +26,19 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
                     <!-- menu items will change, these are for test purposes -->
+                     {% if 'username' in session %}
                         <li><a href="{{ url_for('home') }}">Home</a></li>
                         <li><a href="{{ url_for('timeline') }}">Timeline</a></li>
                         <li><a href="{{ url_for('profile') }}">Profile</a></li>
                         <li><a href="{{ url_for('content') }}">Content</a></li>
                         <li><a href="{{ url_for('admin') }}">Admin Panel</a></li>
+                        <li><a href="{{ url_for('user_logout') }}">Log Out</a></li>
                         <!--<li><a href="{{ url_for('search')}}">Search Result</a></li>-->
+                        <li><a>{{ session['username'] }}</a></li>
+                    {% endif %}
+                    {% if 'username' not in session %}
+                        <li><a href="{{ url_for('user_login') }}">Log In</a></li>
+                    {% endif %}
                     </ul>
                     <form class="navbar-form navbar-right">
                         <div class="input-group">
@@ -40,8 +47,6 @@
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </span>
                         </div>
-                        
-                        
                     </form>
                 </div>  
             </div>
