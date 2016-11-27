@@ -17,16 +17,14 @@ def init_usertable(getconf, user):
 
         query = """CREATE TABLE IF NOT EXISTS USERS
                     (
-                        ID SERIAL NOT NULL,
                         USERNAME TEXT UNIQUE NOT NULL,
                         SALT TEXT NOT NULL,
                         HASH TEXT NOT NULL, 
                         EMAIL TEXT UNIQUE NOT NULL,
                         NAME TEXT NOT NULL,
                         SURNAME TEXT NOT NULL,
-                        GENRES TEXT,
                         PROFPIC TEXT,
-                        PRIMARY KEY (id)
+                        PRIMARY KEY (USERNAME)
                     )"""
         cursor.execute(query)
 
@@ -146,6 +144,62 @@ def edituserwopass_usertable(getconf, user):
         cursor.execute(query, (user.name, user.surname, user.email, user.username,))
         connection.commit()
         cursor.close()
+
+def init_genreTable(getconf, getusername, getgenre, getorder):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        
+        query = """CREATE TABLE IF NOT EXISTS USERGENRES
+                    (
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        GENRE TEXT NOT NULL,
+                        IMPORTANCE INTEGER NOT NULL,
+                        PRIMARY KEY(USERNAME, GENRE) 
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """INSERT INTO USERGENRES
+                    (
+                        USERNAME, GENRE, IMPORTANCE)
+                        VALUES (%s, %s, %s
+                    )"""
+        cursor.execute(query, (getusername, getgenre, getorder,))
+        connection.commit()
+        cursor.close()
+
+def getall_genres(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERGENRES
+                    (
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        GENRE TEXT NOT NULL,
+                        IMPORTANCE INTEGER NOT NULL,
+                        PRIMARY KEY(USERNAME, GENRE)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT GENRE, IMPORTANCE FROM USERGENRES WHERE USERNAME = %s ORDER BY IMPORTANCE DESC"""
+        cursor.execute(query, (username,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
+def delete_genreTable(getconf, username, genre):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM USERGENRES WHERE (USERNAME = %s AND GENRE = %s)"""
+        cursor.execute(query, (username, genre,))
+        connection.commit()
+        cursor.close()
+
 # End for Muhammed Kadir YÜCEL
 
 # Start for Murat Özkök
