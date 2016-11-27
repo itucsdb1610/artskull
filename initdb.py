@@ -387,11 +387,36 @@ def editactor(getconf, ID, actortoedit):
         connection.commit()
         cursor.close()
 
+def searchactor(getconf, actortosearch):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
+                    WHERE NAME = %s OR SURNAME = %s"""
+        cursor.execute(query,(actortosearch, actortosearch))
+        searchdata = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+
+        return searchdata
+
+def searchactor_byid(getconf, actorid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
+                    WHERE ActorID = %s"""
+        cursor.execute(query, (actorid))
+        searchdata = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+
+        return searchdata
+
 def getall_actortable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """SELECT NAME, SURNAME, BIRTHDAY FROM Actors"""
+        query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors"""
         cursor.execute(query)
         alldata = cursor.fetchall()
         connection.commit()
