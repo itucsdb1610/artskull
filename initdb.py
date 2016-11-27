@@ -134,8 +134,8 @@ def init_commentTable(getconf):
 				(
 					COMMENTID SERIAL NOT NULL,
 					COMMENT TEXT NOT NULL,
-					CONTENTID INT NOT NULL,
-					USERNAME TEXT NOT NULL,
+					CONTENTID INT NOT NULL REFERENCES CONTENT (id),
+					USERNAME TEXT NOT NULL REFERENCES USERS (username),
 					PRIMARY KEY (commentid)
 				)"""				
 		cursor.execute(query)
@@ -161,8 +161,8 @@ def getall_commenttable(getconf):
                 (
                     COMMENTID SERIAL NOT NULL,
                     COMMENT TEXT NOT NULL,
-                    CONTENTID INT NOT NULL,
-                    USERNAME TEXT NOT NULL,
+                    CONTENTID INT NOT NULL REFERENCES CONTENT (id),
+                    USERNAME TEXT NOT NULL REFERENCES USERS (username),
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
