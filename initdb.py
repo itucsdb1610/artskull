@@ -1,4 +1,5 @@
 import psycopg2 as dbapi2
+import hashlib
 
 
 # Start for Muhammed Kadir YÜCEL
@@ -63,6 +64,27 @@ def getuser_usertable(getconf, username):
         cursor.close()
 
         return getuser
+
+
+def isuser_intable(getconf, username, password):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT COUNT(1) FROM USERS WHERE USERNAME = %s"""
+        cursor.execute(query, (username,))
+
+        if cursor.fetchone()[0]:
+            queryPass = """SELECT SALT, HASH FROM USERS WHERE USERNAME = %s"""
+            cursor.execute(queryPass, (username,))
+            for row in cursor.fetchall():
+                saltedPassword = password.join(row[0])
+                hashedPassword = hashlib.md5(saltedPassword.encode()).hexdigest()
+                if hashedPassword == row[1]:
+                    return True
+        else:
+            return False
+
+        return False
 		
 def fixdrop_usertable(getconf):
     with dbapi2.connect(getconf) as connection:
