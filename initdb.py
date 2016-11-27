@@ -478,6 +478,64 @@ def getall_actortable(getconf):
 
         return alldata
 
+def init_casting(getconf, actorid, contentid, ord):
+with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        
+        query = """CREATE TABLE IF NOT EXISTS CASTING
+                    (
+                        ActorID INTEGER NOT NULL REFERENCES Actors(ActorID)
+                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID)
+                        ORD INTEGER NOT NULL
+                        PRIMARY KEY(ActorID, ContentID) 
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """INSERT INTO CASTING
+                    (
+                        ActorID, ContentID, ORD)
+                        VALUES (%s, %s, %s
+                    )"""
+        cursor.execute(query, (actorid, contentid, ord))
+        connection.commit()
+        cursor.close()
+
+def deletecast(getconf, deleteIDa, deleteIDc):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM CASTING
+        WHERE ActorID = %s AND ContentID = %s"""
+        cursor.execute(query, (deleteIDa, deleteIDc))
+        connection.commit()
+        cursor.close()
+
+def editcast(getconf, IDatoedit, IDctoedit, actorid, contentid, ord):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE CASTING SET
+                        ActorID = %s,
+                        ContentID = %s,
+                        ORD = %s
+                        WHERE ActorID = %s AND ContentID = %s"""
+        cursor.execute(query, (actorid, contentid, ord, IDatoedit, IDctoedit))
+        connection.commit()
+        cursor.close()
+
+def searchcast(getconf, casttosearch):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT ActorID, ContentID, ORD FROM CASTING
+                    WHERE ContentID = %s"""
+        cursor.execute(query,(casttosearch))
+        searchdata = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+
+        return searchdata
 # End for Doğay Kamar
 
 #Start for Mahmut Lutfullah Özbilen
