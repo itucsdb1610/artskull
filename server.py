@@ -197,7 +197,7 @@ def timeline():
     if request.method == 'GET':
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
-        getall = getAllActions(app.config['dsn'])
+        getall = getAction(app.config['dsn'],session['username'])
         return render_template('timeline.html',actionList = getall)
     else:
         username = request.form['inputUsername']
@@ -318,12 +318,13 @@ def contentstatic(contentid):
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+        getcontentAction = getcontent_action(app.config['dsn'], contentid) 
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction)
 
-    elif request.method == 'POST':
+    elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
-            username = request.form['inputUsername']
+            username = session['username']
             actiontype = "comment"
             actioncomment = request.form['inputCommentary']
             date = datetime.datetime.now()
@@ -333,6 +334,8 @@ def contentstatic(contentid):
             return redirect(url_for('contentstatic',contentid=contentid))
     else:
         return render_template('content.html')
+
+
 
 @app.route('/contentslist')
 def contents_list():

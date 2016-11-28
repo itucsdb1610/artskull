@@ -774,11 +774,11 @@ def getAction(getconf,username):
         cursor = connection.cursor()
         query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE USERNAME = %s"
         cursor.execute(query, (username,))
-        action = cursor.fetchone()
+        action = cursor.fetchall()
         connection.commit()
         cursor.close()
         return action
-
+        
 def edit_Action(getconf,comment,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
@@ -795,4 +795,14 @@ def deleteActionFromTable(getconf,username):
         cursor.execute(query,(username,))
         connection.commit()
         cursor.close()
+
+def getcontent_action(getconf,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE CONTENTID = %s"
+        cursor.execute(query, (contentid,))
+        action = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return action
 #end for Mahmut Lutfullah Özbilen

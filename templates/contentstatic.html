@@ -67,11 +67,6 @@
                             </div>
                             <div class="panel-body">
                                 <form role="form" action="{{ url_for('contentstatic', contentid = contentid) }}" id="commentform" class="form-horizontal" method="post">
-                                <div class="form-group">
-			                        <label class="control-label" for="inputEmail">  Your Username?</label>
-			                        <input class="form-control top-buffer" id="inputUsername" name="inputUsername" required="" type="text" placeholder="Username">
-		                        </div>
-		                        <hr>
 		                        <div class="form-group">
 				                    <label class="control-label" for="inputEmail">  What is your commentaries about play</label>
 				                    <input class="form-control top-buffer" id="inputCommentary" name="inputCommentary" required="" type="text" placeholder="Your comment is...">
@@ -85,7 +80,22 @@
                             <div class="panel-heading">
                                 <h3>Reviews</h3>
                             </div>
-                            
+                            <ul class="media-list" list-style="none">
+			                {% for action in contentaction %}
+			                <li class="well">
+				                <div class="row">				
+				              	<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='samplepp6.jpg')}}" alt="samplepp1">
+					            <p class="col-md-8">
+					        	{{ action[0] }} : "{{ action[3] }}"
+			        		    </p>
+			        		    <p>
+			    			    Date :{{ action[4] }}
+				            	</p>
+				                  	<a href="{{ url_for('actionModify', username=action[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
+				        	        <a href="{{ url_for('deleteAction', username=action[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
+			            	    </div>		
+		            	    {% endfor %}
+		                </ul>
                         </div>
                     </div>
                         
