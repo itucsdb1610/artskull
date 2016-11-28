@@ -168,9 +168,9 @@ def init_followUserUser(getconf, getfollower, getfollowed, getdate):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -191,9 +191,9 @@ def unfollow_followUserUser(getconf, getfollower, getfollowed):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -214,9 +214,9 @@ def get_allfollowing(getconf, getfollower):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -238,9 +238,9 @@ def get_allfollower(getconf, getfollowed):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -262,9 +262,9 @@ def get_followed_counts(getconf, getfollowed):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -285,9 +285,9 @@ def get_following_counts(getconf, getfollower):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -308,9 +308,9 @@ def is_following(getconf, getfollower, getfollowed):
 
         query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
                     (
-                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE TEXT NOT NULL,
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -332,7 +332,7 @@ def init_genreTable(getconf, getusername, getgenre, getorder):
         
         query = """CREATE TABLE IF NOT EXISTS USERGENRES
                     (
-                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
                         GENRE TEXT NOT NULL,
                         IMPORTANCE INTEGER NOT NULL,
                         PRIMARY KEY(USERNAME, GENRE) 
@@ -349,13 +349,26 @@ def init_genreTable(getconf, getusername, getgenre, getorder):
         connection.commit()
         cursor.close()
 
+def update_genreTable(getconf, username, genre, order):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE USERGENRES SET 
+                    IMPORTANCE = %s
+                    WHERE ((USERNAME = %s) AND (GENRE = %s))"""
+
+        cursor.execute(query, (order,username,genre,))
+        connection.commit()
+        cursor.close()
+
+
 def getall_genres(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """CREATE TABLE IF NOT EXISTS USERGENRES
                     (
-                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
                         GENRE TEXT NOT NULL,
                         IMPORTANCE INTEGER NOT NULL,
                         PRIMARY KEY(USERNAME, GENRE)
@@ -363,9 +376,32 @@ def getall_genres(getconf, username):
         
         cursor.execute(query)
 
-        query = """SELECT GENRE, IMPORTANCE FROM USERGENRES WHERE USERNAME = %s ORDER BY IMPORTANCE DESC"""
+        query = """SELECT GENRE, IMPORTANCE FROM USERGENRES WHERE USERNAME = %s ORDER BY IMPORTANCE DESC"""        
         cursor.execute(query, (username,))
         alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
+def getone_genre(getconf, username, genre):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERGENRES
+                    (
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        GENRE TEXT NOT NULL,
+                        IMPORTANCE INTEGER NOT NULL,
+                        PRIMARY KEY(USERNAME, GENRE)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT GENRE, IMPORTANCE FROM USERGENRES WHERE ((USERNAME = %s) AND (GENRE = %s))"""
+        cursor.execute(query, (username,genre,))
+        alldata = cursor.fetchone()
 
         connection.commit()
         cursor.close()
