@@ -7,8 +7,6 @@ import hashlib
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
         query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
