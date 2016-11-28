@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Search{% endblock %}
 {% block content %}
 
 <div class="container" role="main">
@@ -8,14 +8,14 @@
     </div>
 
 
-    <h2>Results for Users</h2>
+    <p style="font-weight: bold">Users</p>
+    <hr class="featurette-divider" />
     <ul class="media-list">
         {% for result in results %}
+        <a href="{{ url_for('profile', username=result[0]) }}">
         <li class="media">
             <div class="media-left">
-                <a href="#">
-                    <img class="media-object" src="{{result[4]}}" alt="result1">
-                </a>
+               <img width="150px" height="150px" class="media-object" src="{{result[4]}}" alt="result1">
             </div>
             <div class="media-body">
                 <h4 class="media-heading">{{ result[2] }} {{ result[3] }}</h4>
@@ -23,7 +23,12 @@
                 <p>{{ result [0] }}</p>
             </div>
         </li>
+        </a>
+        <hr class="featurette-divider" />
         {% endfor %}
+        
+        <p style="font-weight: bold">Plays</p>
+        <hr class="featurette-divider" />
     </ul>
 </div>
 {% endblock %}
