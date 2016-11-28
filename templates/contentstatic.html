@@ -61,6 +61,19 @@
                                 <p>{{content[5]}}</p>
                             </div>
                         </div>
+
+                        
+                        <div class="panel panel-default" id="genre">
+                            <div class="panel-heading">
+                                <h3>Cast</h3>
+                            </div>
+                            {% for actor in cast %}
+                            <div class="panel-body">
+                                <p>{{actor[0]}} {{actor[1]}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+
                         <div class="panel panel-default" id="addcomment">
                             <div class="panel-heading">
                                 <h3>Add Review</h3>
