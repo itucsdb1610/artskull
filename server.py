@@ -198,16 +198,13 @@ def timeline():
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
-        return render_template('timeline.html',actionList = getall)
+		getallcomments = getall_commenttable(app.config['dsn'])
+        return render_template('timeline.html',actionList = getall, commentList = getallcomments)
     else:
-        username = request.form['inputUsername']
-        contentid = 1
-        actiontype = "comment"
+        username = session['username']
         actioncomment = request.form['inputCommentary']
-        date = datetime.datetime.now()
-        action = Action(username,contentid,actiontype,actioncomment,date)
+		actionid = request.form['actionid']
         cmm = Comment(actioncomment,contentid, username)
-        insert_actionTable(app.config['dsn'], action)
         insert_commenttable(app.config['dsn'], cmm)
         return redirect(url_for('timeline'))
 
