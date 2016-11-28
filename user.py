@@ -9,7 +9,6 @@ class User:
         self.email = email
         self.name = name
         self.surname = surname
-        self.genres = genres
         self.profpic = profpic
 
 def createSalt():
