@@ -1,6 +1,5 @@
 class Comment:
-	def __init__(self, comm,contentid, username):
+	def __init__(self, comm,actionid, username):
 		self.username = username
 		self.comm = comm
-		self.contentid = contentid
-
+		self.actionid = actionid
