@@ -445,6 +445,51 @@ def actor_edit(actorid):
 
         return redirect(url_for('actor'))
 
+@app.route('/castedit/<contentid>', methods=['GET', 'POST'])
+def cast_edit(contentid):
+    if request.method == 'GET':
+        init_casting(app.config['dsn'])
+        getdata = searchcast(app.config['dsn'], contentid)
+        return render_template('castedit.html', conid = contentid, actors = getdata)
+    elif request.method == 'POST':
+        if request.form['submit'] == 'Search':
+            actortosearch = request.form['ActorName']
+            actorarr = searchactor(app.config['dsn'], actortosearch)
+            return render_template('castactorlist.html', conid = contentid, actors = actorarr)
+
+
+@app.route('/castdelete/<actorid>/<contentid>', methods=['GET', 'POST'])
+def cast_delete(actorid, contentid):
+    if request.method == 'GET':
+        deletecast(app.config['dsn'], actorid, contentid)
+        return redirect(url_for('cast_edit', contentid = contentid))
+
+@app.route('/castlist/<contentid>', methods=['GET', 'POST'])
+def cast_list(contentid):
+    if request.method =='GET':
+        alldata = getall_actortable(app.config['dsn'])
+        return render_template('castactorlist.html', actors=alldata, conid = contentid)
+    elif request.method =='POST':
+        values = request.form.getlist('checked')
+        orders = request.form.getlist('Ord')
+        count = 0
+        for value in values:
+            while int(orders[count]) == 0:
+                count = count + 1
+            insert_casting(app.config['dsn'], int(value), int(contentid), int(orders[count]))
+            count = count + 1
+        return redirect(url_for('cast_edit', contentid = contentid))
+
+@app.route('/castactoredit/<actorid>/<contentid>', methods=['GET', 'POST'])
+def cast_actoredit(actorid, contentid):
+    if request.method == 'GET':
+        return render_template('castactoredit.html', actorid = actorid, contentid = contentid)
+    elif request.method == "POST":
+        neworder = request.form['Order']
+        editcast(app.config['dsn'], actorid, contentid, neworder)
+        return redirect(url_for('cast_edit', contentid = contentid))
+
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
