@@ -41,7 +41,7 @@ def home():
         email = request.form['inputEmail']
         name = request.form['inputName']
         surname = request.form['inputSurname']
-        user = User(username, password, email, name, surname, None, "dummyprofile.png")
+        user = User(username, password, email, name, surname, "http://www.sbsc.in/images/dummy-profile-pic.png")
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('user_login'))
 
@@ -106,11 +106,12 @@ def user_edit(username):
         surname = request.form['inputSurname']
         email = request.form['inputEmail']
         password = request.form['inputPassword']
+        profpic = request.form['inputProfPic']
         if len(password) == 0:
-            user = User(username, "1", email, name, surname, None, "dummyprofile.png")
+            user = User(username, "1", email, name, surname, profpic)
             edituserwopass_usertable(app.config['dsn'], user)
         else:
-            user = User(username, password, email, name, surname, None, "dummyprofile.png")
+            user = User(username, password, email, name, surname, profpic)
             edituserwpass_usertable(app.config['dsn'], user)
 
         return redirect(url_for('users_list'))
@@ -241,17 +242,17 @@ def deleteAction(username):
     else:
         return render_template('confirmactiondelete.html',username=username)
 
-@app.route('/profile')
-def profile():
+@app.route('/profile/<username>')
+def profile(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
     getUsername = session['username']
-    getUser = getuser_usertable(app.config['dsn'], getUsername)
-    getGenres = getall_genres(app.config['dsn'], getUsername)
+    getUser = getuser_usertable(app.config['dsn'], username)
+    getGenres = getall_genres(app.config['dsn'], username)
     
-    return render_template('profile.html', user=getUser, genres=getGenres)
-
+    return render_template('profile.html', user=getUser, genres=getGenres, username=username)
+    
 @app.route('/content')
 def content():
     if 'username' not in session:
