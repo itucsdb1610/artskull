@@ -575,8 +575,9 @@ def init_followerstable(getconf, id1, id2):
         connection.commit()
         cursor.close()
 
+
 def init_actortable(getconf, name, surname, birthday):
-     with dbapi2.connect(getconf) as connection:
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """CREATE TABLE IF NOT EXISTS Actors
@@ -600,7 +601,7 @@ def init_actortable(getconf, name, surname, birthday):
 
 
 def deleteactor(getconf, deleteID):
-     with dbapi2.connect(getconf) as connection:
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """DELETE FROM Actors
@@ -609,8 +610,9 @@ def deleteactor(getconf, deleteID):
         connection.commit()
         cursor.close()
 
+
 def editactor(getconf, ID, actortoedit):
-     with dbapi2.connect(getconf) as connection:
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """UPDATE Actors SET
@@ -622,18 +624,20 @@ def editactor(getconf, ID, actortoedit):
         connection.commit()
         cursor.close()
 
+
 def searchactor(getconf, actortosearch):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
                     WHERE NAME = %s OR SURNAME = %s"""
-        cursor.execute(query,(actortosearch, actortosearch))
+        cursor.execute(query, (actortosearch, actortosearch))
         searchdata = cursor.fetchall()
         connection.commit()
         cursor.close()
 
         return searchdata
+
 
 def searchactor_byid(getconf, actorid):
     with dbapi2.connect(getconf) as connection:
@@ -647,6 +651,7 @@ def searchactor_byid(getconf, actorid):
 
         return searchdata
 
+
 def getall_actortable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
@@ -659,31 +664,40 @@ def getall_actortable(getconf):
 
         return alldata
 
-def init_casting(getconf, actorid, contentid, ord):
-     with dbapi2.connect(getconf) as connection:
+
+def init_casting(getconf):
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        
+
         query = """CREATE TABLE IF NOT EXISTS CASTING
                     (
-                        ActorID INTEGER NOT NULL REFERENCES Actors(ActorID)
-                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID)
-                        ORD INTEGER NOT NULL
-                        PRIMARY KEY(ActorID, ContentID) 
+                        ActorID INTEGER NOT NULL REFERENCES Actors(ActorID),
+                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID),
+                        ORD INTEGER NOT NULL,
+                        PRIMARY KEY(ActorID, ContentID)
                     )"""
-        
+
         cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+
+def insert_casting(getconf, actorid, contentid, ord):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
 
         query = """INSERT INTO CASTING
-                    (
-                        ActorID, ContentID, ORD)
-                        VALUES (%s, %s, %s
-                    )"""
+                            (
+                                ActorID, ContentID, ORD)
+                                VALUES (%s, %s, %s
+                            )"""
         cursor.execute(query, (actorid, contentid, ord))
         connection.commit()
         cursor.close()
 
+
 def deletecast(getconf, deleteIDa, deleteIDc):
-     with dbapi2.connect(getconf) as connection:
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """DELETE FROM CASTING
@@ -692,31 +706,33 @@ def deletecast(getconf, deleteIDa, deleteIDc):
         connection.commit()
         cursor.close()
 
-def editcast(getconf, IDatoedit, IDctoedit, actorid, contentid, ord):
-     with dbapi2.connect(getconf) as connection:
+
+def editcast(getconf, actorid, contentid, ord):
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """UPDATE CASTING SET
-                        ActorID = %s,
-                        ContentID = %s,
                         ORD = %s
                         WHERE ActorID = %s AND ContentID = %s"""
-        cursor.execute(query, (actorid, contentid, ord, IDatoedit, IDctoedit))
+        cursor.execute(query, (ord, actorid, contentid))
         connection.commit()
         cursor.close()
+
 
 def searchcast(getconf, casttosearch):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """SELECT ActorID, ContentID, ORD FROM CASTING
-                    WHERE ContentID = %s"""
-        cursor.execute(query,(casttosearch))
+        query = """SELECT NAME, SURNAME, BIRTHDAY, Actors.ActorID, ORD FROM Actors, CASTING
+                    WHERE (ContentID = %s AND Actors.ActorID = CASTING.ActorID)"""
+        cursor.execute(query, (casttosearch))
         searchdata = cursor.fetchall()
         connection.commit()
         cursor.close()
 
         return searchdata
+
+
 # End for Doğay Kamar
 
 #Start for Mahmut Lutfullah Özbilen
@@ -772,7 +788,7 @@ def getAllActions(getconf):
 def getAction(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS 
+        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID FROM ACTIONS
                     WHERE USERNAME = %s 
                     OR USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
                                             WHERE FOLLOWER = %s)
