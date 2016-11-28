@@ -115,6 +115,21 @@ def deletefrom_usertable(getconf, username):
         connection.commit()
         cursor.close()
 
+def search_user_table(getconf, keyword):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        keyword = '%' + keyword + '%'
+        query = """SELECT USERNAME, EMAIL, NAME, SURNAME, PROFPIC FROM USERS WHERE ( (LOWER(USERNAME) LIKE LOWER(%s)) OR
+                    (LOWER(EMAIL) LIKE LOWER(%s)) OR (LOWER(NAME) LIKE LOWER(%s) ) OR (LOWER(SURNAME) LIKE LOWER(%s)))"""
+        cursor.execute(query, (keyword,keyword,keyword,keyword,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
 def edituserwpass_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
