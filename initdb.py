@@ -824,6 +824,17 @@ def getAllActions(getconf):
 def getAction(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        FOLLOWDATE TIMESTAMP NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
         query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID FROM ACTIONS
                     WHERE USERNAME = %s 
                     OR USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
