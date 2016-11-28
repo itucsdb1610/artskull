@@ -4,44 +4,26 @@
 
 <div class="container" role="main">
     <div class="page-header">
-        <h1>Search results for ".."</h1>
+        <h1>Search results for {{keyword}}</h1>
     </div>
 
 
+    <h2>Results for Users</h2>
     <ul class="media-list">
+        {% for result in results %}
         <li class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
+                    <img class="media-object" src="{{result[4]}}" alt="result1">
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">Result#1</h4>
-                Search result#1
+                <h4 class="media-heading">{{ result[2] }} {{ result[3] }}</h4>
+                <p>{{ result [1] }}</p>
+                <p>{{ result [0] }}</p>
             </div>
         </li>
-        <li class="media">
-            <div class="media-left">
-                <a href="#">
-                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
-                </a>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">Result#1</h4>
-                Search result#1
-            </div>
-        </li>
-        <li class="media">
-            <div class="media-left">
-                <a href="#">
-                    <img class="media-object" src="{{ url_for('static', filename='trending1.jpg') }}" alt="result1">
-                </a>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">Result#1</h4>
-                Search result#1
-            </div>
-        </li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}
