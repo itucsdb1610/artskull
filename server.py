@@ -10,6 +10,7 @@ from comment import Comment
 from content import Content
 from action import Action
 from actor import Actor
+import time
 
 app = Flask(__name__)
 app.secret_key = 'MerhabaITUCSDB1610'
@@ -247,11 +248,61 @@ def profile(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if session['username'] == username:
+        same = True
+    else:
+        same = False
+
     getUsername = session['username']
     getUser = getuser_usertable(app.config['dsn'], username)
     getGenres = getall_genres(app.config['dsn'], username)
+    getFollowingCounts = get_following_counts(app.config['dsn'], username)
+    isFollowing = is_following(app.config['dsn'],getUsername, username)
+    getFollowerCounts = get_followed_counts(app.config['dsn'],username)
     
-    return render_template('profile.html', user=getUser, genres=getGenres, username=username)
+    return render_template('profile.html', user=getUser, genres=getGenres, username=username, followingCounts=getFollowingCounts, followedCounts=getFollowerCounts, follows=isFollowing, same=same)
+
+@app.route('/follow/<username>')
+def follow(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if session['username'] == username:
+        return redirect(url_for('timeline'))
+
+    init_followUserUser(app.config['dsn'], session['username'], username, time.strftime("%d/%m/%Y"))
+
+    return redirect(url_for('timeline'))
+
+@app.route('/unfollow/<username>')
+def unfollow(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if session['username'] == username:
+        return redirect(url_for('timeline'))
+
+    unfollow_followUserUser(app.config['dsn'], session['username'], username)
+
+    return redirect(url_for('timeline'))
+
+@app.route('/following/<username>')
+def following(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    getFollowing = get_allfollowing(app.config['dsn'], username)
+
+    return render_template('followlist.html', follow=getFollowing, username=username)
+
+@app.route('/followed/<username>')
+def followed(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    getFollowed = get_allfollower(app.config['dsn'], username)
+
+    return render_template('followlist.html', follow=getFollowed, username=username)
     
 @app.route('/content')
 def content():
