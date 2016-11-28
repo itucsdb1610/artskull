@@ -170,7 +170,7 @@ def init_followUserUser(getconf, getfollower, getfollowed, getdate):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -193,7 +193,7 @@ def unfollow_followUserUser(getconf, getfollower, getfollowed):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -216,7 +216,7 @@ def get_allfollowing(getconf, getfollower):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -240,7 +240,7 @@ def get_allfollower(getconf, getfollowed):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -264,7 +264,7 @@ def get_followed_counts(getconf, getfollowed):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -287,7 +287,7 @@ def get_following_counts(getconf, getfollower):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
@@ -310,7 +310,7 @@ def is_following(getconf, getfollower, getfollowed):
                     (
                         FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
                         FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
-                        FOLLOWDATE DATE NOT NULL,
+                        FOLLOWDATE TEXT NOT NULL,
                         PRIMARY KEY(FOLLOWER, FOLLOWED)
                     )"""
         
