@@ -328,9 +328,11 @@ def contentstatic(contentid):
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+        init_casting(app.config['dsn'])
         getcontentAction = getcontent_action(app.config['dsn'], contentid) 
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction)
+        getcast = searchcast(app.config['dsn'],contentid)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
