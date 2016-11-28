@@ -229,29 +229,29 @@ def clearActionTable():
     dropActionTable(app.config['dsn'])
     return redirect(url_for('timeline'))
 
-@app.route('/actionModify/<username>', methods=['GET','POST']) 
-def actionModify(username):
+@app.route('/actionModify/<actionid>', methods=['GET','POST']) 
+def actionModify(actionid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        thisaction = getAction(app.config['dsn'],username)
-        return render_template('actionModify.html',action = thisaction, username = username)
+        thisaction = getAction(app.config['dsn'],actionid)
+        return render_template('actionModify.html',action = thisaction, actionid = actionid)
     else:
         comment = request.form['inputComment']
-        edit_Action(app.config['dsn'],comment,username)
+        edit_Action(app.config['dsn'],comment,actionid)
         return redirect(url_for('timeline'))
 
-@app.route('/deleteAction/<username>', methods=['GET','POST'])
-def deleteAction(username):
+@app.route('/deleteAction/<actionid>', methods=['GET','POST'])
+def deleteAction(actionid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
     if request.method == 'POST':
-        deleteActionFromTable(app.config['dsn'],username)
+        deleteActionFromTable(app.config['dsn'],actionid)
         return redirect(url_for('timeline'))
     else:
-        return render_template('confirmactiondelete.html',username=username)
+        return render_template('confirmactiondelete.html',actionid=actionid)
 
 @app.route('/profile/<username>')
 def profile(username):
