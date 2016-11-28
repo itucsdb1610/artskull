@@ -2,7 +2,7 @@ import hashlib
 import random
 
 class User:
-    def __init__(self, username, passwd, email, name, surname, genres, profpic):
+    def __init__(self, username, passwd, email, name, surname, profpic):
         self.username = username
         self.salt = createSalt()
         self.hash = createHash(self.salt, passwd)
