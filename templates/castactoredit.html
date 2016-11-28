@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Edit Actor in Cast{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+	<div class="container">
+        <form  role="form" action="{{ url_for('cast_actoredit', actorid = actorid, contentid = contentid) }}" id="EditActor" method="post">
+            <h2 class="form-horizontal-heading">Edit order of an Actor/Actress</h2>
+            <div class="form-group">
+                <label for="Order">Order</label>
+                <input type="text" class="form-control" id="Order" name="Order" placeholder="Order">
+            </div>
+            <input type="submit" name = "submit" value = "Edit" class="btn btn-default">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
