@@ -19,7 +19,6 @@ def init_usertable(getconf, user):
 				)"""				
         cursor.execute(query)
         connection.commit()
-        cursor.close()
         query = """CREATE TABLE IF NOT EXISTS USERS
                     (
                         USERNAME TEXT UNIQUE NOT NULL,
@@ -892,4 +891,14 @@ def getcontent_action(getconf,contentid):
         connection.commit()
         cursor.close()
         return action
+
+def  getActionContent(getconf):#for timeline
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT"""
+        cursor.execute(query)
+        content = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return content
 #end for Mahmut Lutfullah Özbilen
