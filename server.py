@@ -203,7 +203,7 @@ def timeline():
     else:
         username = session['username']
         actioncomment = request.form['inputCommentary']
-	    actionid = request.form['actionid']
+        actionid = request.form['actionid']
         cmm = Comment(actioncomment,contentid, username)
         insert_commenttable(app.config['dsn'], cmm)
         return redirect(url_for('timeline'))
