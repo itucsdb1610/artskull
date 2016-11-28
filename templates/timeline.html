@@ -40,9 +40,10 @@
 								<li class = "well">
 									
 									<div class="row">				
-										<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='samplepp6.jpg')}}" alt="samplepp1">
+										<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='profpics/dummyprofile.png')}}" alt="samplepp1">
+										
 										<p class="col-md-8">
-										{{ comment[1] }} : "{{ comment[2] }}"
+										 {{ comment[2] }}
 										</p>
 										<p>
 										
@@ -50,6 +51,7 @@
 							<a href="{{ url_for('comment_edit', commentid=comment[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
 							<a href="{{ url_for('comment_delete', commentid=comment[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
 				</div>
+				<div class="row"><p class="col-md-10">{{ comment[1] }} </p></div>
 				</li>
 							{% endif %}
 						{% endfor %}
