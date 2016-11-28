@@ -503,7 +503,7 @@ def getcomment(getconf,commentid):
 		
         query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID FROM COMMENTS WHERE COMMENTID = %s"""
         cursor.execute(query, (commentid,))
-        outcomment = cursor.fetchone()
+        outcomment = cursor.fetchall()
 
         connection.commit()
         cursor.close()
@@ -778,7 +778,8 @@ def searchcast(getconf, casttosearch):
         cursor = connection.cursor()
 
         query = """SELECT NAME, SURNAME, BIRTHDAY, Actors.ActorID, ORD FROM Actors, CASTING
-                    WHERE (ContentID = %s AND Actors.ActorID = CASTING.ActorID)"""
+                    WHERE (ContentID = %s AND Actors.ActorID = CASTING.ActorID)
+                    ORDER BY ORD ASC"""
         cursor.execute(query, (casttosearch))
         searchdata = cursor.fetchall()
         connection.commit()
