@@ -139,12 +139,25 @@ def genre_delete(username):
 
     if request.method == 'GET':
         genre = request.args.get('genre')
-        print(username)
-        print(genre)
         delete_genreTable(app.config['dsn'], username, genre)
 
     return redirect(url_for('users_list'))
 
+@app.route('/useredit/editgenre/editgenre/<username>', methods=['GET', 'POST'])
+def genre_edit(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        genre = request.args.get('genre')
+        getGenre = getone_genre(app.config['dsn'], username, genre)
+        return render_template('editonegenre.html', genre=getGenre, username=username)
+    else:
+        genre = request.form['inputGenres']
+        order = request.form['inputImportance']
+        update_genreTable(app.config['dsn'], username, genre, order)
+
+    return redirect(url_for('users_list'))
 
 @app.route('/commentslist')
 def comments_list():
@@ -267,7 +280,7 @@ def follow(username):
     if session['username'] == username:
         return redirect(url_for('timeline'))
 
-    date = time.strftime("%d/%m/%Y")
+    date = datetime.datetime.now()
     init_followUserUser(app.config['dsn'], session['username'], username, date)
 
     return redirect(url_for('timeline'))
