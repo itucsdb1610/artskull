@@ -33,7 +33,7 @@ def init_usertable(getconf, user):
                         USERNAME, SALT, HASH, EMAIL, NAME, SURNAME, PROFPIC)
                         VALUES (%s, %s, %s, %s, %s, %s, %s
                     )"""
-        cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname, user.profpic))
+        cursor.execute(query, (user.username, user.salt, user.hash, user.email, user.name, user.surname, user.profpic,))
         connection.commit()
         cursor.close()
 
@@ -54,7 +54,7 @@ def getuser_usertable(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """SELECT NAME, SURNAME, EMAIL FROM USERS WHERE USERNAME = %s"""
+        query = """SELECT NAME, SURNAME, EMAIL, PROFPIC FROM USERS WHERE USERNAME = %s"""
         cursor.execute(query, (username,))
         getuser = cursor.fetchone()
 
@@ -139,10 +139,11 @@ def edituserwpass_usertable(getconf, user):
                     SURNAME = %s,
                     EMAIL = %s,
                     SALT = %s,
-                    HASH = %s
+                    HASH = %s,
+                    PROFPIC = %s
                     WHERE USERNAME = %s"""
 
-        cursor.execute(query, (user.name, user.surname, user.email, user.salt, user.hash, user.username,))
+        cursor.execute(query, (user.name, user.surname, user.email, user.salt, user.hash, user.profpic, user.username,))
         connection.commit()
         cursor.close()
 
@@ -153,10 +154,11 @@ def edituserwopass_usertable(getconf, user):
         query = """UPDATE USERS SET 
                     NAME = %s,
                     SURNAME = %s,
-                    EMAIL = %s
+                    EMAIL = %s,
+                    PROFPIC = %s
                     WHERE USERNAME = %s"""
 
-        cursor.execute(query, (user.name, user.surname, user.email, user.username,))
+        cursor.execute(query, (user.name, user.surname, user.email, user.profpic, user.username,))
         connection.commit()
         cursor.close()
 
