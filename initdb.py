@@ -3,13 +3,6 @@ import hashlib
 
 
 # Start for Muhammed Kadir YÜCEL
-def drop_usertable(getconf):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-        query = """DROP TABLE IF EXISTS USERS"""
-        cursor.execute(query)
-        connection.commit()
-        cursor.close()
 
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
