@@ -866,20 +866,20 @@ def getAction(getconf,username):
         cursor.close()
         return action
         
-def edit_Action(getconf,comment,username):
+def edit_Action(getconf,comment,actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """UPDATE ACTIONS SET ACTIONCOMMENT = %s WHERE USERNAME = %s"""
-        cursor.execute(query, (comment,username,))
+        query = """UPDATE ACTIONS SET ACTIONCOMMENT = %s WHERE ACTIONID = %s"""
+        cursor.execute(query, (comment,actionid,))
         connection.commit()
         cursor.close()
 
-def deleteActionFromTable(getconf,username):
+def deleteActionFromTable(getconf,actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = """Delete From ACTIONS
-                WHERE USERNAME = %s"""
-        cursor.execute(query,(username,))
+                WHERE ACTIONID = %s"""
+        cursor.execute(query,(actionid,))
         connection.commit()
         cursor.close()
 
