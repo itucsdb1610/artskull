@@ -162,6 +162,170 @@ def edituserwopass_usertable(getconf, user):
         connection.commit()
         cursor.close()
 
+def init_followUserUser(getconf, getfollower, getfollowed, getdate):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """INSERT INTO USERFOLLOW
+                    (
+                        FOLLOWER, FOLLOWED, FOLLOWDATE)
+                        VALUES(%s,%s,%s
+                    )"""
+        cursor.execute(query, (getfollower, getfollowed, getdate,))
+        connection.commit()
+        cursor.close()
+
+def unfollow_followUserUser(getconf, getfollower, getfollowed):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """DELETE FROM USERFOLLOW WHERE (
+                    FOLLOWER = %s AND
+                    FOLLOWED = %s
+                    )
+                    """
+        cursor.execute(query, (getfollower, getfollowed,))
+        connection.commit()
+        cursor.close()
+
+def get_allfollowing(getconf, getfollower):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT NAME, SURNAME, EMAIL, USERNAME, PROFPIC, FOLLOWDATE FROM USERS, USERFOLLOW WHERE
+                    ((USERS.USERNAME = USERFOLLOW.FOLLOWED) AND (USERFOLLOW.FOLLOWER = %s))"""
+        cursor.execute(query, (getfollower,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
+def get_allfollower(getconf, getfollowed):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT NAME, SURNAME, EMAIL, USERNAME, PROFPIC, FOLLOWDATE FROM USERS, USERFOLLOW WHERE
+                    ((USERS.USERNAME = USERFOLLOW.FOLLOWER) AND (USERFOLLOW.FOLLOWED = %s))"""
+        cursor.execute(query, (getfollowed,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
+def get_followed_counts(getconf, getfollowed):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT COUNT(FOLLOWER) FROM USERFOLLOW WHERE FOLLOWED = %s"""
+        cursor.execute(query, (getfollowed,))
+        returnnumber = cursor.fetchone()[0]
+
+        connection.commit()
+        cursor.close()
+
+        return returnnumber
+
+def get_following_counts(getconf, getfollower):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT COUNT(FOLLOWED) FROM USERFOLLOW WHERE FOLLOWER = %s"""
+        cursor.execute(query, (getfollower,))
+        returnnumber = cursor.fetchone()[0]
+
+        connection.commit()
+        cursor.close()
+
+        return returnnumber
+
+def is_following(getconf, getfollower, getfollowed):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS USERFOLLOW
+                    (
+                        FOLLOWER TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWED TEXT NOT NULL REFERENCES USERS(USERNAME),
+                        FOLLOWDATE DATE NOT NULL,
+                        PRIMARY KEY(FOLLOWER, FOLLOWED)
+                    )"""
+        
+        cursor.execute(query)
+
+        query = """SELECT COUNT(*) FROM USERFOLLOW WHERE ((FOLLOWER = %s) AND (FOLLOWED =%s))"""
+        cursor.execute(query, (getfollower, getfollowed,))
+        returnnumber = cursor.fetchone()[0]
+
+        if returnnumber == 0:
+            return False
+        else:
+            return True
+
+
 def init_genreTable(getconf, getusername, getgenre, getorder):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
