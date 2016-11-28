@@ -7,7 +7,21 @@ import hashlib
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS ACTIONS
+				(
+					ACTIONID SERIAL NOT NULL,
+					USERNAME TEXT NOT NULL,
+					CONTENTID INTEGER NOT NULL,
+					ACTIONTYPE TEXT,
+                    ACTIONCOMMENT TEXT,
+                    DATE TIMESTAMP NOT NULL,
+                    PRIMARY KEY (ACTIONID)
+				)"""				
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
         query = """CREATE TABLE IF NOT EXISTS USERS
                     (
                         USERNAME TEXT UNIQUE NOT NULL,
@@ -415,6 +429,20 @@ def delete_genreTable(getconf, username, genre):
 # Start for Murat Özkök
 def init_commentTable(getconf):
 	with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS ACTIONS
+				(
+					ACTIONID SERIAL NOT NULL,
+					USERNAME TEXT NOT NULL,
+					CONTENTID INTEGER NOT NULL,
+					ACTIONTYPE TEXT,
+                    ACTIONCOMMENT TEXT,
+                    DATE TIMESTAMP NOT NULL,
+                    PRIMARY KEY (ACTIONID)
+				)"""				
+        cursor.execute(query)
+        connection.commit()
+		
 		cursor = connection.cursor()
 		query = """CREATE TABLE IF NOT EXISTS COMMENTS
 				(
