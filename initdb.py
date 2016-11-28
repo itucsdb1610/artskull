@@ -428,14 +428,14 @@ def delete_genreTable(getconf, username, genre):
 
 # Start for Murat Özkök
 def init_commentTable(getconf):
-	with dbapi2.connect(getconf) as connection:
+    with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
-					ACTIONID SERIAL NOT NULL,
-					USERNAME TEXT NOT NULL,
-					CONTENTID INTEGER NOT NULL,
-					ACTIONTYPE TEXT,
+                    ACTIONID SERIAL NOT NULL,
+                    USERNAME TEXT NOT NULL,
+                    CONTENTID INTEGER NOT NULL REFERENCES CONTENT (id) ON DELETE CASCADE,
+                    ACTIONTYPE TEXT,
                     ACTIONCOMMENT TEXT,
                     DATE TIMESTAMP NOT NULL,
                     PRIMARY KEY (ACTIONID)
@@ -443,19 +443,19 @@ def init_commentTable(getconf):
         cursor.execute(query)
         connection.commit()
 		
-		cursor = connection.cursor()
-		query = """CREATE TABLE IF NOT EXISTS COMMENTS
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS COMMENTS
 				(
 					COMMENTID SERIAL NOT NULL,
 					COMMENT TEXT NOT NULL,
-					ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid),
-					USERNAME TEXT NOT NULL REFERENCES USERS (username),
+					ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid) ON DELETE CASCADE,
+					USERNAME TEXT NOT NULL REFERENCES USERS (username) ON DELETE CASCADE,
 					PRIMARY KEY (commentid)
 				)"""				
-		cursor.execute(query)
+        cursor.execute(query)
 		
-		connection.commit()
-		cursor.close()
+        connection.commit()
+        cursor.close()
 def insert_commenttable(getconf,comment):
 	with dbapi2.connect(getconf) as connection:
 		cursor = connection.cursor()	
@@ -475,8 +475,8 @@ def getall_commenttable(getconf):
                 (
                     COMMENTID SERIAL NOT NULL,
                     COMMENT TEXT NOT NULL,
-                    ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid),
-                    USERNAME TEXT NOT NULL REFERENCES USERS (username),
+                    ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid) ON DELETE CASCADE,
+                    USERNAME TEXT NOT NULL REFERENCES USERS (username) ON DELETE CASCADE,
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
