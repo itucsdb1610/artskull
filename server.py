@@ -270,8 +270,7 @@ def follow(username):
     if session['username'] == username:
         return redirect(url_for('timeline'))
 
-    now = datetime.datetime.now()
-    date = now.day + "/" + now.month + "/" + now.year +"/"
+    date = time.strftime("%d/%m/%Y")
     init_followUserUser(app.config['dsn'], session['username'], username, date)
 
     return redirect(url_for('timeline'))
