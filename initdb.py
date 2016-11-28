@@ -772,8 +772,13 @@ def getAllActions(getconf):
 def getAction(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE USERNAME = %s"
-        cursor.execute(query, (username,))
+        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS 
+                    WHERE USERNAME = %s 
+                    OR USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
+                                            WHERE FOLLOWER = %s)
+                    ORDER BY 5 DESC"""
+        username2 = username
+        cursor.execute(query, (username,username2))
         action = cursor.fetchall()
         connection.commit()
         cursor.close()
@@ -799,7 +804,7 @@ def deleteActionFromTable(getconf,username):
 def getcontent_action(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE CONTENTID = %s"
+        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE CONTENTID = %s ORDER BY 5 DESC"
         cursor.execute(query, (contentid,))
         action = cursor.fetchall()
         connection.commit()
