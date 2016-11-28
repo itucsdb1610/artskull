@@ -391,7 +391,7 @@ def init_commentTable(getconf):
 				(
 					COMMENTID SERIAL NOT NULL,
 					COMMENT TEXT NOT NULL,
-					CONTENTID INT NOT NULL REFERENCES CONTENT (id),
+					ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid),
 					USERNAME TEXT NOT NULL REFERENCES USERS (username),
 					PRIMARY KEY (commentid)
 				)"""				
@@ -404,10 +404,10 @@ def insert_commenttable(getconf,comment):
 		cursor = connection.cursor()	
 		query="""INSERT INTO COMMENTS
 					(
-						COMMENT, CONTENTID, USERNAME)
+						COMMENT, ACTIONID, USERNAME)
 						VALUES(%s, %s, %s
 						)"""
-		cursor.execute(query, (comment.comm, comment.contentid, comment.username) )
+		cursor.execute(query, (comment.comm, comment.actionid, comment.username) )
 		connection.commit()
 		cursor.close()
 		
@@ -418,12 +418,12 @@ def getall_commenttable(getconf):
                 (
                     COMMENTID SERIAL NOT NULL,
                     COMMENT TEXT NOT NULL,
-                    CONTENTID INT NOT NULL REFERENCES CONTENT (id),
+                    ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid),
                     USERNAME TEXT NOT NULL REFERENCES USERS (username),
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
-        query = """SELECT COMMENTID, USERNAME, COMMENT, CONTENTID FROM COMMENTS """
+        query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID FROM COMMENTS """
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -437,17 +437,17 @@ def edit_comment(getconf, commentid, comment):
         query = """UPDATE COMMENTS SET
                         USERNAME=%s,
 						COMMENT=%s,
-						CONTENTID=%s
+						ACTIONID=%s
                         WHERE COMMENTID = %s"""
 
-        cursor.execute(query, (comment.username,comment.comm,comment.contentid,commentid))
+        cursor.execute(query, (comment.username,comment.comm,comment.actionid,commentid))
         connection.commit()
         cursor.close()
 def getcomment(getconf,commentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 		
-        query = """SELECT COMMENTID, USERNAME, COMMENT, CONTENTID FROM COMMENTS WHERE COMMENTID = %s"""
+        query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID FROM COMMENTS WHERE COMMENTID = %s"""
         cursor.execute(query, (commentid,))
         outcomment = cursor.fetchone()
 
