@@ -21,7 +21,7 @@
 
 		<div class="form-group">
 				<a href="{{ url_for('clearActionTable') }}" class="btn btn-danger" type="button">Drop ACTIONS table</a>
-				<button class="btn btn-primary" type="submit">Share!</button>
+				<button class="btn btn-primary" type="submit" name="submit" value="share">Share!</button>
 		</div>
 	</form>
 	<hr>
@@ -57,7 +57,7 @@
 				<div class="form-group">
   					<label for="comment">Join Discussion:</label>
  					 <textarea class="form-control" rows="5" id="comment" placeholder="Your comment"></textarea>
-					 <button class="col-sm-offset-11 btn btn-success top-buffer" type="comment">Send</button>
+					 <button class="col-sm-offset-11 btn btn-success top-buffer" type="submit" value="send" name="submit">Send</button>
 				</div>					
 			</li>
 			{% endfor %}
