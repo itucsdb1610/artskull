@@ -28,7 +28,7 @@
                     <!-- menu items will change, these are for test purposes -->
                      {% if 'username' in session %}
                         <li><a href="{{ url_for('timeline') }}">Home</a></li>
-                        <li><a href="{{ url_for('profile') }}">{{ session['username'] }}</a></li>
+                        <li><a href="{{ url_for('profile', username=session['username']) }}">{{ session['username'] }}</a></li>
                         <li><a href="{{ url_for('content') }}">Content</a></li>
                         <li><a href="{{ url_for('admin') }}">Admin Panel</a></li>
                         <li><a href="{{ url_for('user_logout') }}">Log Out</a></li>
