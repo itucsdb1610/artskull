@@ -479,7 +479,7 @@ def getall_actortable(getconf):
         return alldata
 
 def init_casting(getconf, actorid, contentid, ord):
-with dbapi2.connect(getconf) as connection:
+     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         
         query = """CREATE TABLE IF NOT EXISTS CASTING
