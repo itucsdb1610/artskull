@@ -30,7 +30,9 @@
     <ul>
         {% for genre in genres %}
             <li>
-                {{ genre[0] }} - {{ genre[1] }} <a href="{{ url_for('genre_delete', username=username, genre= genre[0]) }}" class="btn btn-default" type="button">Delete</a>
+                {{ genre[0] }} - {{ genre[1] }} 
+                <span text-align="right"><a href="{{ url_for('genre_edit', username=username, genre=genre[0])}}" class="btn btn-default" type="button">Edit</a>
+                <a href="{{ url_for('genre_delete', username=username, genre= genre[0]) }}" class="btn btn-danger" type="button">Delete</a></span>
             </li>
             <hr class="featurette-divider" />
         {% endfor %}
