@@ -13,7 +13,7 @@
         {% for user in users %}
             <li class="media">
                 <div class="media-left">
-                    <img class="media-object" width="200" src="{{ url_for('static', filename='profpics/{{ user[4] }}') }}">
+                    <img class="media-object" width="200" src="{{user[4]}}">
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">{{ user[0] }}  {{ user[1] }}</h4>
