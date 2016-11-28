@@ -3,6 +3,7 @@ import os
 import json
 import re
 import psycopg2 as dbapi2
+import datetime
 from initdb import *
 from user import User
 from comment import Comment
@@ -201,7 +202,7 @@ def timeline():
         contentid = 1
         actiontype = "comment"
         actioncomment = request.form['inputCommentary']
-        date = "someDate"
+        date = datetime.datetime.now()
         action = Action(username,contentid,actiontype,actioncomment,date)
         cmm = Comment(actioncomment,contentid, username)
         insert_actionTable(app.config['dsn'], action)

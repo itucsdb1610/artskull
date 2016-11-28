@@ -565,7 +565,7 @@ def init_actionTable(getconf):
 					CONTENTID INTEGER NOT NULL,
 					ACTIONTYPE TEXT,
                     ACTIONCOMMENT TEXT,
-                    DATE TEXT NOT NULL,
+                    DATE TIMESTAMP NOT NULL,
                     PRIMARY KEY (ACTIONID)
 				)"""				
         cursor.execute(query)
