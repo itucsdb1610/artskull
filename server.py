@@ -326,12 +326,15 @@ def admin():
         init_contenttable(app.config['dsn'], content)
         return redirect(url_for('admin'))
 
-@app.route('/search')
+@app.route('/search', methods=['GET','POST'])
 def search():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    return render_template('searchresult.html')
+    keyword = request.form['searchbox']
+
+    searchAllUsers = search_user_table(app.config['dsn'], keyword)
+    return render_template('searchresult.html', results=searchAllUsers, keyword=keyword)
 
 @app.route('/actor', methods=['GET', 'POST'])
 def actor():
