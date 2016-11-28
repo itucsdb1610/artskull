@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Follow List{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+      <h1>Follow List for {{ username }}</h1>
+    </div>
+
+    <ul class="media-list">
+        {% for user in follow %}
+        <a href="{{url_for('profile', username = user[3])}}"
+            <li class="media">
+                <div class="media-left">
+                    <img class="media-object" width="200" src="{{user[4]}}">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ user[0] }}  {{ user[1] }}</h4>
+                    <p>{{ user[2] }}</p>
+                    <p>{{ user[3] }}</p>
+                    <p>{{ user[5] }}</p>
+                    <br/>
+                </div>
+                <div class="media-right">
+                    <!--Remove from following  -->
+                </div>
+            </li>
+        </a>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+
+</div>
+
+{% endblock %}
