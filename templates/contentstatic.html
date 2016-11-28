@@ -29,6 +29,8 @@
                             <li role="presentation" class="active"><a href="#duration">Duration</a></li>
                             <li role="presentation"><a href="#date">Opening Date</a></li>
                             <li role="presentation"><a href="#genre">Genre</a></li>
+                            <li role="presentation"><a href="#addcomment">Add Review</a></li>
+                            <li role="presentation"><a href="#listcomment">List Reviews</a></li>
                         </ul>
                     </div>
                     <div class="right col-lg-9">
@@ -58,6 +60,32 @@
                             <div class="panel-body">
                                 <p>{{content[5]}}</p>
                             </div>
+                        </div>
+                        <div class="panel panel-default" id="addcomment">
+                            <div class="panel-heading">
+                                <h3>Add Review</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" action="{{ url_for('contentstatic', contentid = contentid) }}" id="commentform" class="form-horizontal" method="post">
+                                <div class="form-group">
+			                        <label class="control-label" for="inputEmail">  Your Username?</label>
+			                        <input class="form-control top-buffer" id="inputUsername" name="inputUsername" required="" type="text" placeholder="Username">
+		                        </div>
+		                        <hr>
+		                        <div class="form-group">
+				                    <label class="control-label" for="inputEmail">  What is your commentaries about play</label>
+				                    <input class="form-control top-buffer" id="inputCommentary" name="inputCommentary" required="" type="text" placeholder="Your comment is...">
+		                        </div>
+                                <div class="form-group">
+				                    <input type="submit" name = "submit" value = "Share" class="btn btn-default">
+		                        </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default" id="listcomment">
+                            <div class="panel-heading">
+                                <h3>Reviews</h3>
+                            </div>
+                            
                         </div>
                     </div>
                         

@@ -267,7 +267,18 @@ def contentstatic(contentid):
 
     if request.method == 'GET':
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
-        return render_template('contentstatic.html',content = getcontent)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid)
+
+    elif request.method == 'POST':
+        if request.form['submit'] == 'Share':
+            username = request.form['inputUsername']
+            actiontype = "comment"
+            actioncomment = request.form['inputCommentary']
+            date = datetime.datetime.now()
+            action = Action(username,contentid,actiontype,actioncomment,date)
+            cmm = Comment(actioncomment,contentid, username)
+            insert_actionTable(app.config['dsn'], action)
+            return redirect(url_for('contentstatic',contentid=contentid))
     else:
         return render_template('content.html')
 
