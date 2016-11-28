@@ -407,7 +407,7 @@ def insert_commenttable(getconf,comment):
 						COMMENT, ACTIONID, USERNAME)
 						VALUES(%s, %s, %s
 						)"""
-		cursor.execute(query, (comment.comm, comment.actionid, comment.username) )
+		cursor.execute(query, (comment.comm, comment.actionid, comment.username,) )
 		connection.commit()
 		cursor.close()
 		
