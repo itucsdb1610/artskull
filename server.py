@@ -333,7 +333,8 @@ def contentstatic(contentid):
         getcontentAction = getcontent_action(app.config['dsn'], contentid) 
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
         getcast = searchcast(app.config['dsn'],contentid)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast)
+        onstages = findstages(app.config['dsn'], contentid)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
@@ -388,6 +389,84 @@ def content_edit(contentid):
         edit_content(app.config['dsn'], contentid,content)
 
         return redirect(url_for('contents_list'))
+
+@app.route('/stage/<stageid>', methods=['GET', 'POST'])
+def stage(stageid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        getstage = getstage_stagetable(app.config['dsn'], stageid)
+        return render_template('stage.html',stage = getstage)
+
+@app.route('/stages_list')
+def stages_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    allstages = getall_stagestable(app.config['dsn'])
+    return render_template('stageslist.html', stages = allstages)
+
+@app.route('/stagedelete/<stageid>', methods=['GET', 'POST'])
+def stage_delete(stageid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'POST':
+        deletefrom_stagetable(app.config['dsn'], stageid)
+        return redirect(url_for('stages_list'))
+    else:
+        return render_template('confirmstagedelete.html', stageid=stageid)
+
+@app.route('/stageedit/<stageid>', methods=['GET', 'POST'])
+def stage_edit(stageid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        getstage = getstage_stagetable(app.config['dsn'], stageid)
+        return render_template('stageedit.html', stage=getstage, stageid=stageid)
+    else:
+        name = request.form['inputName']
+        location = request.form['inputLocation']
+        capacity = request.form['inputCapacity']
+        stagepic = request.form['inputStagepic']
+        stage = Stage(name,location,capacity,stagepic)
+        edit_stage(app.config['dsn'], stageid,stage)
+
+        return redirect(url_for('stages_list'))
+
+@app.route('/stage_add',methods=['GET', 'POST'])
+def stage_add():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method=='GET':
+        return render_template('stageadmin.html')
+    else:
+        name = request.form['inputName']
+        location = request.form['inputLocation']
+        capacity = request.form['inputCapacity']
+        stagepic = request.form['inputStagepic']
+        stage = Stage(name,location,capacity,stagepic)
+        init_stagetable(app.config['dsn'], stage)
+        return redirect(url_for('stage_add'))
+
+@app.route('/play_add',methods=['GET', 'POST'])
+def play_add():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method=='GET':
+        allstages = getall_stagestable(app.config['dsn'])
+        allcontents = getall_contenttable(app.config['dsn'])
+        return render_template('playadmin.html',stages=allstages,contents=allcontents)
+    else:
+        stageid = request.form['inputName']
+        contentid = request.form['inputTitle']
+        date = request.form['inputDate']
+        init_playtable(app.config['dsn'], stageid,contentid,date)
+        return redirect(url_for('stage_add'))
 
 @app.route('/admin',methods=['GET', 'POST'])
 def admin():
