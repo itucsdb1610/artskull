@@ -8,6 +8,7 @@ from initdb import *
 from user import User
 from comment import Comment
 from content import Content
+from stage import Stage
 from action import Action
 from actor import Actor
 import time
