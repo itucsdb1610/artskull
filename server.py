@@ -220,6 +220,7 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+	init_furkanstables(app.config['dsn'])
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
         getallcontent = getActionContent(app.config['dsn'])
