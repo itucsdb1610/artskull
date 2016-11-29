@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Stage Edit{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Play</h1>
+    </div>
+
+
+    <form role="form" action="{{url_for('play_edit', stageid=stageid, contentid=contentid)}}" id="playeditform" class="form-horizontal" method="post">
+        <div class="form-group">
+						<label for="inputName">Stage Name:</label><br/>
+						<select name="inputName" id="inputName">
+							{% for stage in stages %}
+  							<option value="{{stage[0]}}">{{stage[1]}}</option>
+  							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputTitle">Title:</label><br/>
+						<select name="inputTitle" id="inputTitle">
+							{% for content in contents %}
+  							<option value="{{content[0]}}">{{content[1]}}</option>
+  							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Date:</label><br/>
+						<input type="date" class="form-control" name="inputDate" id="inputDate">
+					</div>
+
+
+				<br/><button type="submit" class="btn btn-default">Add Play</button>
+				</form>
+
+
+</div>
+
+{% endblock %}
