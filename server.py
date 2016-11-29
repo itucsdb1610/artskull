@@ -531,6 +531,7 @@ def actor():
 def actor_list():
     if 'username' not in session:
         return redirect(url_for('user_login'))
+    init_actortablenoadd(app.config['dsn'])
     alldata = getall_actortable(app.config['dsn'])
     return render_template('actorlist.html', actors = alldata)
 

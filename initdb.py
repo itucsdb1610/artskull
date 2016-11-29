@@ -770,6 +770,21 @@ def init_followerstable(getconf, id1, id2):
         connection.commit()
         cursor.close()
 
+def init_actortablenoadd(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS Actors
+                    (
+                        ActorID SERIAL NOT NULL,
+                        NAME TEXT NOT NULL,
+                        SURNAME TEXT NOT NULL,
+                        BIRTHDAY TEXT NOT NULL,
+                        PRIMARY KEY (ActorID)
+                    )"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
 
 def init_actortable(getconf, name, surname, birthday):
     with dbapi2.connect(getconf) as connection:
