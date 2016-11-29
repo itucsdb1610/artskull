@@ -766,7 +766,7 @@ def init_followerstable(getconf, id1, id2):
                         following_ID, follower_ID)
                         VALUES (%d, %d
                     )"""
-        cursor.execute(query, (id1, id2))
+        cursor.execute(query, (id1, id2,))
         connection.commit()
         cursor.close()
 
@@ -790,7 +790,7 @@ def init_actortable(getconf, name, surname, birthday):
                         NAME, SURNAME, BIRTHDAY)
                         VALUES (%s, %s, %s
                     )"""
-        cursor.execute(query, (name, surname, birthday))
+        cursor.execute(query, (name, surname, birthday,))
         connection.commit()
         cursor.close()
 
@@ -801,7 +801,7 @@ def deleteactor(getconf, deleteID):
 
         query = """DELETE FROM Actors
         WHERE ActorID = %s"""
-        cursor.execute(query, (deleteID))
+        cursor.execute(query, (deleteID,))
         connection.commit()
         cursor.close()
 
@@ -815,7 +815,7 @@ def editactor(getconf, ID, actortoedit):
                         SURNAME = %s,
                         BIRTHDAY = %s
                         WHERE ActorID = %s"""
-        cursor.execute(query, (actortoedit.name, actortoedit.surname, actortoedit.birthday, ID))
+        cursor.execute(query, (actortoedit.name, actortoedit.surname, actortoedit.birthday, ID,))
         connection.commit()
         cursor.close()
 
@@ -826,7 +826,7 @@ def searchactor(getconf, actortosearch):
 
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
                     WHERE NAME = %s OR SURNAME = %s"""
-        cursor.execute(query, (actortosearch, actortosearch))
+        cursor.execute(query, (actortosearch, actortosearch,))
         searchdata = cursor.fetchall()
         connection.commit()
         cursor.close()
@@ -839,7 +839,7 @@ def searchactor_byid(getconf, actorid):
         cursor = connection.cursor()
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
                     WHERE ActorID = %s"""
-        cursor.execute(query, (actorid))
+        cursor.execute(query, (actorid,))
         searchdata = cursor.fetchone()
         connection.commit()
         cursor.close()
@@ -866,8 +866,8 @@ def init_casting(getconf):
 
         query = """CREATE TABLE IF NOT EXISTS CASTING
                     (
-                        ActorID INTEGER NOT NULL REFERENCES Actors(ActorID),
-                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID),
+                        ActorID INTEGER NOT NULL REFERENCES Actors(ActorID) ON DELETE CASCADE,
+                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID) ON DELETE CASCADE,
                         ORD INTEGER NOT NULL,
                         PRIMARY KEY(ActorID, ContentID)
                     )"""
@@ -886,7 +886,7 @@ def insert_casting(getconf, actorid, contentid, ord):
                                 ActorID, ContentID, ORD)
                                 VALUES (%s, %s, %s
                             )"""
-        cursor.execute(query, (actorid, contentid, ord))
+        cursor.execute(query, (actorid, contentid, ord,))
         connection.commit()
         cursor.close()
 
@@ -897,7 +897,7 @@ def deletecast(getconf, deleteIDa, deleteIDc):
 
         query = """DELETE FROM CASTING
         WHERE ActorID = %s AND ContentID = %s"""
-        cursor.execute(query, (deleteIDa, deleteIDc))
+        cursor.execute(query, (deleteIDa, deleteIDc,))
         connection.commit()
         cursor.close()
 
@@ -909,7 +909,7 @@ def editcast(getconf, actorid, contentid, ord):
         query = """UPDATE CASTING SET
                         ORD = %s
                         WHERE ActorID = %s AND ContentID = %s"""
-        cursor.execute(query, (ord, actorid, contentid))
+        cursor.execute(query, (ord, actorid, contentid,))
         connection.commit()
         cursor.close()
 
@@ -921,7 +921,7 @@ def searchcast(getconf, casttosearch):
         query = """SELECT NAME, SURNAME, BIRTHDAY, Actors.ActorID, ORD FROM Actors, CASTING
                     WHERE (ContentID = %s AND Actors.ActorID = CASTING.ActorID)
                     ORDER BY ORD ASC"""
-        cursor.execute(query, (casttosearch))
+        cursor.execute(query, (casttosearch,))
         searchdata = cursor.fetchall()
         connection.commit()
         cursor.close()
