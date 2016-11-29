@@ -201,6 +201,16 @@ def dropcomments():
 
     drop_commenttable(app.config['dsn'])
     return redirect(url_for('comments_list'))	
+    
+@app.route('/deletecommentsofaction/<actionid>', methods=['GET','POST'])
+def deleteCommentsOfAction(actionid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if request.method == 'POST':
+        delete_comments_from_action(app.config['dsn'], actionid)
+        return redirect(url_for('timeline'))
+    else:
+        return render_template('confirmdeleteactioncomments.html', actionid=actionid)    
 
 @app.route('/timeline',methods=['GET', 'POST'])
 def timeline():

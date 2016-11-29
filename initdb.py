@@ -525,6 +525,13 @@ def drop_commenttable(getconf):
         cursor.execute(query)
         connection.commit()
         cursor.close()
+def delete_comments_from_action(getconf,actionid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """DELETE FROM COMMENTS WHERE ACTIONID = %s"""
+        cursor.execute(query, (actionid,))
+        connection.commit()
+        cursor.close()  
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
