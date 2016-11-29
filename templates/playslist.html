@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Stages List{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Plays List</h1>
+        <p>Admin can edit/delete plays from given list. Also each play will be able to edit their own info.</p>
+        <a href="/play_add" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Stage</a>
+    </div>
+
+    <ul class="media-list">
+        {% for play in plays %}
+            <li class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">{{ play[3] }}</h4>
+                    <p>{{ play[4] }}</p>
+                    <p>{{ play[2] }}</p>
+                    <br/>
+                    <a href="{{ url_for('play_edit', stageid = play[0], contentid= play[1]) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a href="{{ url_for('play_delete', stageid = play[0], contentid= play[1]) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                </div>
+            </li>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
