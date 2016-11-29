@@ -7,27 +7,31 @@
 <h1> Welcome to Admin Panel, 'Firstname' 'Lastname'</h1>
     <hr/>
 			<div class="left col-sm-9">
-			<h3>Add Stage</h3>
-				<form id="addstage" action="{{ url_for('stage_add') }}" method="post">
+			<h3>Add Play</h3>
+				<form id="addplay" action="{{ url_for('play_add') }}" method="post">
 					<div class="form-group">
 						<label for="inputName">Stage Name:</label><br/>
-						<input type="text" class="form-control" name="inputName" id="inputName">
+						<select name="inputName" id="inputName">
+							{% for stage in stages %}
+  							<option value="{{stage[0]}}">{{stage[1]}}</option>
+  							{% endfor %}
+						</select>
 					</div>
 					<div class="form-group">
-						<label for="inputLocation">Location:</label><br/>
-						<input type="text" class="form-control" name="inputLocation" id="inputLocation">
+						<label for="inputTitle">Title:</label><br/>
+						<select name="inputTitle" id="inputTitle">
+							{% for content in contents %}
+  							<option value="{{content[0]}}">{{content[1]}}</option>
+  							{% endfor %}
+						</select>
 					</div>
 					<div class="form-group">
-						<label for="inputCapacity">Capacity:</label><br/>
-						<input type="text" class="form-control" name="inputCapacity" id="inputCapacity">
-					</div>
-					<div class="form-group">
-						<label for="inputStagepic">Stage Picture:</label><br/>
-						<input type="text" class="form-control" name="inputStagepic" id="inputStagepic">
+						<label for="inputDate">Date:</label><br/>
+						<input type="date" class="form-control" name="inputDate" id="inputDate">
 					</div>
 
 
-				<br/><button type="submit" class="btn btn-default">Add Stage</button>
+				<br/><button type="submit" class="btn btn-default">Add Play</button>
 				</form>
 			</div>
 			<div class="right col-sm-3">
