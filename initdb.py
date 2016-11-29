@@ -702,7 +702,7 @@ def edit_stage(getconf, stagetid, stage):
                             LOCATION = %s,
                             CAPACITY = %s,
                             STAGEPIC = %s,
-                            WHERE CONTENTID = %s"""
+                            WHERE STAGEID = %s"""
 
         cursor.execute(query, (
             stage.name, stage.location, stage.capacity, stage.stagepic,
@@ -730,6 +730,56 @@ def init_playtable(getconf, stageid,contentid,date):
                          )"""
         cursor.execute(query, (
             stageid, contentid, date))
+        connection.commit()
+        cursor.close()
+
+def getall_playstable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT PLAY.STAGEID,PLAY.CONTENTID,PLAY.DATE,STAGE.NAME,CONTENT.TITLE FROM PLAY,CONTENT,STAGE WHERE (PLAY.CONTENTID=CONTENT.ID) AND (STAGE.STAGEID=PLAY.STAGEID);"""
+        cursor.execute(query)
+        allplays = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return allplays
+
+def deletefrom_playtable(getconf, stageid,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM PLAY WHERE (STAGEID = %s) AND (CONTENTID = %s)"""
+        cursor.execute(query, (stageid,contentid,))
+        connection.commit()
+        cursor.close()
+
+def getplay_playtable(getconf, stageid,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT STAGEID,CONTENTID,DATE FROM PLAY WHERE (STAGEID = %s) AND (CONTENTID= %s) """
+        cursor.execute(query, (stageid,contentid,))
+        getplay = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getplay
+
+def edit_play(getconf, stageid,contentid,play):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE PLAY SET
+                            STAGEID = %s,
+                            CONTENTID = %s,
+                            DATE = %s,
+                            WHERE (STAGEID = %s) AND (CONTENTID = %s)"""
+
+        cursor.execute(query, (
+            stageid,contentid,play,))
         connection.commit()
         cursor.close()
 
