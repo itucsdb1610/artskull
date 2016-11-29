@@ -210,9 +210,10 @@ def timeline():
     if request.method == 'GET':
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
+        getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
-        return render_template('timeline.html',actionList = getall, commentList = getallcomments)
+        return render_template('timeline.html',actionList = getall, commentList = getallcomments,contentlist = getallcontent)
     else:
         username = session['username']
         actioncomment = request.form['inputCommentary']
