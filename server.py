@@ -494,10 +494,10 @@ def play_edit(stageid,contentid):
         allcontents = getall_contenttable(app.config['dsn'])
         return render_template('playedit.html', stageid=getplay[0], contentid=getplay[1],stages=allstages,contents=allcontents)
     else:
-        stageid = request.form['inputName']
-        contentid = request.form['inputTitle']
+        stageidn = request.form['inputName']
+        contentidn = request.form['inputTitle']
         date = request.form['inputDate']
-        edit_play(app.config['dsn'], stageid,contentid,date)
+        edit_play(app.config['dsn'], stageid,contentid,stageidn,contentidn,date)
 
         return redirect(url_for('plays_list'))
 

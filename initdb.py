@@ -768,7 +768,7 @@ def getplay_playtable(getconf, stageid,contentid):
 
         return getplay
 
-def edit_play(getconf, stageid,contentid,date):
+def edit_play(getconf, stageid,contentid,stageidn,contentidn,date):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
@@ -779,7 +779,7 @@ def edit_play(getconf, stageid,contentid,date):
                             WHERE (STAGEID = %s) AND (CONTENTID = %s)"""
 
         cursor.execute(query, (
-            stageid, contentid, date, stageid, contentid,))
+            stageidn, contentidn, date, stageid, contentid,))
         connection.commit()
         cursor.close()
 
