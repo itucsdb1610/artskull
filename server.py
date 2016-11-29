@@ -177,9 +177,10 @@ def comment_edit(commentid):
         actualcomment = getcomment(app.config['dsn'], commentid)
         return render_template('commentedit.html', comment=getcomment, commentid=commentid)
     else:
-        inusername = request.form['inusername']
+        inusername = username_of_comment(app.config['dsn'], commentid)
         incomm = request.form['incomment']
-        comment = Comment(incomm,1,inusername)
+        inactionid = actionid_of_comment(app.config['dsn'], commentid)
+        comment = Comment(incomm,inactionid,inusername)
         edit_comment(app.config['dsn'], commentid, comment)
         return redirect(url_for('comments_list'))
 		
