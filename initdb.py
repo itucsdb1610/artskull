@@ -532,6 +532,26 @@ def delete_comments_from_action(getconf,actionid):
         cursor.execute(query, (actionid,))
         connection.commit()
         cursor.close()  
+def actionid_of_comment(getconf,commentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT ACTIONID FROM COMMENTS WHERE COMMENTID = %s"    
+        cursor.execute(query,(commentid,))
+        actid = cursor.fetchall()
+        connection.commit()
+        cursor.close()     
+        actid = actid[0]
+        return actid   
+def username_of_comment(getconf,commentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT USERNAME FROM COMMENTS WHERE COMMENTID = %s"    
+        cursor.execute(query,(commentid,))
+        username = cursor.fetchall()
+        connection.commit()
+        cursor.close()   
+        username = username[0]
+        return username   
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
