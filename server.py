@@ -464,6 +464,43 @@ def stage_add():
         init_stagetable(app.config['dsn'], stage)
         return redirect(url_for('stage_add'))
 
+@app.route('/plays_list')
+def plays_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    allplays = getall_playstable(app.config['dsn'])
+    return render_template('playslist.html', plays = allplays)
+
+@app.route('/playdelete/<stageid>/<contentid>', methods=['GET', 'POST'])
+def play_delete(stageid,contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'POST':
+        deletefrom_playtable(app.config['dsn'], stageid,contentid)
+        return redirect(url_for('plays_list'))
+    else:
+        return render_template('confirmplaydelete.html', stageid=stageid,contentid=contentid)
+
+@app.route('/playedit/<stageid>/<contentid>', methods=['GET', 'POST'])
+def play_edit(stageid,contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        getplay = getplay_playtable(app.config['dsn'], stageid, contentid)
+        allstages = getall_stagestable(app.config['dsn'])
+        allcontents = getall_contenttable(app.config['dsn'])
+        return render_template('playedit.html', stageid=getplay[0], contentid=getplay[1],stages=allstages,contents=allcontents)
+    else:
+        stageid = request.form['inputName']
+        contentid = request.form['inputTitle']
+        date = request.form['inputDate']
+        edit_stage(app.config['dsn'], stageid,contentid,date)
+
+        return redirect(url_for('plays_list'))
+
 @app.route('/play_add',methods=['GET', 'POST'])
 def play_add():
     if 'username' not in session:
