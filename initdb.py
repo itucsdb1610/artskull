@@ -586,10 +586,10 @@ def init_furkanstables(getconf):
         query = """CREATE TABLE IF NOT EXISTS PLAY
                              (
                                     STAGEID INTEGER REFERENCES STAGE(STAGEID)
-                                    ON DELETE RESTRICT
+                                    ON DELETE CASCADE
                                     ON UPDATE CASCADE,
                                     CONTENTID INTEGER REFERENCES CONTENT(ID)
-                                    ON DELETE RESTRICT
+                                    ON DELETE CASCADE
                                     ON UPDATE CASCADE,
                                     DATE TEXT NOT NULL,
                                      PRIMARY KEY (STAGEID,CONTENTID)
