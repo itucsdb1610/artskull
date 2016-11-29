@@ -12,9 +12,9 @@
 			{% for action in actionList %}
 			<li class="well">
 				<div class="row">				
-					<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='profpics/dummyprofile.png')}}" alt="samplepp1">
+					<img class="img-rounded col-md-2" height="100px" width="100px" src="{{action[8]}}" alt="samplepp">
 					<p class="col-md-8">
-						{{ action[0] }} : "{{ action[3] }}"
+						{{ action[6] }} {{action[7]}} : "{{ action[3] }}"
 					</p>
 					<p>
 						Date :{{ action[4] }}
