@@ -223,6 +223,8 @@ def timeline():
         init_furkanstables(app.config['dsn'])
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
+        init_casting(app.config['dsn'])
+        init_actortablenoadd(app.config['dsn'])
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
