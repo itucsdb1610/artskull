@@ -789,7 +789,7 @@ def findstages(getconf,contentid):
         query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC FROM CONTENT,PLAY,STAGE
         WHERE ((CONTENT.ID=PLAY.CONTENTID) AND (STAGE.STAGEID=PLAY.STAGEID) AND (CONTENT.ID=%s));
                          """
-        cursor.execute(query,(contentid))
+        cursor.execute(query,(contentid,))
         getstage = cursor.fetchall()
 
         connection.commit()
@@ -1004,8 +1004,8 @@ def init_actionTable(getconf):
         query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
-					USERNAME TEXT NOT NULL NULL REFERENCES USERS(ID),
-					CONTENTID INTEGER NOT NULL REFERENCES CONTENT(ID),
+					USERNAME TEXT NOT NULL NULL REFERENCES USERS(ID) ON DELETE CASCADE,
+					CONTENTID INTEGER NOT NULL REFERENCES CONTENT(ID) ON DELETE CASCADE,
 					ACTIONTYPE TEXT,
                     ACTIONCOMMENT TEXT,
                     DATE TIMESTAMP NOT NULL,
