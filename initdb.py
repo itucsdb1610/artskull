@@ -605,6 +605,120 @@ def edit_content(getconf, contentid,content):
         cursor.execute(query, (content.title,content.artist,content.duration,content.date,content.genres,content.contentpic,contentid))
         connection.commit()
         cursor.close()
+
+def init_stagetable(getconf, stage):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS STAGE
+                    (
+                        STAGEID SERIAL NOT NULL,
+                        NAME TEXT NOT NULL,
+                         LOCATION TEXT NOT NULL,
+                      CAPACITY TEXT NOT NULL,
+                        STAGEPIC TEXT NOT NULL,
+                         PRIMARY KEY (STAGEID)
+                    )"""
+        cursor.execute(query)
+
+        query = """INSERT INTO STAGE
+                   (
+                        NAME,LOCATION,CAPACITY,STAGEPIC)
+                          VALUES (%s, %s, %s, %s
+                     )"""
+        cursor.execute(query, (
+        stage.name,stage.location,stage.capacity,stage.stagepic))
+        connection.commit()
+        cursor.close()
+
+def getall_stagestable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT STAGEID,NAME,LOCATION,CAPACITY,STAGEPIC FROM STAGE"""
+        cursor.execute(query)
+        allstages = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return allstages
+
+def deletefrom_stagetable(getconf, stageid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM STAGE WHERE STAGEID = %s"""
+        cursor.execute(query, (stageid,))
+        connection.commit()
+        cursor.close()
+
+def getstage_stagetable(getconf, stageid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT STAGEID,NAME,LOCATION,CAPACITY,STAGEPIC FROM STAGE WHERE STAGEID = %s"""
+        cursor.execute(query, (stageid,))
+        getstage = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getstage
+
+def edit_stage(getconf, stagetid, stage):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE STAGE SET
+                            NAME = %s,
+                            LOCATION = %s,
+                            CAPACITY = %s,
+                            STAGEPIC = %s,
+                            WHERE CONTENTID = %s"""
+
+        cursor.execute(query, (
+            stage.name, stage.location, stage.capacity, stage.stagepic,
+        stageid))
+        connection.commit()
+        cursor.close()
+
+def init_playtable(getconf, stageid,contentid,date):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS PLAY
+                     (
+                            STAGEID INTEGER REFERENCES STAGE(STAGEID),
+                            CONTENTID INTEGER REFERENCES CONTENT(ID),
+                            DATE TEXT NOT NULL,
+                             PRIMARY KEY (STAGEID,CONTENTID)
+                      )"""
+        cursor.execute(query)
+
+        query = """INSERT INTO PLAY
+                       (
+                            STAGEID,CONTENTID,DATE)
+                              VALUES (%s, %s, %s
+                         )"""
+        cursor.execute(query, (
+            stageid, contentid, date))
+        connection.commit()
+        cursor.close()
+
+def findstages(getconf,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC FROM CONTENT,PLAY,STAGE
+        WHERE ((CONTENT.ID=PLAY.CONTENTID) AND (STAGE.STAGEID=PLAY.STAGEID) AND (CONTENT.ID=%s));
+                         """
+        cursor.execute(query,(contentid))
+        getstage = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return getstage
 # End for Furkan Özçelik
 
 # Start for Doğay Kamar
