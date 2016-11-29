@@ -1010,13 +1010,13 @@ def getAction(getconf,username):
         
         cursor.execute(query)
 
-        query = """SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID FROM ACTIONS
-                    WHERE USERNAME = %s 
-                    OR USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
-                                            WHERE FOLLOWER = %s)
+        query = """SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID, NAME, SURNAME, PROFPIC FROM ACTIONS, USERS
+                    WHERE (ACTIONS.USERNAME = %s
+                    OR ACTIONS.USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
+                                            WHERE FOLLOWER = %s)) AND ACTIONS.USERNAME = USERS.USERNAME
                     ORDER BY 5 DESC"""
         username2 = username
-        cursor.execute(query, (username,username2))
+        cursor.execute(query, (username,username2,))
         action = cursor.fetchall()
         connection.commit()
         cursor.close()
