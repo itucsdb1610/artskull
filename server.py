@@ -497,7 +497,7 @@ def play_edit(stageid,contentid):
         stageid = request.form['inputName']
         contentid = request.form['inputTitle']
         date = request.form['inputDate']
-        edit_stage(app.config['dsn'], stageid,contentid,date)
+        edit_play(app.config['dsn'], stageid,contentid,date)
 
         return redirect(url_for('plays_list'))
 
