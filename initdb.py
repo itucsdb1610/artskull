@@ -701,7 +701,7 @@ def edit_stage(getconf, stagetid, stage):
                             NAME = %s,
                             LOCATION = %s,
                             CAPACITY = %s,
-                            STAGEPIC = %s,
+                            STAGEPIC = %s
                             WHERE STAGEID = %s"""
 
         cursor.execute(query, (
@@ -768,18 +768,18 @@ def getplay_playtable(getconf, stageid,contentid):
 
         return getplay
 
-def edit_play(getconf, stageid,contentid,play):
+def edit_play(getconf, stageid,contentid,date):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
         query = """UPDATE PLAY SET
                             STAGEID = %s,
                             CONTENTID = %s,
-                            DATE = %s,
+                            DATE = %s
                             WHERE (STAGEID = %s) AND (CONTENTID = %s)"""
 
         cursor.execute(query, (
-            stageid,contentid,play,))
+            stageid, contentid, date, stageid, contentid,))
         connection.commit()
         cursor.close()
 
