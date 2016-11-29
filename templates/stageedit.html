@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Stage Edit{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Stage</h1>
+    </div>
+
+
+    <form role="form" action="{{url_for('stage_edit', stageid=stageid)}}" id="stageeditform" class="form-horizontal" method="post">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputName">Name</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputName" name="inputName" type="text" required placeholder="Name" value="{{ stage[0] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputLocation">Location</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputLocation" name="inputLocation" type="text" required placeholder="Location" value="{{ stage[1] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputCapacity">Capacity</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputCapacity" name="inputCapacity" type="text" required placeholder="Capacity" value="{{ stage[2] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="inputStagepic">Stage Picture</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="inputStagepic" name="inputStagepic" type="text" placeholder="Stagepic" value="{{ stage[3] }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button class="btn btn-success" type="submit">Save</button>
+			</div>
+		</div>
+    </form>
+
+
+</div>
+
+{% endblock %}
