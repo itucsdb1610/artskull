@@ -555,6 +555,47 @@ def username_of_comment(getconf,commentid):
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
+def init_furkanstables(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS CONTENT
+                    (
+                        ID SERIAL NOT NULL,
+                        TITLE TEXT NOT NULL,
+                        ARTIST TEXT NOT NULL,
+                        DURATION TEXT NOT NULL,
+                        DATE TEXT NOT NULL,
+                        GENRES TEXT,
+                        CONTENTPIC TEXT,
+                        PRIMARY KEY (id)
+                    )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS STAGE
+                            (
+                                STAGEID SERIAL NOT NULL,
+                                NAME TEXT NOT NULL,
+                                 LOCATION TEXT NOT NULL,
+                              CAPACITY TEXT NOT NULL,
+                                STAGEPIC TEXT NOT NULL,
+                                 PRIMARY KEY (STAGEID)
+                            )"""
+        cursor.execute(query)
+
+        query = """CREATE TABLE IF NOT EXISTS PLAY
+                             (
+                                    STAGEID INTEGER REFERENCES STAGE(STAGEID),
+                                    CONTENTID INTEGER REFERENCES CONTENT(ID),
+                                    DATE TEXT NOT NULL,
+                                     PRIMARY KEY (STAGEID,CONTENTID)
+                              )"""
+        cursor.execute(query)
+
+
+        connection.commit()
+        cursor.close()
+
 def init_contenttable(getconf, content):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
