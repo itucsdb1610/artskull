@@ -515,7 +515,7 @@ def play_add():
         contentid = request.form['inputTitle']
         date = request.form['inputDate']
         init_playtable(app.config['dsn'], stageid,contentid,date)
-        return redirect(url_for('stage_add'))
+        return redirect(url_for('play_add'))
 
 @app.route('/admin',methods=['GET', 'POST'])
 def admin():
