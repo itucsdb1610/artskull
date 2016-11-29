@@ -510,6 +510,8 @@ def search():
 
 @app.route('/actor', methods=['GET', 'POST'])
 def actor():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'GET':
         return render_template('actor.html')
     elif request.method == 'POST':
@@ -527,11 +529,15 @@ def actor():
 
 @app.route('/actorlist')
 def actor_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     alldata = getall_actortable(app.config['dsn'])
     return render_template('actorlist.html', actors = alldata)
 
 @app.route('/actordelete/<actorid>', methods=['GET', 'POST'])
 def actor_delete(actorid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'POST':
         deleteactor(app.config['dsn'], actorid)
         return redirect(url_for('actor'))
@@ -540,6 +546,8 @@ def actor_delete(actorid):
 
 @app.route('/actoredit/<actorid>', methods=['GET', 'POST'])
 def actor_edit(actorid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'GET':
         actortoedit = searchactor_byid(app.config['dsn'], actorid)
         return render_template('actoredit.html', editactor=actortoedit, actorid=actorid)
@@ -554,6 +562,8 @@ def actor_edit(actorid):
 
 @app.route('/castedit/<contentid>', methods=['GET', 'POST'])
 def cast_edit(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'GET':
         init_casting(app.config['dsn'])
         getdata = searchcast(app.config['dsn'], contentid)
@@ -567,12 +577,16 @@ def cast_edit(contentid):
 
 @app.route('/castdelete/<actorid>/<contentid>', methods=['GET', 'POST'])
 def cast_delete(actorid, contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'GET':
         deletecast(app.config['dsn'], actorid, contentid)
         return redirect(url_for('cast_edit', contentid = contentid))
 
 @app.route('/castlist/<contentid>', methods=['GET', 'POST'])
 def cast_list(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method =='GET':
         alldata = getall_actortable(app.config['dsn'])
         return render_template('castactorlist.html', actors=alldata, conid = contentid)
@@ -589,6 +603,8 @@ def cast_list(contentid):
 
 @app.route('/castactoredit/<actorid>/<contentid>', methods=['GET', 'POST'])
 def cast_actoredit(actorid, contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
     if request.method == 'GET':
         return render_template('castactoredit.html', actorid = actorid, contentid = contentid)
     elif request.method == "POST":
