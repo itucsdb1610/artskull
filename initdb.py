@@ -1075,7 +1075,7 @@ def insert_actionTable(getconf,action):
 def dropActionTable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """DROP TABLE IF EXISTS ACTIONS"""
+        query = """DROP TABLE IF EXISTS ACTIONS CASCADE"""
         cursor.execute(query)
         connection.commit()
         cursor.close()
