@@ -78,6 +78,9 @@ def user_delete(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
     if request.method == 'POST':
         deletefrom_usertable(app.config['dsn'], username)
         return redirect(url_for('users_list'))
@@ -91,6 +94,9 @@ def users_list():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_usertable(app.config['dsn'])
     return render_template('userslist.html', users = alldata)
@@ -99,6 +105,9 @@ def users_list():
 def user_edit(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         getuser = getuser_usertable(app.config['dsn'], username)
@@ -123,6 +132,9 @@ def add_genre_user(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
     if request.method == 'POST':
         genre = request.form['inputGenres']
         order = request.form['inputImportance']
@@ -138,6 +150,9 @@ def genre_delete(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
     if request.method == 'GET':
         genre = request.args.get('genre')
         delete_genreTable(app.config['dsn'], username, genre)
@@ -148,6 +163,9 @@ def genre_delete(username):
 def genre_edit(username):
     if 'username' not in session:
         return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         genre = request.args.get('genre')
@@ -276,8 +294,10 @@ def profile(username):
 
     if session['username'] == username:
         same = True
+        adminedit = True
     else:
         same = False
+        adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
 
     getUsername = session['username']
     getUser = getuser_usertable(app.config['dsn'], username)
@@ -286,7 +306,7 @@ def profile(username):
     isFollowing = is_following(app.config['dsn'],getUsername, username)
     getFollowerCounts = get_followed_counts(app.config['dsn'],username)
     
-    return render_template('profile.html', user=getUser, genres=getGenres, username=username, followingCounts=getFollowingCounts, followedCounts=getFollowerCounts, follows=isFollowing, same=same)
+    return render_template('profile.html', user=getUser, genres=getGenres, username=username, followingCounts=getFollowingCounts, followedCounts=getFollowerCounts, follows=isFollowing, same=same, adminedit=adminedit)
 
 @app.route('/follow/<username>')
 def follow(username):
@@ -525,6 +545,9 @@ def admin():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
     if request.method=='GET':
         return render_template('contentadmin.html')
     else:
@@ -537,6 +560,47 @@ def admin():
         content = Content(title,artist,duration,date,genres,contentpic)
         init_contenttable(app.config['dsn'], content)
         return redirect(url_for('admin'))
+
+@app.route('/listadmins')
+def listadmin():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
+    admins = getall_adminstable(app.config['dsn'])
+    return render_template('listadmins.html', admins=admins)
+
+@app.route('/addadmin', methods=['GET', 'POST'])
+def addadmin():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
+    if request.method == 'POST':
+        adminusername = request.form['inputUsername']
+        insert_adminstable(app.config['dsn'], adminusername, 0)
+        alldata = getall_usertable(app.config['dsn'])
+    else:
+        alldata = getall_usertable(app.config['dsn'])
+
+    return render_template('addadmin.html', admins=alldata)
+
+@app.route('/admindelete/<username>', methods=['GET'])
+def admindelete(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
+    if request.method == 'GET':
+        remove_adminstable(app.config['dsn'], username)
+        return redirect(url_for('listadmin'))
+    
 
 @app.route('/search', methods=['GET','POST'])
 def search():
