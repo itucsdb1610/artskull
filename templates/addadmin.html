@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Add Admin{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Add Admin</h1>
+        <p>Select username from list given below, to add him/her as admin</p>
+    </div>
+
+    <div class="form-group">
+        <form role="form" method="post" name="addadmin" action="{{ url_for('addadmin')}}" id="adduser">
+            <select class="form-control" name="inputUsername">
+                {% for user in admins %}
+                    <option value="{{user[2]}}">{{user[2]}}</option>
+                {% endfor %}
+            </select>
+            <!--<select class="form-control" name="inputImportance">
+                <option value="1">Omg, delete them!</option>
+                <option value="2">Meh</option>
+                <option value="3">OK</option>
+                <option value="4">I like it</option>
+                <option value="5">The best</option>
+            </select>-->
+            <button class="btn btn-success" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
