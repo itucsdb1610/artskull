@@ -79,7 +79,8 @@ def user_delete(username):
         return redirect(url_for('user_login'))
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        return redirect(url_for('timeline'))
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         deletefrom_usertable(app.config['dsn'], username)
@@ -107,7 +108,8 @@ def user_edit(username):
         return redirect(url_for('user_login'))
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        return redirect(url_for('timeline'))
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         getuser = getuser_usertable(app.config['dsn'], username)
@@ -133,7 +135,8 @@ def add_genre_user(username):
         return redirect(url_for('user_login'))
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        return redirect(url_for('timeline'))
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         genre = request.form['inputGenres']
@@ -151,7 +154,8 @@ def genre_delete(username):
         return redirect(url_for('user_login'))
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        return redirect(url_for('timeline'))
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         genre = request.args.get('genre')
@@ -165,7 +169,8 @@ def genre_edit(username):
         return redirect(url_for('user_login'))
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        return redirect(url_for('timeline'))
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         genre = request.args.get('genre')
