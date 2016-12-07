@@ -86,6 +86,21 @@ def getspecific_admistable(getconf, username):
 
         return getdata
 
+def isAdmin_userEdit(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+
+        cursor = connection.cursor()
+        print(username)
+        query = """SELECT COUNT(*) FROM ADMINS WHERE (ADMINUSERNAME = %s)"""
+        cursor.execute(query, (username,))
+        returnnumber = cursor.fetchone()[0]
+
+        if returnnumber == 0:
+            return False
+        else:
+            return True
+
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
