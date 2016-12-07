@@ -13,16 +13,16 @@
     <ul class="media-list">
         {% for result in results %}
         <a href="{{ url_for('profile', username=result[0]) }}">
-        <li class="media">
-            <div class="media-left">
-               <img width="150px" height="150px" class="media-object" src="{{result[4]}}" alt="result1">
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">{{ result[2] }} {{ result[3] }}</h4>
-                <p>{{ result [1] }}</p>
-                <p>{{ result [0] }}</p>
-            </div>
-        </li>
+            <li class="media">
+                <div class="media-left">
+                <img width="150px" height="150px" class="media-object" src="{{result[4]}}" alt="result1">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ result[2] }} {{ result[3] }}</h4>
+                    <p>{{ result [1] }}</p>
+                    <p>{{ result [0] }}</p>
+                </div>
+            </li>
         </a>
         <hr class="featurette-divider" />
         {% endfor %}
