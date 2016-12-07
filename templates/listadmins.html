@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Admins List{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Admins List</h1>
+        <a href="{{url_for('addadmin')}}" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Admin</a>
+    </div>
+
+    <ul>
+        {% for user in admins %}
+        <a href="{{url_for('profile', username=user[0])}}">
+            <li>
+                {{user[0]}}
+                <a href="{{ url_for('admindelete', username= user[0]) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </li>
+        </a>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
