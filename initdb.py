@@ -4,6 +4,88 @@ import hashlib
 
 # Start for Muhammed Kadir YÜCEL
 
+def init_adminstable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS ADMINS
+                (
+                    ADMINUSERNAME TEXT NOT NULL,
+                    ADMINORDER INTEGER NOT NULL,
+                    PRIMARY KEY(ADMINUSERNAME)
+                )"""
+            
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def insert_adminstable(getconf, username, order):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+        cursor = connection.cursor()
+        
+        query = """INSERT INTO ADMINS
+                (
+                    ADMINUSERNAME, ADMINORDER) VALUES (
+                        %s, %s
+                )"""
+        cursor.execute(query, (username, order,))
+        connection.commit()
+        cursor.close()
+
+def remove_adminstable(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+        cursor = connection.cursor()
+
+        query = """DELETE FROM ADMINS WHERE (ADMINUSERNAME = %s)"""
+        cursor.execute(query, (username,))
+        connection.commit()
+        cursor.close()
+
+def update_adminstable(getconf, username, order):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+        cursor = connection.cursor()
+
+        query = """UPDATE ADMINS SET
+                    ODER = %s WHERE ADMINUSERNAME = %s"""
+
+        cursor.execute(query, (order,username,))
+        connection.commit()
+        cursor.close()
+
+def getall_adminstable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+
+        cursor = connection.cursor()
+
+        query = """SELECT * FROM ADMINS"""
+
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
+def getspecific_admistable(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        init_adminstable(getconf)
+
+        cursor = connection.cursor()
+
+        query = """SELECT * FROM ADMINS WHERE ADMINUSERNAME = %s"""
+
+        cursor.execute(query, (username,))
+        getdata = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getdata
+
 def init_usertable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
