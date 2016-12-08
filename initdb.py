@@ -142,7 +142,7 @@ def getall_usertable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        query = """SELECT NAME, SURNAME, USERNAME, EMAIL, PROFPIC FROM USERS"""
+        query = """SELECT NAME, SURNAME, USERNAME, EMAIL, PROFPIC FROM USERS ORDER BY NAME"""
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -222,7 +222,7 @@ def search_user_table(getconf, keyword):
 
         keyword = '%' + keyword + '%'
         query = """SELECT USERNAME, EMAIL, NAME, SURNAME, PROFPIC FROM USERS WHERE ( (LOWER(USERNAME) LIKE LOWER(%s)) OR
-                    (LOWER(EMAIL) LIKE LOWER(%s)) OR (LOWER(NAME) LIKE LOWER(%s) ) OR (LOWER(SURNAME) LIKE LOWER(%s)))"""
+                    (LOWER(EMAIL) LIKE LOWER(%s)) OR (LOWER(NAME) LIKE LOWER(%s) ) OR (LOWER(SURNAME) LIKE LOWER(%s))) ORDER BY NAME"""
         cursor.execute(query, (keyword,keyword,keyword,keyword,))
         alldata = cursor.fetchall()
 
@@ -324,7 +324,7 @@ def get_allfollowing(getconf, getfollower):
         cursor.execute(query)
 
         query = """SELECT NAME, SURNAME, EMAIL, USERNAME, PROFPIC, FOLLOWDATE FROM USERS, USERFOLLOW WHERE
-                    ((USERS.USERNAME = USERFOLLOW.FOLLOWED) AND (USERFOLLOW.FOLLOWER = %s))"""
+                    ((USERS.USERNAME = USERFOLLOW.FOLLOWED) AND (USERFOLLOW.FOLLOWER = %s)) ORDER BY FOLLOWDATE"""
         cursor.execute(query, (getfollower,))
         alldata = cursor.fetchall()
 
@@ -348,7 +348,7 @@ def get_allfollower(getconf, getfollowed):
         cursor.execute(query)
 
         query = """SELECT NAME, SURNAME, EMAIL, USERNAME, PROFPIC, FOLLOWDATE FROM USERS, USERFOLLOW WHERE
-                    ((USERS.USERNAME = USERFOLLOW.FOLLOWER) AND (USERFOLLOW.FOLLOWED = %s))"""
+                    ((USERS.USERNAME = USERFOLLOW.FOLLOWER) AND (USERFOLLOW.FOLLOWED = %s)) ORDER BY FOLLOWDATE"""
         cursor.execute(query, (getfollowed,))
         alldata = cursor.fetchall()
 
