@@ -9,9 +9,9 @@ def init_adminstable(getconf):
         cursor = connection.cursor()
         query = """CREATE TABLE IF NOT EXISTS ADMINS
                 (
-                    ADMINUSERNAME TEXT NOT NULL,
+                    ADMINUSERNAME TEXT NOT NULL REFERENCES USER(USERNAME) ON DELETE CASCADE ON UPDATE CASCADE,
                     ADMINORDER INTEGER NOT NULL,
-                    PRIMARY KEY(ADMINUSERNAME)
+                    PRIMARY KEY(ADMINUSERNAME, ADMINORDER)
                 )"""
             
         cursor.execute(query)
