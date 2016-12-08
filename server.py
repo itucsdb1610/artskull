@@ -84,6 +84,8 @@ def user_delete(username):
 
     if request.method == 'POST':
         deletefrom_usertable(app.config['dsn'], username)
+        if username == session['username']: # if user deletes him/her own account, remove it from session
+            session.pop('username', None)
         return redirect(url_for('users_list'))
     else:
         return render_template('confirmuserdelete.html', username=username)
