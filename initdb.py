@@ -574,7 +574,7 @@ def getall_commenttable(getconf):
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
-        query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID FROM COMMENTS """
+        query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) """
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -928,7 +928,7 @@ def edit_play(getconf, stageid,contentid,stageidn,contentidn,date):
 def findstages(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC FROM CONTENT,PLAY,STAGE
+        query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC,PLAY.STAGEID FROM CONTENT,PLAY,STAGE
         WHERE ((CONTENT.ID=PLAY.CONTENTID) AND (STAGE.STAGEID=PLAY.STAGEID) AND (CONTENT.ID=%s));
                          """
         cursor.execute(query,(contentid,))
@@ -1234,7 +1234,7 @@ def deleteActionFromTable(getconf,actionid):
 def getcontent_action(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS WHERE CONTENTID = %s ORDER BY 5 DESC"
+        query = "SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE CONTENTID = %s ORDER BY 5 DESC"
         cursor.execute(query, (contentid,))
         action = cursor.fetchall()
         connection.commit()
