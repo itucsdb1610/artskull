@@ -97,9 +97,9 @@
 			                {% for action in contentaction %}
 			                <li class="well">
 				                <div class="row">				
-				              	<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='samplepp6.jpg')}}" alt="samplepp1">
+				              	<a href="{{ url_for('profile', username= action[0]) }}"><img class="img-rounded col-md-2" height="75px" width="75px" src="{{action[7]}}" alt="samplepp"></a>
 					            <p class="col-md-8">
-					        	{{ action[0] }} : "{{ action[3] }}"
+					        	{{ action[5] }} {{action[6]}} : "{{ action[3] }}"
 			        		    </p>
 			        		    <p>
 			    			    Date :{{ action[4] }}
@@ -142,6 +142,7 @@
                                 <td><img src="/static/stagepics/{{stage[3]}}" width=50 height=50 alt="friend1"></td>
                                 <td>{{stage[0]}}</td>
                                 <td>{{stage[1]}}</td>
+                                <td>{{stage[2]}}</td>
                             </tr>
                                 {% endfor %}
                         </table>

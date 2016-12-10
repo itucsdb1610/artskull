@@ -11,10 +11,11 @@
 		<ul class="media-list" list-style="none">
 			{% for action in actionList %}
 			<li class="well">
-				<div class="row">				
-					<img class="img-rounded col-md-2" height="100px" width="100px" src="{{action[8]}}" alt="samplepp">
+				<div class="row">
+					<a href="{{ url_for('profile', username= action[0]) }}"><img class="img-rounded col-md-2" height="100px" width="100px" src="{{action[8]}}" alt="samplepp"></a>
+
 					<p class="col-md-8">
-						{{ action[6] }} {{action[7]}} : "{{ action[3] }}"
+						<a href="{{ url_for('profile', username= action[0]) }}">{{ action[6] }} {{action[7]}}</a> : "{{ action[3] }}"
 					</p>
 					<p>
 						Date :{{ action[4] }}
@@ -29,9 +30,9 @@
 						{%if (content[0]==action[1])%}
 						
 							<div class="row">
-						<img src="/static/contentpics/{{content[5]}}" height="150px" width="200px" class="img-rounded col-md-3" alt="example play picture">
+						<a href="{{ url_for('contentstatic', contentid= content[0]) }}"><img src="/static/contentpics/{{content[5]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
 						<p> 
-							{{content[1]}} by {{content[2]}} 
+							<a href="{{ url_for('contentstatic', contentid = content[0]) }}">{{ content[1] }}</a> by {{content[2]}}
 						</p>
 						<p>
 							{{content[4]}} : {{content[3]}}
@@ -50,7 +51,7 @@
 								<li class = "well">
 									
 									<div class="row">				
-										<img class="img-rounded col-md-2" height="100px" width="100px" src="{{url_for('static', filename='profpics/dummyprofile.png')}}" alt="samplepp1">
+										<a href="{{ url_for('profile', username= comment[1]) }}"><img class="img-rounded col-md-2" height="100px" width="100px" src="{{comment[6]}}" alt="samplepp"></a>
 										
 										<p class="col-md-8">
 										 {{ comment[2] }}
@@ -61,7 +62,7 @@
 							<a href="{{ url_for('comment_edit', commentid=comment[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
 							<a href="{{ url_for('comment_delete', commentid=comment[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
 				</div>
-				<div class="row"><p class="col-md-10">{{ comment[1] }} </p></div>
+				<div class="row"><p class="col-md-10">{{ comment[4] }} {{ comment[5] }} </p></div>
 				</li>
 							{% endif %}
 						{% endfor %}
