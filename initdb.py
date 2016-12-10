@@ -1234,7 +1234,7 @@ def deleteActionFromTable(getconf,actionid):
 def getcontent_action(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE CONTENTID = %s ORDER BY 5 DESC"
+        query = "SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE (CONTENTID = %s) AND (ACTIONS.USERNAME=USERS.USERNAME) ORDER BY 5 DESC"
         cursor.execute(query, (contentid,))
         action = cursor.fetchall()
         connection.commit()
