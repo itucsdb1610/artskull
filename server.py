@@ -253,7 +253,8 @@ def timeline():
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
-        return render_template('timeline.html',actionList = getall, commentList = getallcomments,contentlist = getallcontent)
+        adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
+        return render_template('timeline.html',actionList = getall, commentList = getallcomments,contentlist = getallcontent,admin=adminedit)
     else:
         username = session['username']
         actioncomment = request.form['inputCommentary']
