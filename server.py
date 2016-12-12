@@ -189,7 +189,8 @@ def genre_edit(username):
 def comments_list():
     if 'username' not in session:
         return redirect(url_for('user_login'))
-
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_commenttable(app.config['dsn'])
     return render_template('commentslist.html', comments = alldata)
