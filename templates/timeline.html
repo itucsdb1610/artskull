@@ -20,9 +20,11 @@
 					<p>
 						Date :{{ action[4] }}
 					</p>
+					{%if (action[0]==session['username'])%}
 					<a href="{{ url_for('actionModify', actionid=action[5]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
 					<a href="{{ url_for('deleteAction', actionid=action[5]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
 					<a href="{{ url_for('deleteCommentsOfAction', actionid=action[5]) }}" class="glyphicon glyphicon-trash" type="button">Delete All Comments Of This Post</a>					
+					{% endif %}
 				</div>
 				<hr>
 					
