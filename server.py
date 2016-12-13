@@ -549,7 +549,17 @@ def play_add():
         init_playtable(app.config['dsn'], stageid,contentid,date)
         return redirect(url_for('play_add'))
 
-@app.route('/admin',methods=['GET', 'POST'])
+@app.route('/admin')
+def adminpanel():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+
+    return render_template('adminpanel.html')
+
+@app.route('/contentadmin',methods=['GET', 'POST'])
 def admin():
     if 'username' not in session:
         return redirect(url_for('user_login'))
