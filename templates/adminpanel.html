@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">User Operations</div>
+    <div class="panel-body">
+        <p>User operations includes editing users and editing admins information.
+            Because of that it needs highest previlliege admin account. Even if you are an admin
+            you cannot edit the users' usernames
+        </p>
+        <div class="list-group">
+            <a href="{{url_for('users_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Users</h4>
+                <p class="list-group-item-text">
+                    List all users signed up ordered by their names. From this list-group
+                    you can access user's profile pages and edit their info if you have that
+                    previllige level.
+                </p>
+            </a>
+            <a href="{{url_for('addadmin')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Admin</h4>
+                <p class="list-group-item-text">
+                    Add admins from registered users to the database and give a previllige level
+                    to the added user. Admins will be added according to the usernames. Before adding
+                    any user as admin please check users' profile pages. Give right previllige levels
+                    to the users.
+                </p>
+            </a>
+            <a href="{{url_for('addadmin')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Admins</h4>
+                <p class="list-group-item-text">
+                    List all admins from all previlliege levels. Remove one user from admin database
+                    or edit the previlliege level of each admin. Please be careful.
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-heading">Play Operations</div>
+    <div class="panel-body">
+        <p>
+            Play operations includes operations for three different databases. Firstly there should be a content.
+            Then a stage should be added with wanted information. After adding content and stage, you can add
+            play information that will hold provided content's play information with provided stage information.
+        </p>
+        <div class="list-group">
+            <a href="{{url_for('admin')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Content</h4>
+                <p class="list-group-item-text">
+                    You can add new content to the database. All users registered to the system
+                    will be able to see this content and comment on this content. After user comments
+                    on a content, content will be showed on the users' followers' timelines. Contents will be
+                    meaningful if there is a play time added for them.
+                </p>
+            </a>
+            <a href="{{url_for('contents_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Contents</h4>
+                <p class="list-group-item-text">
+                    List all contents on the database. You can access specific pages that will show
+                    content's information from this list. You can edit content's information from this list
+                    and also remove a content.
+                </p>
+            </a>
+            <a href="{{url_for('stage_add')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Stage</h4>
+                <p class="list-group-item-text">
+                    Add new stage to the database. Stages represent where plays will take place. Many plays can
+                    occur on same stage. Be careful to provide real information.
+                </p>
+            </a>
+            <a href="{{url_for('stages_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Stages</h4>
+                <p class="list-group-item-text">
+                    List all stages available on database, edit stages if real values was changed or remove a stage
+                    from database.
+                </p>
+            </a>
+            <a href="{{url_for('stages_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Play</h4>
+                <p class="list-group-item-text">
+                    Add plays to the database. Content and stage data should added before adding play. Play data
+                    has to reference a stage and a content.
+                </p>
+            </a>
+            <a href="{{url_for('stages_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Plays</h4>
+                <p class="list-group-item-text">
+                    List all plays available on the database. Add new plays, edit existing plays or remove a
+                    play entirely from database.
+                </p>
+            </a>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
