@@ -4,6 +4,20 @@ import hashlib
 
 # Start for Muhammed Kadir YÜCEL
 
+def get_interestplays(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES WHERE
+                    ((USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY TITLE LIMIT 5 """
+
+        cursor.execute(query, (username,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
 def init_adminstable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()

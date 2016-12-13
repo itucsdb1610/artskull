@@ -94,27 +94,14 @@
 			Plays you may interest
 		</h3>
 		<ul class="media-list">
+			{% for interest in interests %}
 			<li>
-				<img class="img-rounded" height="100px" width="100px" src="{{url_for('static', filename='samplerecommendp1.jpg')}}" alt="samplerecommendp1">
-				<p> Macbeth </p>
-				<p> Location: Seben Theatre </p>
-				<p> Date: 20.10.2016 </p>
-				<p> Time: 20.00 </p>
+				<img class="img-rounded" width="100px" src="{{interest[3]}}" alt="interestedPlays">
+				<p>{{interest[0]}}</p>
+				<p>{{interest[1]}}</p>
+				<p>{{interest[2]}}</p>
 			</li>
-			<li>
-				<img class="img-rounded" height="100px" width="100px" src="{{url_for('static', filename='samplerecommendp2.jpg')}}" alt="samplerecommendp2">
-				<p> Faust </p>
-				<p> Location: İzmir Kocatepe </p>
-				<p> Date: 21.10.2016 </p>
-				<p> Time: 19.55 </p>
-			</li>
-			<li>
-				<img class="img-rounded" height="100px" width="100px" src="{{url_for('static', filename='samplerecommendp3.jpg')}}" alt="samplerecommendp3">
-				<p> 12 Angry Men </p>
-				<p> Location: Sanayi Mahallesi Grand Theatre </p>
-				<p> Date: 22.10.2016 </p>
-				<p> Time: 23.00 </p>
-			</li>
+			{% endfor %}
 		</ul>
 	</div>
 </div>
