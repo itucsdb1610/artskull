@@ -7,11 +7,11 @@
         <title>Artskull</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrapfix.css') }}">
-		<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='1481550563_Skull.ico') }}"/>
+		<link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='icon.ico') }}"/>
     </head>
 
     <body>
-        <header class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button class="navbar-toggle collapsed" aria-expanded="false" aria-controls="navbar" type="button" data-toggle="collapse" data-target="#navbar">
@@ -52,7 +52,7 @@
                     </form>
                 </div>  
             </div>
-        </header>
+        </nav>
 
         
         {% block content %}{% endblock %}
