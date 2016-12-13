@@ -76,18 +76,58 @@
                     from database.
                 </p>
             </a>
-            <a href="{{url_for('stages_list')}}" class="list-group-item active">
+            <a href="{{url_for('play_add')}}" class="list-group-item active">
                 <h4 class="list-group-item-heading">Add Play</h4>
                 <p class="list-group-item-text">
                     Add plays to the database. Content and stage data should added before adding play. Play data
                     has to reference a stage and a content.
                 </p>
             </a>
-            <a href="{{url_for('stages_list')}}" class="list-group-item active">
+            <a href="{{url_for('plays_list')}}" class="list-group-item active">
                 <h4 class="list-group-item-heading">List Plays</h4>
                 <p class="list-group-item-text">
                     List all plays available on the database. Add new plays, edit existing plays or remove a
                     play entirely from database.
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-heading">Comment Operations</div>
+    <div class="panel-body">
+        <p>
+            Edit comments that was made to user actions.
+        </p>
+        <div class="list-group">
+            <a href="{{url_for('comments_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Comments</h4>
+                <p class="list-group-item-text">
+                    List all comments to users' actions, delete them or edit them. Needs high admin previlligies.
+                    You can also edit/delete comments from timeline.
+                </p>
+            </a>
+            
+        </div>
+    </div>
+
+    <div class="panel-heading">Actor Operations</div>
+    <div class="panel-body">
+        <p>
+            Edit actors for each content.
+        </p>
+        <div class="list-group">
+            <a href="{{url_for('actor')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Actor</h4>
+                <p class="list-group-item-text">
+                    Actors will be added to the each content individually. This operation adds actors to the actors
+                    database. When admin wants to add a actor/actress to the content, a list that will include all actors
+                    from this database will be provided.
+                </p>
+            </a>
+            <a href="{{url_for('actor_list')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Actors</h4>
+                <p class="list-group-item-text">
+                    List all actors added to the actors database. Edit or remove them.
                 </p>
             </a>
         </div>
