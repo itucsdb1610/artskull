@@ -399,9 +399,9 @@ def contentstatic(contentid):
 def contents_list():
     if 'username' not in session:
         return redirect(url_for('user_login'))
-
+    adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
     allcontents = getall_contenttable(app.config['dsn'])
-    return render_template('contentslist.html', contents = allcontents)
+    return render_template('contentslist.html', contents = allcontents, admin=adminedit)
 
 @app.route('/contentdelete/<contentid>', methods=['GET', 'POST'])
 def content_delete(contentid):
