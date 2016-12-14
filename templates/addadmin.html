@@ -15,13 +15,11 @@
                     <option value="{{user[2]}}">{{user[2]}}</option>
                 {% endfor %}
             </select>
-            <!--<select class="form-control" name="inputImportance">
-                <option value="1">Omg, delete them!</option>
-                <option value="2">Meh</option>
-                <option value="3">OK</option>
-                <option value="4">I like it</option>
-                <option value="5">The best</option>
-            </select>-->
+            <select class="form-control" name="inputOrder">
+                <option value="0">Highest privilege, editing users and admins</option>
+                <option value="1">Medium privilege, editing comments and actions of users</option>
+                <option value="2">Lowest privilege, editing content and plays</option>
+            </select>
             <button class="btn btn-success" type="submit">Add</button>
         </form>
     </div>
