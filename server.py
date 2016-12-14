@@ -265,7 +265,7 @@ def timeline():
         username = session['username']
         actioncomment = request.form['inputCommentary']
         actionid = request.form['actionid']
-        date = datetime.datetime.now()
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cmm = Comment(actioncomment,actionid, username, date)
         insert_commenttable(app.config['dsn'], cmm)
         return redirect(url_for('timeline'))
@@ -380,7 +380,7 @@ def follow(username):
     if session['username'] == username:
         return redirect(url_for('timeline'))
 
-    date = datetime.datetime.now()
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     init_followUserUser(app.config['dsn'], session['username'], username, date)
 
     return redirect(url_for('timeline'))
@@ -440,7 +440,7 @@ def contentstatic(contentid):
             username = session['username']
             actiontype = "comment"
             actioncomment = request.form['inputCommentary']
-            date = datetime.datetime.now()
+            date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             action = Action(username,contentid,actiontype,actioncomment,date)
             cmm = Comment(actioncomment,contentid, username,date)
             insert_actionTable(app.config['dsn'], action)
@@ -799,7 +799,7 @@ def report_comment(commentid):
     elif request.method == "POST":
         username = session['username']
         rptxt = request.form['report']
-        date = datetime.datetime.now()
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         rep = Report(rptxt,commentid,username,date)
         insert_reports(app.config['dsn'],rep)
         return redirect(url_for('timeline'))
