@@ -140,6 +140,29 @@
             </a>
         </div>
     </div>
+
+    <div class="panel-heading">Critic Operations</div>
+    <div class="panel-body">
+        <p>
+            Edit critivs for each content.
+        </p>
+        <div class="list-group">
+            <a href="{{url_for('criticadd')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">Add Critic</h4>
+                <p class="list-group-item-text">
+                    Critics will be added to the each critic review individually. This operation adds critics to the critic
+                    database. When admin wants to add a critic review to the content, a list that will include all critics
+                    from this database will be provided.
+                </p>
+            </a>
+            <a href="{{url_for('criticlist')}}" class="list-group-item active">
+                <h4 class="list-group-item-heading">List Critics</h4>
+                <p class="list-group-item-text">
+                    List all critics added to the critic database. Edit or remove them.
+                </p>
+            </a>
+        </div>
+    </div>
     
 </div>
 
