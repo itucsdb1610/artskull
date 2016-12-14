@@ -390,7 +390,7 @@ def contentstatic(contentid):
             actioncomment = request.form['inputCommentary']
             date = datetime.datetime.now()
             action = Action(username,contentid,actiontype,actioncomment,date)
-            cmm = Comment(actioncomment,contentid, username)
+            cmm = Comment(actioncomment,contentid, username,date)
             insert_actionTable(app.config['dsn'], action)
             return redirect(url_for('contentstatic',contentid=contentid))
     else:
