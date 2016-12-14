@@ -3,3 +3,10 @@ body {
 }
 
 .top-buffer {margin-top: 10px;}
+
+.carousel .carousel-inner img {
+    max-height: 400px;
+    min-height: 400px;
+    margin: auto;
+    display: block;
+}
