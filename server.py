@@ -82,10 +82,10 @@ def user_delete(username):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         deletefrom_usertable(app.config['dsn'], username)
@@ -104,9 +104,9 @@ def users_list():
 
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            return redirect(url_for('timeline'))
 
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_usertable(app.config['dsn'])
@@ -120,10 +120,10 @@ def user_edit(username):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         getuser = getuser_usertable(app.config['dsn'], username)
@@ -151,10 +151,10 @@ def add_genre_user(username):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         genre = request.form['inputGenres']
@@ -174,10 +174,10 @@ def genre_delete(username):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         genre = request.args.get('genre')
@@ -193,10 +193,10 @@ def genre_edit(username):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         genre = request.args.get('genre')
@@ -215,8 +215,9 @@ def comments_list():
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         return redirect(url_for('timeline'))
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            return redirect(url_for('timeline'))
     
     fixdrop_usertable(app.config['dsn'])
     alldata = getall_commenttable(app.config['dsn'])
@@ -230,10 +231,10 @@ def comment_edit(commentid):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         actualcomment = getcomment(app.config['dsn'], commentid)
@@ -255,10 +256,10 @@ def comment_delete(commentid):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         deletefrom_commenttable(app.config['dsn'], commentid)
@@ -274,10 +275,10 @@ def dropcomments():
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     drop_commenttable(app.config['dsn'])
     return redirect(url_for('comments_list'))	
@@ -290,10 +291,10 @@ def deleteCommentsOfAction(actionid):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         delete_comments_from_action(app.config['dsn'], actionid)
@@ -337,10 +338,10 @@ def clearActionTable():
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     dropActionTable(app.config['dsn'])
     return redirect(url_for('timeline'))
@@ -353,10 +354,10 @@ def actionModify(actionid):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         thisaction = getAction(app.config['dsn'],actionid)
@@ -374,10 +375,10 @@ def deleteAction(actionid):
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         if not username == session['username']:
             return redirect(url_for('timeline'))
-
-    if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+    else:
+        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if not username == session['username']:
+                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         deleteActionFromTable(app.config['dsn'],actionid)
@@ -445,8 +446,9 @@ def profile(username):
     else:
         same = False
         adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
-        if(getspecific_admistable(app.config['dsn'], session['username'])[1] != 0):
-            adminedit = False
+        if adminedit:
+            if(getspecific_admistable(app.config['dsn'], session['username'])[1] != 0):
+                adminedit = False
 
     getUsername = session['username']
     getUser = getuser_usertable(app.config['dsn'], username)
