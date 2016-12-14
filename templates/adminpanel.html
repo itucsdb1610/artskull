@@ -3,6 +3,7 @@
 {% block content %}
 <div class="panel panel-default">
     <!-- Default panel contents -->
+    {% if order==0 %}
     <div class="panel-heading">User Operations</div>
     <div class="panel-body">
         <p>User operations includes editing users and editing admins information.
@@ -36,6 +37,7 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <div class="panel-heading">Play Operations</div>
     <div class="panel-body">
@@ -93,6 +95,7 @@
         </div>
     </div>
 
+    {% if order <= 1 %}
     <div class="panel-heading">Comment Operations</div>
     <div class="panel-body">
         <p>
@@ -117,6 +120,7 @@
             
         </div>
     </div>
+    {% endif %}
 
     <div class="panel-heading">Actor Operations</div>
     <div class="panel-body">
