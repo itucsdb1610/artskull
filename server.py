@@ -248,6 +248,7 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+        init_criticTable(app.config['dsn'])
         init_furkanstables(app.config['dsn'])
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
@@ -300,6 +301,55 @@ def deleteAction(actionid):
         return redirect(url_for('timeline'))
     else:
         return render_template('confirmactiondelete.html',actionid=actionid)
+
+@app.route('/criticadd', methods=['GET', 'POST'])
+def criticadd():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
+    if request.method == 'GET':
+        return render_template('criticadd.html')
+    else:
+        criticname = request.form['CriticName']
+        criticsurname = request.form['CriticSurname']
+        criticWorkplace = request.form['CriticWorkplace']
+        insert_criticTable(app.config['dsn'], criticname, criticsurname, criticWorkplace)
+        return redirect(url_for('criticlist'))
+
+@app.route('/criticlist')
+def criticlist():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    alldata = getall_critictable(app.config['dsn'])
+    return render_template('criticlist.html', critics = alldata)
+
+@app.route('/criticdelete/<criticid>', methods=['GET', 'POST'])
+def criticdelete(criticid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
+    if request.method == 'POST':
+        deleteCriticFromTable(app.config['dsn'], criticid)
+        return redirect(url_for('criticadd'))
+    else:
+        return render_template('criticdelete.html', criticid=criticid)
+
+@app.route('/criticedit/<criticid>', methods=['GET', 'POST'])
+def criticedit(criticid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if request.method == 'POST':
+        criticname = request.form['CriticName']
+        criticsurname = request.form['CriticSurname']
+        criticworkplace = request.form['CriticWorkplace']
+        edit_critic(app.config['dsn'], criticid,criticname,criticsurname,criticworkplace)
+        return redirect(url_for('criticadd'))
+    else:
+        return render_template('criticedit.html', criticid=criticid)
 
 @app.route('/profile/<username>')
 def profile(username):
