@@ -1327,4 +1327,64 @@ def  getActionContent(getconf):#for timeline
         connection.commit()
         cursor.close()
         return content
+
+def init_criticTable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS CRITIC
+				(
+					CRITICID SERIAL NOT NULL,
+					NAME TEXT NOT NULL,
+                    SURNAME TEXT NOT NULL,
+                    WORKPLACE TEXT NULL,
+                    PRIMARY KEY (CRITICID)
+				)"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def insert_criticTable(getconf,criticname,criticsurname,criticworkplace):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """INSERT INTO CRITIC
+					(
+						NAME, SURNAME, WORKPLACE)
+						VALUES(%s, %s, %s
+						)"""
+        cursor.execute(query, (criticname,criticsurname,criticworkplace))
+        connection.commit()
+        cursor.close()
+
+def getall_critictable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT NAME, SURNAME, WORKPLACE, CRITICID FROM CRITIC"
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+        return alldata
+
+def edit_critic(getconf,criticid,criticname,criticsurname,criticworkplace):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """UPDATE CRITIC SET 
+                    NAME = %s, 
+                    SURNAME = %s,
+                    WORKPLACE = %s
+                    WHERE CRITICID = %s"""
+        cursor.execute(query, (criticname,criticsurname,criticworkplace,criticid,))
+        connection.commit()
+        cursor.close()    
+
+def deleteCriticFromTable(getconf,criticid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """Delete From CRITIC
+                WHERE CRITICID = %s"""
+        cursor.execute(query,(criticid,))
+        connection.commit()
+        cursor.close()
+        
 #end for Mahmut Lutfullah Özbilen
