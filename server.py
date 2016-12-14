@@ -210,7 +210,7 @@ def comment_edit(commentid):
         date = request.form['indate']
         comment = Comment(incomm,inactionid,inusername, date)
         edit_comment(app.config['dsn'], commentid, comment)
-        return redirect(url_for('comments_list'))
+        return redirect(url_for('timeline'))
 		
 @app.route('/commentdelete/<commentid>', methods=['GET', 'POST'])
 def comment_delete(commentid):
@@ -219,7 +219,7 @@ def comment_delete(commentid):
 
     if request.method == 'POST':
         deletefrom_commenttable(app.config['dsn'], commentid)
-        return redirect(url_for('comments_list'))
+        return redirect(url_for('timeline'))
     else:
         return render_template('confirmcommentdelete.html', commentid=commentid)
 
