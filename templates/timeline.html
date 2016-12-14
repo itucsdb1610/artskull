@@ -63,12 +63,13 @@
 										<p>
 										
 										</p>
+
 							{%if  (comment[1]==session['username']) or (admin) %}
 							<a href="{{ url_for('comment_edit', commentid=comment[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
 							<a href="{{ url_for('comment_delete', commentid=comment[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
 							{%endif%}
 				</div>
-				<div class="row"><p class="col-md-10">{{ comment[4] }} {{ comment[5] }} </p></div>
+				<div class="row"><p class="col-md-10">{{ comment[4] }} {{ comment[5] }} <br> Comment Date :{{ comment[7] }}</p> </div>
 				</li>
 							{% endif %}
 						{% endfor %}
