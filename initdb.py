@@ -679,6 +679,53 @@ def init_reportstable(getconf):
                     PRIMARY KEY (id)
                 )"""
         cursor.execute(query)
+def insert_reports(getconf,report):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()	
+        query="""INSERT INTO REPORTS
+                    (
+                        REPORTTEXT, COMMENTID, USERNAME, DATE)
+                        VALUES(%s, %s, %s, %s
+                        )"""
+        cursor.execute(query, (report.reporttext, report.commentid, report.username, report.date) )
+        connection.commit()
+        cursor.close()    
+def getall_reports(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS REPORTS
+                (
+                    ID SERIAL NOT NULL,
+                    REPORTTEXT TEXT NOT NULL,
+                    COMMENTID INT NOT NULL REFERENCES COMMENTS(COMMENTID) ON DELETE CASCADE,
+                    USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                    DATE TIMESTAMP NOT NULL,
+                    PRIMARY KEY (id)
+                )"""			
+        cursor.execute(query)
+        query = """SELECT REPORTS.ID, REPORTS.REPORTTEXT, REPORTS.COMMENTID, REPORTS.USERNAME, COMMENTS.COMMENT DATE FROM REPORTS, COMMENTS WHERE ( REPORTS.COMMENTID = COMMENTS.COMMENTID )    """
+        cursor.execute(query)
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata	
+        
+def deleteFromReport(getconf, id):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "DELETE FROM REPORTS WHERE ID = %s"
+        cursor.execute(query,(id,))
+        connection.commit()
+        cursor.close
+def drop_reports(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """DROP TABLE IF EXISTS REPORTS"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()    
 #End for Murat Özkök
 
 # Start for Furkan Özçelik

@@ -739,7 +739,46 @@ def cast_actoredit(actorid, contentid):
         neworder = request.form['Order']
         editcast(app.config['dsn'], actorid, contentid, neworder)
         return redirect(url_for('cast_edit', contentid = contentid))
-
+@app.route('/reportcomment/<commentid>', methods=['GET', 'POST'])
+def report_comment(commentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if request.method == "GET":
+        return render_template('sendreport.html', commentid = commentid)
+    elif request.method == "POST":
+        username = session['username']
+        rptxt = request.form['report']
+        date = datetime.datetime.now()
+        rep = Report(rptxt,commentid,username,date)
+        insert_reports(app.config['dsn'],rep)
+        return redirect(url_for('timeline'))
+@app.route('/reportslist')
+def report_list():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+    alldata = getall_reports(app.config['dsn'])
+    return render_template('reportslist.html', reports = alldata)
+@app.route('/deletereport/<id>', methods=['GET', 'POST'])
+def delete_report(id):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+    if request.method == 'POST':
+        deleteFromReport(app.config['dsn'], id)
+        return redirect(url_for('timeline'))
+    else:
+        return render_template('confirmreportdelete.html', id=id)
+@app.route('/clearreports')
+def clear_reports():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        return redirect(url_for('timeline'))
+    drop_reports(app.config['dsn'])
+    return redirect(url_for('report_list'))	
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
