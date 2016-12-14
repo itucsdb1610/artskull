@@ -8,19 +8,42 @@
         <a href="{{url_for('addadmin')}}" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Admin</a>
     </div>
 
-    <ul>
-        {% for user in admins %}
-        <a href="{{url_for('profile', username=user[0])}}">
-            <li>
-                {{user[0]}}
-                <a href="{{ url_for('admindelete', username= user[0]) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-            </li>
-        </a>
-            <hr class="featurette-divider" />
-        {% endfor %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Privilege</th>
+                <th>Description</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for user in admins %}
+                    <tr>
+                        <td>
+                            <a href="{{url_for('profile', username=user[0])}}">
+                                {{user[0]}}
+                            </a>
+                        </td>
+                        <td>{{user[1]}}</td>
+                        <td>
+                            {%if (user[1] == 0) %}
+                                Highest privilege, editing users and admins
+                            {% endif %}
 
-    </ul>
+                            {%if (user[1] == 1) %}
+                                Medium privilege, editing comments and actions of users
+                            {% endif %}
 
+                            {%if (user[1] == 2) %}
+                                Lowest privilege, editing content and plays
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ url_for('admindelete', username= user[0]) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}

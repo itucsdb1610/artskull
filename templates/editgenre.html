@@ -27,18 +27,56 @@
         </form>
 
     </div>
-    <ul>
-        {% for genre in genres %}
-            <li>
-                {{ genre[0] }} - {{ genre[1] }} 
-                <span text-align="right"><a href="{{ url_for('genre_edit', username=username, genre=genre[0])}}" class="btn btn-default" type="button">Edit</a>
-                <a href="{{ url_for('genre_delete', username=username, genre= genre[0]) }}" class="btn btn-danger" type="button">Delete</a></span>
-            </li>
-            <hr class="featurette-divider" />
-        {% endfor %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Genre Name</th>
+                <th>Order</th>
+                <th>Description</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for genre in genres %}
+            <tr>
+                <td>
+                    {{genre[0]}}
+                </td>
 
-    </ul>
+                <td>
+                    {{genre[1]}}
+                </td>
 
+                <td>
+                    {%if (genre[1] == 1) %}
+                        Omg, delete them!
+                    {% endif %}
+
+                    {%if (genre[1] == 2) %}
+                        Meh
+                    {% endif %}
+
+                    {%if (genre[1] == 3) %}
+                        OK
+                    {% endif %}
+
+                    {%if (genre[1] == 4) %}
+                        I like it!
+                    {% endif %}
+
+                    {%if (genre[1] == 5) %}
+                        The best
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{{ url_for('genre_edit', username=username, genre=genre[0])}}" class="btn btn-default" type="button">Edit</a>
+                    <a href="{{ url_for('genre_delete', username=username, genre= genre[0]) }}" class="btn btn-danger" type="button">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 {% endblock %}
