@@ -320,7 +320,7 @@ def timeline():
         getallcomments = getall_commenttable(app.config['dsn'])
         adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
         if adminedit:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] <= 1:
                 adminedit = True
             else:
                 adminedit = False
