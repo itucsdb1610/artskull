@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Comments List{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Reports List</h1>
+    </div>
+	
+    <ul class="media-list">
+        {% for report in reports %}
+            <li class="media">
+                <div class="media-body">
+                    <p>Report ID: {{ report[0] }}</p>
+					<p>Report Message: {{ report[1] }}</p>
+					<p>Reporter: {{ report[3] }}</p>
+                   <blockquote> <p>{{ report[4] }}</p></blockquote>
+                    <br/>
+<a href="{{ url_for('comment_delete', commentid = report[2]) }}" class="btn btn-default">Delete the comment is reported.</a>
+<a href="{{ url_for('comment_edit', commentid = report[2]) }}" class="btn btn-default">Modify the comment is reported.</a>
+                </div>
+<a href="{{ url_for('delete_report', id = report[0]) }}" class="btn btn-default">Delete the report.</a>
+            </li>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+	<a href="{{ url_for('clear_reports') }}" class="btn btn-danger" type="button">Drop Reports Table from Database</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Report Delete{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Confirm report delete?</h1>
+        <p>If you want to delete the report, click "Yes" button.</p>
+    </div>
+
+    <div class="alert alert-danger" role="alert">This operation cannot be reverted! Before delete this report, you should judge the comment and the report! </div>
+
+    <p>Do you really want to delete this report ?</p>
+    <form role="form" action="{{ url_for('delete_report', id=id) }}" method="post">
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">Yes</button>
+            <a href = "{{ url_for('report_list') }}" class = "btn btn-default" role="button">No</a>
+        </div>
+    </form>
+            
+</div>
+
+{% endblock %}
