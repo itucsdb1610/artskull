@@ -252,6 +252,7 @@ def timeline():
         init_actionTable(app.config['dsn'])
         init_actortablenoadd(app.config['dsn'])
         init_casting(app.config['dsn'])
+        init_reportstable(app.config['dsn'])
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])

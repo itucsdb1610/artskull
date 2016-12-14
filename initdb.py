@@ -665,6 +665,20 @@ def username_of_comment(getconf,commentid):
         cursor.close()   
         username = username[0]
         return username   
+
+def init_reportstable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query="""CREATE TABLE IF NOT EXISTS REPORTS
+                (
+                    ID SERIAL NOT NULL,
+                    REPORTTEXT TEXT NOT NULL,
+                    COMMENTID INT NOT NULL REFERENCES COMMENTS(COMMENTID) ON DELETE CASCADE,
+                    USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                    DATE TIMESTAMP NOT NULL,
+                    PRIMARY KEY (id)
+                )"""
+        cursor.execute(query)
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
