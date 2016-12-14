@@ -207,7 +207,8 @@ def comment_edit(commentid):
         inusername = username_of_comment(app.config['dsn'], commentid)
         incomm = request.form['incomment']
         inactionid = actionid_of_comment(app.config['dsn'], commentid)
-        comment = Comment(incomm,inactionid,inusername)
+        date = request.form['indate']
+        comment = Comment(incomm,inactionid,inusername, date)
         edit_comment(app.config['dsn'], commentid, comment)
         return redirect(url_for('comments_list'))
 		
@@ -261,7 +262,8 @@ def timeline():
         username = session['username']
         actioncomment = request.form['inputCommentary']
         actionid = request.form['actionid']
-        cmm = Comment(actioncomment,actionid, username)
+        date = datetime.datetime.now()
+        cmm = Comment(actioncomment,actionid, username, date)
         insert_commenttable(app.config['dsn'], cmm)
         return redirect(url_for('timeline'))
 

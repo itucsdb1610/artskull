@@ -558,6 +558,7 @@ def init_commentTable(getconf):
 					COMMENT TEXT NOT NULL,
 					ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid) ON DELETE CASCADE,
 					USERNAME TEXT NOT NULL REFERENCES USERS (username) ON DELETE CASCADE,
+                    DATE TIMESTAMP NOT NULL,
 					PRIMARY KEY (commentid)
 				)"""				
         cursor.execute(query)
@@ -569,10 +570,10 @@ def insert_commenttable(getconf,comment):
 		cursor = connection.cursor()	
 		query="""INSERT INTO COMMENTS
 					(
-						COMMENT, ACTIONID, USERNAME)
-						VALUES(%s, %s, %s
+						COMMENT, ACTIONID, USERNAME, DATE)
+						VALUES(%s, %s, %s, %s
 						)"""
-		cursor.execute(query, (comment.comm, comment.actionid, comment.username,) )
+		cursor.execute(query, (comment.comm, comment.actionid, comment.username, comment.date) )
 		connection.commit()
 		cursor.close()
 		
@@ -585,10 +586,11 @@ def getall_commenttable(getconf):
                     COMMENT TEXT NOT NULL,
                     ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid) ON DELETE CASCADE,
                     USERNAME TEXT NOT NULL REFERENCES USERS (username) ON DELETE CASCADE,
+                    DATE TIMESTAMP NOT NULL,
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
-        query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) """
+        query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC, DATE FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) """
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -612,7 +614,7 @@ def getcomment(getconf,commentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 		
-        query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID FROM COMMENTS WHERE COMMENTID = %s"""
+        query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID, DATE FROM COMMENTS WHERE COMMENTID = %s"""
         cursor.execute(query, (commentid,))
         outcomment = cursor.fetchall()
 
