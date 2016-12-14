@@ -1025,6 +1025,7 @@ def report_list():
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
         return redirect(url_for('timeline'))
+    init_reportstable(app.config['dsn'])
     alldata = getall_reports(app.config['dsn'])
     return render_template('reportslist.html', reports = alldata)
 @app.route('/deletereport/<id>', methods=['GET', 'POST'])
