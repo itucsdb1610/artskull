@@ -11,6 +11,7 @@ from content import Content
 from stage import Stage
 from action import Action
 from actor import Actor
+from report import Report
 import time
 
 app = Flask(__name__)
