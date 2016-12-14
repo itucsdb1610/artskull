@@ -70,7 +70,9 @@
 							{%endif%}
 				</div>
 				<div class="row"><p class="col-md-10">{{ comment[4] }} {{ comment[5] }} <br> Comment Date :{{ comment[7] }}</p> </div>
-				<a href="{{ url_for('report_comment', commentid=comment[0]) }}" class="glyphicon glyphicon-warning-sign" type="button">Report!</a></p> 
+				{% if (comment[1] != session['username']) %}
+				<a href="{{ url_for('report_comment', commentid=comment[0]) }}" class="glyphicon glyphicon-warning-sign" type="button">Report!</a></p>
+				{% endif %} 
 				</li>
 							{% endif %}
 						{% endfor %}
