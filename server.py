@@ -477,6 +477,19 @@ def edit_review(reviewid):
         getcritic = getall_critictable(app.config['dsn'])
         return render_template('edit_review.html',reviewid=reviewid, critics = getcritic)
 
+@app.route('/delete_review/<reviewid>', methods=['GET', 'POST'])
+def delete_review(reviewid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
+    if request.method == 'POST':
+        deleteReviewFromTable(app.config['dsn'], reviewid)
+        return redirect(url_for('contents_list'))
+    else:
+        return render_template('delete_review.html', reviewid=reviewid)
+
 @app.route('/profile/<username>')
 def profile(username):
     if 'username' not in session:
