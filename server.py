@@ -331,7 +331,7 @@ def timeline():
         username = session['username']
         actioncomment = request.form['inputCommentary']
         actionid = request.form['actionid']
-        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         cmm = Comment(actioncomment,actionid, username, date)
         insert_commenttable(app.config['dsn'], cmm)
         return redirect(url_for('timeline'))
@@ -433,6 +433,9 @@ def criticdelete(criticid):
 def criticedit(criticid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
     if request.method == 'POST':
         criticname = request.form['CriticName']
         criticsurname = request.form['CriticSurname']
@@ -466,6 +469,9 @@ def add_review(contentid):
 def edit_review(reviewid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
     if request.method == 'POST':
         criticid = request.form['inputName']
         review = request.form['inputReview']
@@ -522,7 +528,7 @@ def follow(username):
     if session['username'] == username:
         return redirect(url_for('timeline'))
 
-    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     init_followUserUser(app.config['dsn'], session['username'], username, date)
 
     return redirect(url_for('timeline'))
@@ -576,14 +582,15 @@ def contentstatic(contentid):
         getcast = searchcast(app.config['dsn'],contentid)
         onstages = findstages(app.config['dsn'], contentid)
         getreviews = getreview_content(app.config['dsn'],contentid)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews)
+        adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
             username = session['username']
             actiontype = "comment"
             actioncomment = request.form['inputCommentary']
-            date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             action = Action(username,contentid,actiontype,actioncomment,date)
             cmm = Comment(actioncomment,contentid, username,date)
             insert_actionTable(app.config['dsn'], action)
@@ -998,7 +1005,7 @@ def report_comment(commentid):
     elif request.method == "POST":
         username = session['username']
         rptxt = request.form['report']
-        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         rep = Report(rptxt,commentid,username,date)
         insert_reports(app.config['dsn'],rep)
         return redirect(url_for('timeline'))
