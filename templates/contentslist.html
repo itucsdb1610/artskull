@@ -14,7 +14,7 @@
         {% for content in contents %}
             <li class="media">
                 <div class="media-left">
-                    <a href="{{ url_for('contentstatic', contentid= content[0]) }}"><img src="/static/contentpics/{{content[5]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
+                    <a href="{{ url_for('contentstatic', contentid= content[0]) }}"><img src="{{content[5]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading"><a href="{{ url_for('contentstatic', contentid = content[0]) }}">{{ content[1] }}</a> by {{ content[2] }}</h4>
