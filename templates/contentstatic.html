@@ -77,7 +77,7 @@
 
                         <div class="panel panel-default" id="addcomment">
                             <div class="panel-heading">
-                                <h3>Add Review</h3>
+                                <h3>Add Comment</h3>
                             </div>
                             <div class="panel-body">
                                 <form role="form" action="{{ url_for('contentstatic', contentid = contentid) }}" id="commentform" class="form-horizontal" method="post">
@@ -92,7 +92,7 @@
                         </div>
                         <div class="panel panel-default" id="listcomment">
                             <div class="panel-heading">
-                                <h3>Reviews</h3>
+                                <h3>Comments</h3>
                             </div>
                             <ul class="media-list" list-style="none">
 			                {% for action in contentaction %}
