@@ -29,8 +29,9 @@
                             <li role="presentation" class="active"><a href="#duration">Duration</a></li>
                             <li role="presentation"><a href="#date">Opening Date</a></li>
                             <li role="presentation"><a href="#genre">Genre</a></li>
-                            <li role="presentation"><a href="#addcomment">Add Review</a></li>
-                            <li role="presentation"><a href="#listcomment">List Reviews</a></li>
+                            <li role="presentation"><a href="#addcomment">Add Your Comment</a></li>
+                            <li role="presentation"><a href="#listcomment">List Comments</a></li>
+                            <li role="presentation"><a href="#listcriticreviews">List Critic Reviews</a></li>
                         </ul>
                     </div>
                     <div class="right col-lg-9">
@@ -105,6 +106,26 @@
 			    			    Date :{{ action[4] }}
 				            	</p>
 				                  	 </div>		
+		            	    {% endfor %}
+		                </ul>
+                        </div>
+                        <div class="panel panel-default" id="listcriticreviews">
+                            <div class="panel-heading">
+                                <h3>Critic Reviews</h3>
+                            </div>
+                            <ul class="media-list" list-style="none">
+			                {% for review in reviews %}
+			                <li class="well">
+				                
+                                
+                                <div class="media-body">
+                                <h4 class="media-heading">{{review[0]}} {{review[1]}} from {{review[2]}}</h4>
+                                
+                                <h5 class="media-heading">Score: {{review[5]}} Date: {{review[4]}}</h3>
+                                <hr>
+                                {{review[3]}}
+                                </div>
+  
 		            	    {% endfor %}
 		                </ul>
                         </div>
