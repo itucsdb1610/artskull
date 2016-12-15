@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="jumbotron">
+	<div class="container">		
+			<img float=left src="{{ critic[4] }}" width="250px" max-height="250px"  alt="profile picture"> 	
+			<h1>{{ critic[1] }} {{ critic[2] }} 
+			</h1>
+			<h3>from {{ critic[3] }}</h3>
+	</div>
+
+<hr>
+
+<div class="container marketing">
+			<ul class="media-list" list-style="none">
+			{% for review in reviews %}
+			<li class="well">
+				<div class="row">
+					<p>
+						{{review[4]}} from {{review[5]}}
+					</p>
+					<p>
+						Score: {{review[2]}} Date :{{ review[1] }} 
+					</p>
+					{%if (admin) %}
+					<<a href="{{ url_for('edit_review',reviewid=review[7]) }}" class="glyphicon glyphicon-pencil" type="button">Update</a>
+					<a href="{{ url_for('delete_review', reviewid=review[7]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>				
+					{% endif %}
+				</div>
+				<div class="row">
+
+						<a href="{{ url_for('contentstatic', contentid= review[3]) }}"><img src="{{review[6]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
+						<p>
+							{{review[0]}}
+						</p>						
+				</div>
+				{% endfor %}
+				</ul>
+
+</div>
+</div>
+{% endblock %}
