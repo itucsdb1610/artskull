@@ -309,6 +309,7 @@ def timeline():
 
     if request.method == 'GET':
         init_criticTable(app.config['dsn'])
+        init_reviewTable(app.config['dsn'])
         init_furkanstables(app.config['dsn'])
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
@@ -404,7 +405,8 @@ def criticadd():
         criticname = request.form['CriticName']
         criticsurname = request.form['CriticSurname']
         criticWorkplace = request.form['CriticWorkplace']
-        insert_criticTable(app.config['dsn'], criticname, criticsurname, criticWorkplace)
+        criticPic = request.form['CriticPic']
+        insert_criticTable(app.config['dsn'], criticname, criticsurname, criticWorkplace,criticPic)
         return redirect(url_for('criticlist'))
 
 @app.route('/criticlist')
@@ -435,10 +437,30 @@ def criticedit(criticid):
         criticname = request.form['CriticName']
         criticsurname = request.form['CriticSurname']
         criticworkplace = request.form['CriticWorkplace']
-        edit_critic(app.config['dsn'], criticid,criticname,criticsurname,criticworkplace)
+        criticPic = request.form['CriticPic']
+        edit_critic(app.config['dsn'], criticid,criticname,criticsurname,criticworkplace,criticPic)
         return redirect(url_for('criticadd'))
     else:
         return render_template('criticedit.html', criticid=criticid)
+
+@app.route('/add_review/<contentid>', methods=['GET', 'POST'])
+def add_review(contentid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if not isAdmin_userEdit(app.config['dsn'], session['username']):
+        if not username == session['username']:
+            return redirect(url_for('timeline'))
+    if request.method == 'GET':
+        getcritic = getall_critictable(app.config['dsn'])
+        return render_template('add_review.html', contentid = contentid, critics = getcritic)
+    else:
+        criticid = request.form['inputName']
+        contentid = contentid
+        review = request.form['inputReview']
+        date = request.form['inputDate']
+        score = request.form['inputScore']
+        insert_reviewTable(app.config['dsn'], criticid,contentid,review,date,score)
+        return redirect(url_for('contents_list'))
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -525,7 +547,8 @@ def contentstatic(contentid):
         getcontent = getcontent_contenttable(app.config['dsn'], contentid)
         getcast = searchcast(app.config['dsn'],contentid)
         onstages = findstages(app.config['dsn'], contentid)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages)
+        getreviews = getreview_content(app.config['dsn'],contentid)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
