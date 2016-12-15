@@ -6,8 +6,6 @@
 <div class="container marketing">
 	<div class="left col-lg-9">
 		<hr>
-
-	<hr>
 		<ul class="media-list" list-style="none">
 			{% for action in actionList %}
 			<li class="well">
@@ -49,7 +47,7 @@
 				<hr>
 				<div class="row">
 					<h4> Comments </h4>
-					<ul class="list-group" list-style="none">
+					<ul class="media-list" list-style="none">
 						{% for comment in commentList %}
 							{% if (comment[3] == action[5]) %} 
 								<li class = "well">
