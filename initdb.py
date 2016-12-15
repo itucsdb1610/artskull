@@ -1350,28 +1350,29 @@ def init_criticTable(getconf):
 					NAME TEXT NOT NULL,
                     SURNAME TEXT NOT NULL,
                     WORKPLACE TEXT NULL,
+                    PROFPIC TEXT,
                     PRIMARY KEY (CRITICID)
 				)"""
         cursor.execute(query)
         connection.commit()
         cursor.close()
 
-def insert_criticTable(getconf,criticname,criticsurname,criticworkplace):
+def insert_criticTable(getconf,criticname,criticsurname,criticworkplace,criticprofpic):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = """INSERT INTO CRITIC
 					(
-						NAME, SURNAME, WORKPLACE)
-						VALUES(%s, %s, %s
+						NAME, SURNAME, WORKPLACE,PROFPIC)
+						VALUES(%s, %s, %s,%s
 						)"""
-        cursor.execute(query, (criticname,criticsurname,criticworkplace))
+        cursor.execute(query, (criticname,criticsurname,criticworkplace,criticprofpic))
         connection.commit()
         cursor.close()
 
 def getall_critictable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT NAME, SURNAME, WORKPLACE, CRITICID FROM CRITIC"
+        query = "SELECT NAME, SURNAME, WORKPLACE, CRITICID, PROFPIC FROM CRITIC"
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -1379,15 +1380,16 @@ def getall_critictable(getconf):
         cursor.close()
         return alldata
 
-def edit_critic(getconf,criticid,criticname,criticsurname,criticworkplace):
+def edit_critic(getconf,criticid,criticname,criticsurname,criticworkplace,criticprofpic):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = """UPDATE CRITIC SET 
                     NAME = %s, 
                     SURNAME = %s,
-                    WORKPLACE = %s
+                    WORKPLACE = %s,
+                    PROFPIC = %s
                     WHERE CRITICID = %s"""
-        cursor.execute(query, (criticname,criticsurname,criticworkplace,criticid,))
+        cursor.execute(query, (criticname,criticsurname,criticworkplace,criticprofpic,criticid,))
         connection.commit()
         cursor.close()    
 
@@ -1399,5 +1401,48 @@ def deleteCriticFromTable(getconf,criticid):
         cursor.execute(query,(criticid,))
         connection.commit()
         cursor.close()
+
+def init_reviewTable(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS REVIEW
+				(
+					REVIEWID SERIAL NOT NULL,
+                    CRITICID INTEGER NOT NULL REFERENCES CRITIC(CRITICID) ON DELETE CASCADE,
+                    CONTENTID INTEGER NOT NULL REFERENCES CONTENT(ID) ON DELETE CASCADE,
+					REVIEW TEXT NOT NULL,
+                    DATE TEXT NOT NULL,
+                    SCORE INTEGER NOT NULL,
+                    PRIMARY KEY (REVIEWID),
+                    CHECK ((SCORE >= 0) AND (SCORE <= 100))
+				)"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def insert_reviewTable(getconf,criticid,contentid,review,date,score):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """INSERT INTO REVIEW
+					(
+						CRITICID, CONTENTID, REVIEW, DATE,SCORE)
+						VALUES(%s, %s, %s, %s, %s
+						)
         
+        """
+        cursor.execute(query, (criticid,contentid,review,date,score))
+        connection.commit()
+        cursor.close()
+
+def getreview_content(getconf,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
+        
+        """
+        cursor.execute(query, (contentid,))
+        alldata = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return alldata       
 #end for Mahmut Lutfullah Özbilen
