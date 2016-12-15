@@ -462,6 +462,21 @@ def add_review(contentid):
         insert_reviewTable(app.config['dsn'], criticid,contentid,review,date,score)
         return redirect(url_for('contents_list'))
 
+@app.route('/edit_review/<reviewid>', methods=['GET', 'POST'])
+def edit_review(reviewid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    if request.method == 'POST':
+        criticid = request.form['inputName']
+        review = request.form['inputReview']
+        date = request.form['inputDate']
+        score = request.form['inputScore']
+        edit_reviewTable(app.config['dsn'], criticid,review,date,score,reviewid)
+        return redirect(url_for('contents_list'))
+    else:
+        getcritic = getall_critictable(app.config['dsn'])
+        return render_template('edit_review.html',reviewid=reviewid, critics = getcritic)
+
 @app.route('/profile/<username>')
 def profile(username):
     if 'username' not in session:
