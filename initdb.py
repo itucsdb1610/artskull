@@ -1437,7 +1437,7 @@ def insert_reviewTable(getconf,criticid,contentid,review,date,score):
 def getreview_content(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
+        query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID,REVIEW.CRITICID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
         
         """
         cursor.execute(query, (contentid,))
@@ -1467,4 +1467,29 @@ def deleteReviewFromTable(getconf,reviewid):
         cursor.execute(query,(reviewid,))
         connection.commit()
         cursor.close()
+
+def getcriticfromtable(getconf,criticid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM CRITIC WHERE CRITICID = %s"""
+
+        cursor.execute(query, (criticid,))
+        getdata = cursor.fetchone()
+
+        connection.commit()
+        cursor.close()
+
+        return getdata
+
+def getReviewofCritic(getconf,criticid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT REVIEW, REVIEW.DATE,SCORE,ID, TITLE, ARTIST, CONTENTPIC, REVIEWID FROM REVIEW, CONTENT WHERE ((CRITICID = %s) AND (REVIEW.CONTENTID = CONTENT.ID))
+        
+        """
+        cursor.execute(query, (criticid,))
+        alldata = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return alldata
 #end for Mahmut Lutfullah Özbilen
