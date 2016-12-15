@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Review Delete{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Delete Review</h1>
+    </div>
+
+    <div class="alert alert-danger" role="alert">This operation cannot be reverted!</div>
+
+    <p>Are you sure to delete this review?
+    <img class="img-rounded col-md-2" width="500px" src="https://i.ytimg.com/vi/FaqxAEx46Zk/hqdefault.jpg" alt="samplepp">
+    </p>
+    <form role="form" action="{{ url_for('delete_review', reviewid=reviewid) }}" method="post">
+        <div class="form-group">
+            <button class="btn btn-danger" type="submit">Do it.</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}
