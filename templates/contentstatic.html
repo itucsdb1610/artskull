@@ -116,6 +116,7 @@
                             <ul class="media-list" list-style="none">
 			                {% for review in reviews %}
 			                <li class="well">
+                                
 				                
                                 
                                 <div class="media-body">
@@ -124,6 +125,10 @@
                                 <h5 class="media-heading">Score: {{review[5]}} Date: {{review[4]}}</h3>
                                 <hr>
                                 {{review[3]}}
+                                <p>
+                                <a href="{{ url_for('edit_review',reviewid=review[7]) }}" class="glyphicon glyphicon-pencil" type="button">Update</a>
+						        
+                                </p>
                                 </div>
   
 		            	    {% endfor %}
