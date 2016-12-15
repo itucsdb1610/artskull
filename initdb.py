@@ -7,6 +7,19 @@ import hashlib
 def get_interestplays(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
+
+        init_furkanstables(getconf)
+
+        query = """CREATE TABLE IF NOT EXISTS USERGENRES
+                    (
+                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        GENRE TEXT NOT NULL,
+                        IMPORTANCE INTEGER NOT NULL,
+                        PRIMARY KEY(USERNAME, GENRE) 
+                    )"""
+        
+        cursor.execute(query)
+
         query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES WHERE
                     ((USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY TITLE LIMIT 5 """
 
