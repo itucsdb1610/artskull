@@ -120,7 +120,7 @@
 				                
                                 
                                 <div class="media-body">
-                                <h4 class="media-heading">{{review[0]}} {{review[1]}} from {{review[2]}}</h4>
+                                <h4 class="media-heading"> <a href="{{ url_for('critic',criticid=review[8]) }}" type="button">{{review[0]}} {{review[1]}} </a> from {{review[2]}}</h4>
                                 
                                 <h5 class="media-heading">Score: {{review[5]}} Date: {{review[4]}}</h3>
                                 <hr>
