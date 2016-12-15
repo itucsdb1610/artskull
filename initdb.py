@@ -1437,12 +1437,25 @@ def insert_reviewTable(getconf,criticid,contentid,review,date,score):
 def getreview_content(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
+        query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
         
         """
         cursor.execute(query, (contentid,))
         alldata = cursor.fetchall()
         connection.commit()
         cursor.close()
-        return alldata       
+        return alldata
+
+def edit_reviewTable(getconf,criticid,review,date,score,reviewid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """UPDATE REVIEW SET 
+                    CRITICID = %s, 
+                    REVIEW = %s,
+                    DATE = %s,
+                    SCORE = %s
+                    WHERE REVIEWID = %s"""
+        cursor.execute(query, (criticid,review,date,score,reviewid,))
+        connection.commit()
+        cursor.close()   
 #end for Mahmut Lutfullah Özbilen
