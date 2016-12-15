@@ -392,6 +392,16 @@ def deleteAction(actionid):
     else:
         return render_template('confirmactiondelete.html',actionid=actionid)
 
+@app.route('/critic/<criticid>')
+def critic(criticid):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    getCritic = getcriticfromtable(app.config['dsn'],criticid)
+    getReview = getReviewofCritic(app.config['dsn'],criticid)
+    adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
+    return render_template('critic.html', critic = getCritic, reviews = getReview,admin= adminedit)
+
 @app.route('/criticadd', methods=['GET', 'POST'])
 def criticadd():
     if 'username' not in session:
