@@ -1457,5 +1457,14 @@ def edit_reviewTable(getconf,criticid,review,date,score,reviewid):
                     WHERE REVIEWID = %s"""
         cursor.execute(query, (criticid,review,date,score,reviewid,))
         connection.commit()
-        cursor.close()   
+        cursor.close()
+
+def deleteReviewFromTable(getconf,reviewid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """Delete From REVIEW
+                WHERE REVIEWID = %s"""
+        cursor.execute(query,(reviewid,))
+        connection.commit()
+        cursor.close()
 #end for Mahmut Lutfullah Özbilen
