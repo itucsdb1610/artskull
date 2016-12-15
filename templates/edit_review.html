@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Critic Edit{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Review</h1>
+    </div>
+
+
+    <form role="form" action="{{url_for('edit_review', reviewid=reviewid)}}" id="editingreview" class="form-horizontal" method="post">
+        <div class="form-group">
+						<label for="inputName">Critic:</label><br/>
+						<select name="inputName" id="inputName">
+							{% for critic in critics %}
+  							<option value="{{critic[3]}}">{{critic[0]}} {{critic[1]}} from {{critic[2]}} </option>
+  							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Review:</label><br/>
+						<input type="text" class="form-control" name="inputReview" id="inputReview">
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Date:</label><br/>
+						<input type="date" class="form-control" name="inputDate" id="inputDate">
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Score:</label><br/>
+						<input type="text" class="form-control" name="inputScore" id="inputScore">
+					</div>
+
+
+				<br/><button type="submit" class="btn btn-default">Update Review</button>
+				</form>
+    </form>
+
+
+</div>
+
+{% endblock %}
