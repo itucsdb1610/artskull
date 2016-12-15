@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}Add Review{% endblock %}
+{% block content %}
+	
+
+<div class="container-fluid">
+<h1> Add Review</h1>
+    <hr/>
+			<div class="left col-sm-9">
+			<h3>Add Review</h3>
+				<hr>
+				<form id="add_review" action="{{ url_for('add_review', contentid = contentid) }}" method="post">
+					<div class="form-group">
+						<label for="inputName">Critic:</label><br/>
+						<select name="inputName" id="inputName">
+							{% for critic in critics %}
+  							<option value="{{critic[3]}}">{{critic[0]}} {{critic[1]}} from {{critic[2]}} </option>
+  							{% endfor %}
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Review:</label><br/>
+						<input type="date" class="form-control" name="inputReview" id="inputReview">
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Date:</label><br/>
+						<input type="date" class="form-control" name="inputDate" id="inputDate">
+					</div>
+					<div class="form-group">
+						<label for="inputDate">Score:</label><br/>
+						<input type="text" class="form-control" name="inputScore" id="inputScore">
+					</div>
+
+
+				<br/><button type="submit" class="btn btn-default">Add Review</button>
+				</form>
+			</div>
+				
+
+			
+	</div>
+    {% endblock %}
