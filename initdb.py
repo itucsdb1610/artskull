@@ -579,16 +579,19 @@ def init_commentTable(getconf):
         connection.commit()
         cursor.close()
 def insert_commenttable(getconf,comment):
-	with dbapi2.connect(getconf) as connection:
-		cursor = connection.cursor()	
-		query="""INSERT INTO COMMENTS
-					(
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()	
+        query="""INSERT INTO COMMENTS
+                (
 						COMMENT, ACTIONID, USERNAME, DATE)
 						VALUES(%s, %s, %s, %s
-						)"""
-		cursor.execute(query, (comment.comm, comment.actionid, comment.username, comment.date) )
-		connection.commit()
-		cursor.close()
+						) RETURNING COMMENTID"""
+        cursor.execute(query, (comment.comm, comment.actionid, comment.username, comment.date))
+        id = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        id = id[0]
+        return id
 		
 def getall_commenttable(getconf):
     with dbapi2.connect(getconf) as connection:
