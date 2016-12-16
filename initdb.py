@@ -769,6 +769,20 @@ def insert_notifications(getconf, notification):
         cursor.execute(query, (notification.commentid, notification.commenter, notification.receiver, notification.date) )
         connection.commit()
         cursor.close()  
+def get_notifications(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query="""SELECT USERS.NAME, USERS.SURNAME, COMMENTS.COMMENT, ACTIONID, NOTIFICATIONS.DATE, ISREAD, NOTIFICATIONS.ID, 
+        RECEIVER, COMMENTER
+        FROM NOTIFICATIONS, COMMENTS, USERS WHERE USERS.USERNAME = COMMENTER AND  COMMENTS.COMMENTID = NOTIFICATIONS.COMMENTID AND RECEIVER != COMMENTER
+            AND RECEIVER = %s
+        ORDER BY NOTIFICATIONS.DATE DESC """
+        cursor.execute(query,(username,))
+        alldata = cursor.fetchall()
+        
+        connection.commit()
+        cursor.close()
+        return alldata
 #End for Murat Özkök
 
 # Start for Furkan Özçelik

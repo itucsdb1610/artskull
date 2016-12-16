@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Notifications</h1>
+        <a href="{{ url_for('markallread', username=username) }}" class="glyphicon glyphicon-check" type="button">Mark All Notifications as Read</a>
+    </div>
+    
+    <ul class="media-list">
+        {% for ntf in ntfList %}
+            <li class="media">
+                <div class="media-body">
+                    <p><a href="{{ url_for('profile', username= ntf[8]) }}">{{ ntf[0] }} {{ntf[1]}}</a> is commented to your post.</p>
+                    <blockquote><p>{{ntf[2]}}</p></blockquote>
+                    {% if ntf[5] %}
+                    <p><span class="glyphicon glyphicon-ok-sign"></span> Read </p> 
+                    <br/>
+                    {% else %}
+                    <p><span class="	glyphicon glyphicon-remove-sign"></span> Unread </p> 
+                    <a href="{{ url_for('markoneread', id=ntf[6]) }}" class="glyphicon glyphicon-pencil" type="button">Mark as Read</a>
+                    {%endif%}
+                </div>
+            </li>
+        </a>
+            <hr class="featurette-divider" />
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+{% endblock %}
