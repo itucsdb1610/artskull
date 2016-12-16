@@ -235,7 +235,7 @@ def comment_edit(commentid):
             if not username == session['username']:
                 return redirect(url_for('timeline'))
         else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         actualcomment = getcomment(app.config['dsn'], commentid)
@@ -263,7 +263,7 @@ def comment_delete(commentid):
             if not username == session['username']:
                 return redirect(url_for('timeline'))
         else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         return render_template('confirmcommentdelete.html', commentid=commentid)
@@ -290,7 +290,7 @@ def deleteCommentsOfAction(actionid):
             if not username == session['username']:
                 return redirect(url_for('timeline'))
         else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         return render_template('confirmdeleteactioncomments.html', actionid=actionid)    
@@ -352,7 +352,7 @@ def actionModify(actionid):
             if not username == session['username']:
                 return redirect(url_for('timeline'))
         else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         thisaction = getAction(app.config['dsn'],actionid)
@@ -376,7 +376,7 @@ def deleteAction(actionid):
             if not username == session['username']:
                 return redirect(url_for('timeline'))
         else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] != 0:
+            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 0:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         return render_template('confirmactiondelete.html',actionid=actionid)
