@@ -62,6 +62,8 @@ def user_login():
         password = request.form['inputPassword']
         if isuser_intable(app.config['dsn'], username, password):
             session['username'] = username
+            if isAdmin_userEdit(app.config['dsn'], username):
+                session['isAdmin'] = username
             return redirect(url_for('timeline'))
         else:
             error = "Invalid credentials"
@@ -73,6 +75,8 @@ def user_logout():
     if 'username' not in session:
         return redirect(url_for('user_login'))
     session.pop('username', None)
+    if 'isAdmin' in session:
+        session.pop('isAdmin', None)
     return redirect(url_for('home'))
 
 @app.route('/userdelete/<username>', methods=['GET', 'POST'])

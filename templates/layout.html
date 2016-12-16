@@ -35,6 +35,9 @@
                         <!--
                         <li><a href="{{ url_for('admin') }}">Admin Panel</a></li>
                         -->
+                        {% if 'isAdmin' in session %}
+                        <li><a href="{{url_for('adminpanel')}}"><span class="glyphicon glyphicon-wrench"></span> Admin Panel</a></li>
+                        {% endif %}
 
                         <li><a href="{{ url_for('user_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                         <!--<li><a href="{{ url_for('search')}}">Search Result</a></li>-->
