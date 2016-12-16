@@ -12,6 +12,7 @@ from stage import Stage
 from action import Action
 from actor import Actor
 from report import Report
+from notification import Notification
 import time
 
 app = Flask(__name__)
