@@ -229,14 +229,6 @@ def comment_edit(commentid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-
     if request.method == 'GET':
         actualcomment = getcomment(app.config['dsn'], commentid)
         return render_template('commentedit.html', comment=getcomment, commentid=commentid)
@@ -254,14 +246,6 @@ def comment_delete(commentid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-
     if request.method == 'POST':
         deletefrom_commenttable(app.config['dsn'], commentid)
         return redirect(url_for('timeline'))
@@ -273,14 +257,6 @@ def dropcomments():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-
     drop_commenttable(app.config['dsn'])
     return redirect(url_for('comments_list'))	
     
@@ -288,14 +264,6 @@ def dropcomments():
 def deleteCommentsOfAction(actionid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
-
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         delete_comments_from_action(app.config['dsn'], actionid)
@@ -309,9 +277,9 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+        init_furkanstables(app.config['dsn'])
         init_criticTable(app.config['dsn'])
         init_reviewTable(app.config['dsn'])
-        init_furkanstables(app.config['dsn'])
         init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
         init_actortablenoadd(app.config['dsn'])
@@ -346,14 +314,6 @@ def clearActionTable():
     if 'username' not in session:
         return redirect(url_for('user_login'))
 
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-
     dropActionTable(app.config['dsn'])
     return redirect(url_for('timeline'))
 
@@ -361,14 +321,6 @@ def clearActionTable():
 def actionModify(actionid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
-
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
 
     if request.method == 'GET':
         thisaction = getAction(app.config['dsn'],actionid)
@@ -382,14 +334,6 @@ def actionModify(actionid):
 def deleteAction(actionid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
-
-    if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
-    else:
-        if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
 
     if request.method == 'POST':
         deleteActionFromTable(app.config['dsn'],actionid)
@@ -412,8 +356,8 @@ def criticadd():
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
+
     if request.method == 'GET':
         return render_template('criticadd.html')
     else:
@@ -436,8 +380,8 @@ def criticdelete(criticid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
+
     if request.method == 'POST':
         deleteCriticFromTable(app.config['dsn'], criticid)
         return redirect(url_for('criticadd'))
@@ -449,8 +393,7 @@ def criticedit(criticid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
     if request.method == 'POST':
         criticname = request.form['CriticName']
         criticsurname = request.form['CriticSurname']
@@ -466,8 +409,7 @@ def add_review(contentid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
     if request.method == 'GET':
         getcritic = getall_critictable(app.config['dsn'])
         return render_template('add_review.html', contentid = contentid, critics = getcritic)
@@ -485,8 +427,7 @@ def edit_review(reviewid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
     if request.method == 'POST':
         criticid = request.form['inputName']
         review = request.form['inputReview']
@@ -503,8 +444,7 @@ def delete_review(reviewid):
     if 'username' not in session:
         return redirect(url_for('user_login'))
     if not isAdmin_userEdit(app.config['dsn'], session['username']):
-        if not username == session['username']:
-            return redirect(url_for('timeline'))
+        return redirect(url_for('timeline'))
     if request.method == 'POST':
         deleteReviewFromTable(app.config['dsn'], reviewid)
         return redirect(url_for('contents_list'))
