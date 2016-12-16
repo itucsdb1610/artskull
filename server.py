@@ -584,7 +584,18 @@ def contentstatic(contentid):
         onstages = findstages(app.config['dsn'], contentid)
         getreviews = getreview_content(app.config['dsn'],contentid)
         adminedit = isAdmin_userEdit(app.config['dsn'], session['username'])
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit)
+        is_rated = israted(app.config['dsn'], session['username'], contentid)
+        onevote = getonevote(app.config['dsn'], session['username'], contentid)
+        votes = countvotes(app.config['dsn'], contentid)
+        if votes==0:
+            rating = 0
+        else:
+            ratings = getvotes(app.config['dsn'], contentid) 
+            totalrating = 0
+            for rate in ratings:
+                totalrating = totalrating + rate[0]
+            rating = float(totalrating) / float(votes)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
@@ -595,6 +606,14 @@ def contentstatic(contentid):
             action = Action(username,contentid,actiontype,actioncomment,date)
             cmm = Comment(actioncomment,contentid, username,date)
             insert_actionTable(app.config['dsn'], action)
+            return redirect(url_for('contentstatic',contentid=contentid))
+        elif request.form['submit'] == 'Rate':
+            username = session['username']
+            newrating = request.form['Rating']
+            if (israted(app.config['dsn'], session['username'], contentid)):
+                editrating(app.config['dsn'], username, contentid, newrating)
+            else:
+                insert_rating(app.config['dsn'], username, contentid, newrating)
             return redirect(url_for('contentstatic',contentid=contentid))
     else:
         return render_template('content.html')
