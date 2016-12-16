@@ -316,6 +316,7 @@ def timeline():
         init_actortablenoadd(app.config['dsn'])
         init_casting(app.config['dsn'])
         init_reportstable(app.config['dsn'])
+        init_notifications(app.config['dsn'])
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
@@ -333,7 +334,9 @@ def timeline():
         actionid = request.form['actionid']
         date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
         cmm = Comment(actioncomment,actionid, username, date)
-        insert_commenttable(app.config['dsn'], cmm)
+        commentid=insert_commenttable(app.config['dsn'], cmm)
+        receiver = username_of_action(app.config['dsn'],actionid)
+        ntf = Notification(commentid,username, receiver, date)
         return redirect(url_for('timeline'))
 
 @app.route('/clearactiontable')
