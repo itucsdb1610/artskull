@@ -1047,7 +1047,24 @@ def clear_reports():
         return redirect(url_for('timeline'))
     drop_reports(app.config['dsn'])
     return redirect(url_for('report_list'))	
-
+@app.route('/notifications')
+def notifications():
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    getnotifications = get_notifications(app.config['dsn'], session['username'])
+    return render_template('notifications.html', username = session['username'], ntfList = getnotifications)    
+@app.route('/markoneread/<id>')
+def markoneread(id):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    make_read(app.config['dsn'],id)
+    return redirect(url_for('notifications'))
+@app.route('/markallread/<username>')
+def markallread(username):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+    make_all_read(app.config['dsn'],session['username'])
+    return redirect(url_for('notifications'))    
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
