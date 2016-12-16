@@ -139,6 +139,29 @@
                         
                     </div>
                 <div class="right col-lg-3">
+                    <h3>{{rating}}/5</h3>
+                        {%if (israted) %}
+                        {% for vote in onevote %}
+                        <p>Your rated {{vote[0]}} for this play</p>
+                        {% endfor %}
+                        {% endif %}
+				        <form role="form" id="addplay" action="{{ url_for('contentstatic', contentid = contentid) }}" method="post">
+					        <div class="form-group">
+						        <label for="Rating">Rate this play</label><br/>
+						        <select name="Rating" id="Rating">
+  							        <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+						        </select>
+					        </div>
+                            <div class="form-group">
+                                <input type="submit" name = "submit" value = "Rate" class="btn btn-default">
+                            </div>
+				        </form>
+                </div>
+                <div class="right col-lg-3">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading"><h2>Friends Following Play</h2></div>
