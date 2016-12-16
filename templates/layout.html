@@ -28,6 +28,7 @@
                     <!-- menu items will change, these are for test purposes -->
                      {% if 'username' in session %}
                         <li><a href="{{ url_for('timeline') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="{{ url_for('notifications') }}"><span class="glyphicon glyphicon-inbox"></span> Notifications</a></li>
                         <li><a href="{{ url_for('profile', username=session['username']) }}"><span class="glyphicon glyphicon-user"></span> {{ session['username'] }}</a></li>
                         <li><a href="{{ url_for('contents_list') }}"><span class="glyphicon glyphicon-list-alt"></span> Content</a></li>
                         
