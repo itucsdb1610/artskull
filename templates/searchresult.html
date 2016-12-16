@@ -29,6 +29,21 @@
         
         <p style="font-weight: bold">Plays</p>
         <hr class="featurette-divider" />
+        {% for play in plays %}
+        <a href="{{ url_for('contentstatic', contentid=play[0]) }}">
+            <li class="media">
+                <div class="media-left">
+                <img width="150px" height="200px" class="media-object" src="{{play[5]}}" alt="play">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ play[1] }}</h4>
+                    <p>{{ play [2] }}</p>
+                    <p>{{ play [6] }}</p>
+                </div>
+            </li>
+        </a>
+        <hr class="featurette-divider" />
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}
