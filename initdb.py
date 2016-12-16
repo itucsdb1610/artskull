@@ -742,9 +742,11 @@ def drop_reports(getconf):
         cursor.execute(query)
         connection.commit()
         cursor.close()    
+def username_of_action(getconf, actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         query = "SELECT USERNAME FROM ACTIONS WHERE ACTIONID = %s"    
+        cursor.execute(query,(actionid,))
         username = cursor.fetchall()
         connection.commit()
         cursor.close()   
