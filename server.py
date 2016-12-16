@@ -338,6 +338,7 @@ def timeline():
         commentid=insert_commenttable(app.config['dsn'], cmm)
         receiver = username_of_action(app.config['dsn'],actionid)
         ntf = Notification(commentid,username, receiver, date)
+        insert_notifications(app.config['dsn'],ntf)
         return redirect(url_for('timeline'))
 
 @app.route('/clearactiontable')
