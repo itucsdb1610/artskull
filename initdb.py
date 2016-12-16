@@ -742,6 +742,14 @@ def drop_reports(getconf):
         cursor.execute(query)
         connection.commit()
         cursor.close()    
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT USERNAME FROM ACTIONS WHERE ACTIONID = %s"    
+        username = cursor.fetchall()
+        connection.commit()
+        cursor.close()   
+        username = username[0]
+        return username   
 def init_notifications(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
