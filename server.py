@@ -402,7 +402,8 @@ def criticedit(criticid):
         edit_critic(app.config['dsn'], criticid,criticname,criticsurname,criticworkplace,criticPic)
         return redirect(url_for('criticadd'))
     else:
-        return render_template('criticedit.html', criticid=criticid)
+        getCritic = getCurrentcritic(app.config['dsn'],criticid)
+        return render_template('criticedit.html', criticid=criticid,critic=getCritic)
 
 @app.route('/add_review/<contentid>', methods=['GET', 'POST'])
 def add_review(contentid):

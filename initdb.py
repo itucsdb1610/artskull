@@ -1571,4 +1571,14 @@ def getReviewofCritic(getconf,criticid):
         connection.commit()
         cursor.close()
         return alldata
+
+def getCurrentcritic(getconf,criticid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT * FROM CRITIC WHERE CRITICID = %s"""
+        cursor.execute(query,(criticid,))
+        data = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+        return data
 #end for Mahmut Lutfullah Özbilen
