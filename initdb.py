@@ -783,6 +783,28 @@ def get_notifications(getconf, username):
         connection.commit()
         cursor.close()
         return alldata
+def make_read(getconf,id):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE NOTIFICATIONS SET
+                        ISREAD = true
+                        WHERE ID = %s"""
+
+        cursor.execute(query, (id,))
+        connection.commit()
+        cursor.close()      
+def make_all_read(getconf, username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE NOTIFICATIONS SET
+                        ISREAD = true
+                        WHERE RECEIVER = %s"""
+
+        cursor.execute(query, (username,))
+        connection.commit()
+        cursor.close()   
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
