@@ -438,7 +438,8 @@ def edit_review(reviewid):
         return redirect(url_for('contents_list'))
     else:
         getcritic = getall_critictable(app.config['dsn'])
-        return render_template('edit_review.html',reviewid=reviewid, critics = getcritic)
+        getReview = getCurrentReview(app.config['dsn'],reviewid)
+        return render_template('edit_review.html',reviewid=reviewid, critics = getcritic,review = getReview)
 
 @app.route('/delete_review/<reviewid>', methods=['GET', 'POST'])
 def delete_review(reviewid):
