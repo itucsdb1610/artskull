@@ -1107,6 +1107,21 @@ def findstages(getconf,contentid):
         cursor.close()
 
         return getstage
+
+def search_content_table(getconf, keyword):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        keyword = '%' + keyword + '%'
+        query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT WHERE ( (LOWER(TITLE) LIKE LOWER(%s)) OR
+                        (LOWER(ARTIST) LIKE LOWER(%s)) OR (LOWER(GENRES) LIKE LOWER(%s))) ORDER BY TITLE"""
+        cursor.execute(query, (keyword, keyword, keyword,))
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
 # End for Furkan Özçelik
 
 # Start for Doğay Kamar

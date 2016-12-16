@@ -871,7 +871,8 @@ def search():
     keyword = request.form['searchbox']
 
     searchAllUsers = search_user_table(app.config['dsn'], keyword)
-    return render_template('searchresult.html', results=searchAllUsers, keyword=keyword)
+    searchAllContents = search_content_table(app.config['dsn'], keyword)
+    return render_template('searchresult.html', results=searchAllUsers, keyword=keyword, plays=searchAllContents)
 
 @app.route('/actor', methods=['GET', 'POST'])
 def actor():
