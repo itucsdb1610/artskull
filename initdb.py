@@ -1320,6 +1320,106 @@ def searchcast(getconf, casttosearch):
         return searchdata
 
 
+def init_rating(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """CREATE TABLE IF NOT EXISTS RATING
+                    (
+                        Username TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                        ContentID INTEGER NOT NULL REFERENCES CONTENT(ID) ON DELETE CASCADE,
+                        Rate INTEGER NOT NULL,
+                        PRIMARY KEY(Username, ContentID)
+                    )"""
+
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def insert_rating(getconf, user, contentid, rate):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """INSERT INTO RATING
+                            (
+                                Username, ContentID, Rate)
+                                VALUES (%s, %s, %s
+                            )"""
+        cursor.execute(query, (user, contentid, rate,))
+        connection.commit()
+        cursor.close()
+
+def deleterating(getconf, deleteuser, deleteID):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """DELETE FROM RATING
+        WHERE Username = %s AND ContentID = %s"""
+        cursor.execute(query, (deleteuser, deleteID,))
+        connection.commit()
+        cursor.close()
+
+def editrating(getconf, user, contentid, rate):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """UPDATE RATING SET
+                        Rate = %s
+                        WHERE Username = %s AND ContentID = %s"""
+        cursor.execute(query, (rate, user, contentid,))
+        connection.commit()
+        cursor.close()
+def israted(getconf, user, contentid):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT COUNT(*) FROM RATING
+                        WHERE (Username = %s AND ContentID = %s)"""
+        cursor.execute(query, (user, contentid,))
+        result = cursor.fetchone()[0]
+        connection.commit()
+        cursor.close()
+        if result  == 0:
+            return False
+        else:
+            return True
+def countvotes(getconf, contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT COUNT(*) FROM RATING
+                        WHERE ContentID = %s"""
+        cursor.execute(query, (contentid,))
+        result = cursor.fetchone()[0]
+        connection.commit()
+        cursor.close()
+        return result
+
+def getvotes(getconf, contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT Rate FROM RATING
+                        WHERE ContentID = %s"""
+        cursor.execute(query, (contentid,))
+        result = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return result
+
+def getonevote(getconf, user, contentid):
+     with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+
+        query = """SELECT Rate FROM RATING
+                        WHERE (Username = %s AND ContentID = %s)"""
+        cursor.execute(query, (user, contentid,))
+        result = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return result
+
+
 # End for Doğay Kamar
 
 #Start for Mahmut Lutfullah Özbilen
