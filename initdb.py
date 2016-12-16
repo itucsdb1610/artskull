@@ -739,6 +739,36 @@ def drop_reports(getconf):
         cursor.execute(query)
         connection.commit()
         cursor.close()    
+def init_notifications(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """CREATE TABLE IF NOT EXISTS NOTIFICATIONS
+                (
+                    ID SERIAL NOT NULL,
+                    COMMENTID INT NOT NULL REFERENCES COMMENTS(COMMENTID) ON DELETE CASCADE,
+                    COMMENTER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                    RECEIVER TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
+                    DATE TIMESTAMP NOT NULL,
+                    ISREAD BOOLEAN NOT NULL,
+                    PRIMARY KEY (id)
+                )   """ 
+        cursor.execute(query)
+        query = """ALTER TABLE NOTIFICATIONS ALTER COLUMN ISREAD SET DEFAULT false"""
+        cursor.execute(query)
+        connection.commit()
+        cursor.close()
+
+def insert_notifications(getconf, notification):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()	
+        query="""INSERT INTO NOTIFICATIONS
+                    (
+                        COMMENTID, COMMENTER, RECEIVER, DATE)
+                        VALUES(%s, %s, %s, %s
+                        )"""
+        cursor.execute(query, (notification.commentid, notification.commenter, notification.receiver, notification.date) )
+        connection.commit()
+        cursor.close()  
 #End for Murat Özkök
 
 # Start for Furkan Özçelik
