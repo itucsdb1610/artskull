@@ -41,6 +41,9 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
+    if request.method == 'GET':
+        getall = get_bestplays(app.config['dsn'])
+
     if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
@@ -51,7 +54,7 @@ def home():
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('user_login'))
 
-    return render_template('index.html')
+    return render_template('index.html', bests=getall)
 
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():

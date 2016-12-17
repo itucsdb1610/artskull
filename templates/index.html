@@ -43,23 +43,13 @@
 <div class="container marketing">
 	<h2>Trending Performs</h2>
 	<div class="row">
-		<div class="col-lg-4">
-			<img width="70px" src="{{url_for('static', filename='trending1.jpg')}}" alt="trending1">
-			<h3>Trending#1</h3>
-			<p>City#1</p>
+		{% for best in bests%}
+			<div class="col-lg-4">
+			<img width="70px" src="{{best[1]}}" alt="trending">
+			<h3>{{best[0]}}</h3>
+			<p>{{best[2]}}</p>
 		</div>
-
-		<div class="col-lg-4">
-			<img width="70px" src="{{url_for('static', filename='trending2.jpg')}}" alt="trending1">
-			<h3>Trending#2</h3>
-			<p>City#2</p>
-		</div>
-
-		<div class="col-lg-4">
-			<img width="70px" src="{{url_for('static', filename='trending3.jpg')}}" alt="trending1">
-			<h3>Trending#3</h3>
-			<p>City#3</p>
-		</div>
+		{% endfor %}
 	</div>
 
 	<hr class="featurette-divider" />
