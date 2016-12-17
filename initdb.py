@@ -1004,7 +1004,7 @@ def getstage_stagetable(getconf, stageid):
 
         return getstage
 
-def edit_stage(getconf, stagetid, stage):
+def edit_stage(getconf, stageid, stage):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
