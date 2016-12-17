@@ -1097,7 +1097,7 @@ def edit_play(getconf, stageid,contentid,stageidn,contentidn,date):
 def findstages(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC,PLAY.STAGEID FROM CONTENT,PLAY,STAGE
+        query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC,PLAY.STAGEID,PLAY.DATE FROM CONTENT,PLAY,STAGE
         WHERE ((CONTENT.ID=PLAY.CONTENTID) AND (STAGE.STAGEID=PLAY.STAGEID) AND (CONTENT.ID=%s));
                          """
         cursor.execute(query,(contentid,))
