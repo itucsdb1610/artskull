@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div class="container marketing">
+
 		<br/>
 		<div class="container">
 			{% for action in actionList %}
@@ -48,7 +48,6 @@
 				<hr>
 				<div class="row">
 					<h4>Comments</h4>
-					<br/>
 						{% for comment in commentList %}
 							{% if (comment[3] == action[5]) %}
 							<div class="row">			
@@ -85,16 +84,13 @@
 					<div class="col-md-11 col-xs-12 col-sm-12 col-lg-11">
 						<textarea class="form-control" id="comment" name="inputCommentary" placeholder="Join discussion, write your comment..."></textarea>
 					</div>
- 					
 					<input type="hidden" name="actionid" value="{{ action[5] }}">
 					<div class="col-md-1 col-xs-12 col-sm-12 col-lg-1">
 						<button class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 btn btn-success top-buffer" type="submit" value="send" name="submit">Send</button>
-					</div>
-							
+					</div>	
 				</div>	
 				</form>
 			</div>
 		{% endfor %}
-		</div>			
-</div>
+		</div>
 {% endblock %}
