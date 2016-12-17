@@ -616,17 +616,21 @@ def contentstatic(contentid):
             cmm = Comment(actioncomment,contentid, username,date)
             insert_actionTable(app.config['dsn'], action)
             return redirect(url_for('contentstatic',contentid=contentid))
-        elif request.form['submit'] == 'Rate':
-            username = session['username']
-            newrating = request.form['Rating']
-            if (israted(app.config['dsn'], session['username'], contentid)):
-                editrating(app.config['dsn'], username, contentid, newrating)
-            else:
-                insert_rating(app.config['dsn'], username, contentid, newrating)
-            return redirect(url_for('contentstatic',contentid=contentid))
     else:
         return render_template('content.html')
 
+@app.route('/contentrate/<contentid>/<newrating>', methods=['GET', 'POST'])
+def content_rate(contentid, newrating):
+    if 'username' not in session:
+        return redirect(url_for('user_login'))
+
+    if request.method == 'GET':
+        username = session['username']
+        if (israted(app.config['dsn'], session['username'], contentid)):
+                editrating(app.config['dsn'], username, contentid, newrating)
+        else:
+            insert_rating(app.config['dsn'], username, contentid, newrating)
+        return redirect(url_for('contentstatic',contentid=contentid))
 
 
 @app.route('/contentslist')
