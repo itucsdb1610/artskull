@@ -186,11 +186,14 @@
                         <!-- Table -->
                         <table class="table">
                                 {% for stage in stages %}
+                            <tr><td><img src="/static/stagepics/{{stage[3]}}" width=50 height=50 alt="stage"></td>
+                                <td><p>{{stage[0]}}</p></td>
+                            </tr>
                             <tr>
-                                <td><img src="/static/stagepics/{{stage[3]}}" width=50 height=50 alt="friend1"></td>
-                                <td>{{stage[0]}}</td>
-                                <td>{{stage[1]}}</td>
-                                <td>{{stage[2]}}</td>
+                                <td><p>{{stage[1]}}</p></td>
+                                <td><p>{{stage[5]}}</p></td>
+
+
                             </tr>
                                 {% endfor %}
                         </table>
