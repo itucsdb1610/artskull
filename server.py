@@ -592,7 +592,10 @@ def contentstatic(contentid):
         votes = countvotes(app.config['dsn'], contentid)
         getMeta = getMetaScore(app.config['dsn'],contentid)
         getMeta = str(getMeta)
-        getMeta = re.findall('\d+', getMeta)
+        if not getMeta:
+            getMeta = re.findall('\d+', getMeta)[0]
+        else:
+            getMeta = "None"
         if votes==0:
             rating = 0
         else:
@@ -601,7 +604,7 @@ def contentstatic(contentid):
             for rate in ratings:
                 totalrating = totalrating + rate[0]
             rating = float(totalrating) / float(votes)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote,metascore=getMeta[0])
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote,metascore=getMeta)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
