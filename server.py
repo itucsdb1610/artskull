@@ -604,7 +604,7 @@ def contentstatic(contentid):
             for rate in ratings:
                 totalrating = totalrating + rate[0]
             rating = float(totalrating) / float(votes)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote,metascore=getMeta)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = float("{0:.1f}".format(rating)), onevote = onevote,metascore=getMeta)
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':
