@@ -41,18 +41,6 @@
 
 
 <div class="container marketing">
-	<h2>Trending Performs</h2>
-	<div class="row">
-		{% for best in bests%}
-			<div class="col-lg-4">
-			<img width="70px" src="{{best[1]}}" alt="trending">
-			<h3>{{best[0]}}</h3>
-			<p>{{best[2]}}</p>
-		</div>
-		{% endfor %}
-	</div>
-
-	<hr class="featurette-divider" />
 	<form role="form" action="{{ url_for('home') }}" id="signupform" class="form-horizontal" method="post">
 		<h2 class="form-horizontal-heading">Sign Up</h2>
 

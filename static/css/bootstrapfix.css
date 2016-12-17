@@ -10,3 +10,12 @@ body {
     margin: auto;
     display: block;
 }
+
+textarea {
+    resize: vertical;
+}
+
+hr{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

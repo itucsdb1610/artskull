@@ -3,52 +3,6 @@ import hashlib
 
 
 # Start for Muhammed Kadir YÜCEL
-
-def get_bestplays(getconf):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-        init_rating(getconf)
-        init_furkanstables(getconf)
-
-        query = """SELECT TITLE, CONTENTPIC, ARTIST FROM CONTENT AS CON, RATING AS RAT WHERE
-                (CON.ID = RAT.CONTENTID) ORDER BY RAT.RATE DESC, CON.TITLE ASC LIMIT 3"""
-        
-        cursor.execute(query)
-
-        alldata = cursor.fetchall()
-
-        connection.commit()
-        cursor.close()
-
-        return alldata
-
-def get_interestplays(getconf, username):
-    with dbapi2.connect(getconf) as connection:
-        cursor = connection.cursor()
-        init_rating(getconf)
-        init_furkanstables(getconf)
-
-        query = """CREATE TABLE IF NOT EXISTS USERGENRES
-                    (
-                        USERNAME TEXT NOT NULL REFERENCES USERS(USERNAME) ON DELETE CASCADE,
-                        GENRE TEXT NOT NULL,
-                        IMPORTANCE INTEGER NOT NULL,
-                        PRIMARY KEY(USERNAME, GENRE) 
-                    )"""
-        
-        cursor.execute(query)
-
-        query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES AS UG, RATING AS RAT WHERE
-                    ((ID = CONTENTID) AND (UG.USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY RATE DESC, TITLE ASC LIMIT 5 """
-
-        cursor.execute(query, (username,))
-        alldata = cursor.fetchall()
-
-        connection.commit()
-        cursor.close()
-
-        return alldata
-
 def init_adminstable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()

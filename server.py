@@ -41,9 +41,6 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
-    if request.method == 'GET':
-        getall = get_bestplays(app.config['dsn'])
-
     if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
@@ -54,7 +51,7 @@ def home():
         init_usertable(app.config['dsn'], user)
         return redirect(url_for('user_login'))
 
-    return render_template('index.html', bests=getall)
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def user_login():
@@ -329,8 +326,7 @@ def timeline():
                 adminedit = True
             else:
                 adminedit = False
-        interests = get_interestplays(app.config['dsn'], session['username'])
-        return render_template('timeline.html',actionList = getall, commentList = getallcomments,contentlist = getallcontent,admin=adminedit,interests=interests)
+        return render_template('timeline.html',actionList = getall, commentList = getallcomments,contentlist = getallcontent,admin=adminedit)
     else:
         username = session['username']
         actioncomment = request.form['inputCommentary']

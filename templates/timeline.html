@@ -4,107 +4,97 @@
 
 
 <div class="container marketing">
-	<div class="left col-lg-9">
-		<hr>
-		<ul class="media-list" list-style="none">
+		<br/>
+		<div class="container">
 			{% for action in actionList %}
-			<li class="well">
+			<div class="row well">
 				<div class="row">
-					<a href="{{ url_for('profile', username= action[0]) }}"><img class="img-rounded col-md-2" height="100px" width="100px" src="{{action[8]}}" alt="samplepp"></a>
+					<a href="{{ url_for('profile', username= action[0]) }}"><img max-width="50px" class="col-md-1 col-xs-3 col-sm-3 col-lg-1" src="{{action[8]}}" alt="profilepicture"></a>
 
-					<p class="col-md-8">
-						<a href="{{ url_for('profile', username= action[0]) }}">{{ action[6] }} {{action[7]}}</a> : "{{ action[3] }}"
-					</p>
-					<p>
-						Date :{{ action[4] }}
-					</p>
-					{%if (action[0]==session['username'])%}
-					<a href="{{ url_for('actionModify', actionid=action[5], username=action[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
-					{% endif %}
-					{%if  (action[0]==session['username']) or (admin) %}
-					<a href="{{ url_for('deleteAction', actionid=action[5], username=action[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
-					<a href="{{ url_for('deleteCommentsOfAction', actionid=action[5]) }}" class="glyphicon glyphicon-trash" type="button">Delete All Comments Of This Post</a>					
-					{% endif %}
+					<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
+						<p><a href="{{ url_for('profile', username= action[0]) }}">{{ action[6] }} {{action[7]}}</a>: "{{ action[3] }}"<p>
+						<div class="row">
+							<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
+								<p class="small"><span class="glyphicon glyphicon-calendar"></span> {{ action[4] }}</p>
+								{%if (action[0]==session['username'])%}
+								<p class="small">
+								<a href="{{ url_for('actionModify', actionid=action[5], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
+								{% endif %}
+								{%if  (action[0]==session['username']) or (admin) %}
+								<a href="{{ url_for('deleteAction', actionid=action[5], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+								<a href="{{ url_for('deleteCommentsOfAction', actionid=action[5]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete All Comments</a>					
+								</p>
+								{% endif %}
+							</div>
+						</div>
+					</div>
 				</div>
-				<hr>
-					
-						{%for content in contentlist%}
-						{%if (content[0]==action[1])%}
-						
-							<div class="row">
-						<a href="{{ url_for('contentstatic', contentid= content[0]) }}"><img src="{{content[5]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
-						<p> 
-							<a href="{{ url_for('contentstatic', contentid = content[0]) }}">{{ content[1] }}</a> by {{content[2]}}
-						</p>
-						<p>
-							{{content[4]}} : {{content[3]}}
-						</p>		
-						</div>	
-							
-						{% endif %}
-						{% endfor %}
-
+				<br/>
+				{%for content in contentlist%}
+					{%if (content[0]==action[1])%}
+					<div class="row">
+						<a href="{{ url_for('contentstatic', contentid= content[0]) }}"><img class="col-md-2 col-xs-3 col-sm-3 col-lg-2" src="{{content[5]}}"  alt="playpicture"></a>
+						<div class="col-md-10 col-xs-9 col-sm-9 col-lg-10">
+							<p>
+								<a href="{{ url_for('contentstatic', contentid = content[0]) }}">{{ content[1] }}</a> by {{content[2]}}
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-calendar"></span> {{content[4]}}  <span class="glyphicon glyphicon-time"></span> {{content[3]}}
+							</p>
+						</div>
+					</div>
+					{% endif %}
+				{% endfor %}
 				<hr>
 				<div class="row">
-					<h4> Comments </h4>
-					<ul class="media-list" list-style="none">
+					<h4>Comments</h4>
+					<br/>
 						{% for comment in commentList %}
-							{% if (comment[3] == action[5]) %} 
-								<li class = "well">
-									
-									<div class="row">				
-										<a href="{{ url_for('profile', username= comment[1]) }}"><img class="img-rounded col-md-2" height="100px" width="100px" src="{{comment[6]}}" alt="samplepp"></a>
-										
-										<p class="col-md-8">
-										 {{ comment[2] }}
-										</p>
-										<p>
-										
-										</p>
-
-							{%if  (comment[1]==session['username']) or (admin) %}
-							<a href="{{ url_for('comment_edit', commentid=comment[0], username = action[0]) }}" class="glyphicon glyphicon-pencil" type="button">Modify</a>
-							<a href="{{ url_for('comment_delete', commentid=comment[0], username=action[0]) }}" class="glyphicon glyphicon-trash" type="button">Delete</a>
-							{%endif%}
-				</div>
-				<div class="row"><p class="col-md-10">{{ comment[4] }} {{ comment[5] }} <br> Comment Date :{{ comment[7] }}</p> </div>
-				{% if (comment[1] != session['username']) %}
-				<a href="{{ url_for('report_comment', commentid=comment[0]) }}" class="glyphicon glyphicon-warning-sign" type="button">Report!</a></p>
-				{% endif %} 
-				</li>
+							{% if (comment[3] == action[5]) %}
+							<div class="row">			
+								<a href="{{ url_for('profile', username= comment[1]) }}">
+									<img class="col-md-1 col-xs-3 col-sm-3 col-lg-1" src="{{comment[6]}}" alt="samplepp">
+								</a>
+								<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
+									<p>
+										<a href="{{ url_for('profile', username = comment[1])}}">{{ comment[4] }} {{ comment[5] }}</a>: {{ comment[2] }}
+									</p>
+									<div class="row">
+										<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
+											<p class="small"><span class="glyphicon glyphicon-calendar"></span> {{ comment[7] }}</p>
+											<p class="small">
+											{%if  (comment[1]==session['username']) or (admin) %}
+												<a href="{{ url_for('comment_edit', commentid=comment[0], username = action[0]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
+												<a href="{{ url_for('comment_delete', commentid=comment[0], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+											{%endif%}
+											{% if (comment[1] != session['username']) %}
+												<a href="{{ url_for('report_comment', commentid=comment[0]) }}" type="button"><span class="glyphicon glyphicon-sign"></span> Report!</a></p>
+											{% endif %}
+											</p>
+										</div>
+									</div>
+								</div>
+								</div>
 							{% endif %}
-						{% endfor %}
-					</ul>									
+							<br/>
+						{% endfor %}									
 				</div>
+				<hr>
 				<form role="form" action="{{ url_for('timeline') }}" id="commentform" class="form-horizontal" method="post">
-				<div class="form-group">
-				
-  					<label for="comment">Join Discussion:</label>
- 					 <textarea class="form-control" rows="5" id="comment" name="inputCommentary" placeholder="Your comment"></textarea>
-					 <input type="hidden" name="actionid" value="{{ action[5] }}">
-					 <button class="col-sm-offset-11 btn btn-success top-buffer" type="submit" value="send" name="submit">Send</button>		
+				<div class="row">
+					<div class="col-md-11 col-xs-12 col-sm-12 col-lg-11">
+						<textarea class="form-control" id="comment" name="inputCommentary" placeholder="Join discussion, write your comment..."></textarea>
+					</div>
+ 					
+					<input type="hidden" name="actionid" value="{{ action[5] }}">
+					<div class="col-md-1 col-xs-12 col-sm-12 col-lg-1">
+						<button class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 btn btn-success top-buffer" type="submit" value="send" name="submit">Send</button>
+					</div>
+							
 				</div>	
 				</form>
-			</li>
-				{% endfor %}
-		</ul>								
-				</div>			
-			
-	<div class="right col-lg-3">
-		<hr>
-		<h3>
-			Plays you may interest
-		</h3>
-		<ul class="media-list">
-			{% for interest in interests %}
-			<li>
-				<img class="img-rounded" width="100px" src="{{interest[3]}}" alt="interestedPlays">
-				<p>{{interest[0]}}</p>
-				<p>{{interest[1]}}</p>
-				<p>{{interest[2]}}</p>
-			</li>
-			{% endfor %}
-		</ul>
-	</div>
+			</div>
+		{% endfor %}
+		</div>			
 </div>
 {% endblock %}
