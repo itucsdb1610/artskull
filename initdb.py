@@ -41,7 +41,7 @@ def get_interestplays(getconf, username):
         query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES AS UG, RATING AS RAT WHERE
                     ((ID = CONTENTID) AND (UG.USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY RATE DESC, TITLE ASC LIMIT 5 """
 
-        cursor.execute(query, (username, username,))
+        cursor.execute(query, (username,))
         alldata = cursor.fetchall()
 
         connection.commit()
