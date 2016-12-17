@@ -4,10 +4,28 @@ import hashlib
 
 # Start for Muhammed Kadir YÜCEL
 
+def get_bestplays(getconf):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        init_rating(getconf)
+        init_furkanstables(getconf)
+
+        query = """SELECT TITLE, CONTENTPIC, ARTIST FROM CONTENT AS CON, RATING AS RAT WHERE
+                (CON.ID = RAT.CONTENTID) ORDER BY RAT.RATE DESC, CON.TITLE ASC LIMIT 3"""
+        
+        cursor.execute(query)
+
+        alldata = cursor.fetchall()
+
+        connection.commit()
+        cursor.close()
+
+        return alldata
+
 def get_interestplays(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-
+        init_rating(getconf)
         init_furkanstables(getconf)
 
         query = """CREATE TABLE IF NOT EXISTS USERGENRES
@@ -20,10 +38,10 @@ def get_interestplays(getconf, username):
         
         cursor.execute(query)
 
-        query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES WHERE
-                    ((USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY TITLE LIMIT 5 """
+        query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES AS UG, RATING AS RAT WHERE
+                    ((ID = CONTENTID) AND (RAT.USERNAME = %s) AND (UG.USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY RATE DESC, TITLE ASC LIMIT 5 """
 
-        cursor.execute(query, (username,))
+        cursor.execute(query, (username, username,))
         alldata = cursor.fetchall()
 
         connection.commit()
