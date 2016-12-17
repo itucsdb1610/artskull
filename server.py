@@ -592,10 +592,10 @@ def contentstatic(contentid):
         votes = countvotes(app.config['dsn'], contentid)
         getMeta = getMetaScore(app.config['dsn'],contentid)
         getMeta = str(getMeta)
-        if not getMeta:
-            getMeta = re.findall('\d+', getMeta)[0]
-        else:
+        if getMeta == "(None,)":
             getMeta = "None"
+        else:
+            getMeta = re.findall('\d+', getMeta)[0]
         if votes==0:
             rating = 0
         else:
