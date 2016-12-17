@@ -306,6 +306,7 @@ def timeline():
 
     if request.method == 'GET':
         init_furkanstables(app.config['dsn'])
+        init_rating(app.config['dsn'])
         init_criticTable(app.config['dsn'])
         init_reviewTable(app.config['dsn'])
         init_commentTable(app.config['dsn'])
