@@ -14,6 +14,8 @@ from actor import Actor
 from report import Report
 from notification import Notification
 import time
+from decimal import *
+
 
 app = Flask(__name__)
 app.secret_key = 'MerhabaITUCSDB1610'
@@ -588,6 +590,9 @@ def contentstatic(contentid):
         is_rated = israted(app.config['dsn'], session['username'], contentid)
         onevote = getonevote(app.config['dsn'], session['username'], contentid)
         votes = countvotes(app.config['dsn'], contentid)
+        getMeta = getMetaScore(app.config['dsn'],contentid)
+        getMeta = str(getMeta)
+        getMeta = re.findall('\d+', getMeta)
         if votes==0:
             rating = 0
         else:
@@ -596,7 +601,7 @@ def contentstatic(contentid):
             for rate in ratings:
                 totalrating = totalrating + rate[0]
             rating = float(totalrating) / float(votes)
-        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote)
+        return render_template('contentstatic.html',content = getcontent, contentid=contentid, contentaction=getcontentAction, cast = getcast,stages=onstages,reviews = getreviews,admin=adminedit, israted = is_rated, rating = rating, onevote = onevote,metascore=getMeta[0])
 
     elif request.method == 'POST':#this section belongs to Mahmut Lutfullah ÖZBİLEN
         if request.form['submit'] == 'Share':

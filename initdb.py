@@ -1706,4 +1706,14 @@ def getCurrentReview(getconf,reviewid):
         connection.commit()
         cursor.close()
         return data
+
+def getMetaScore(getconf,contentid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = """SELECT AVG(SCORE) FROM REVIEW WHERE CONTENTID = %s"""
+        cursor.execute(query,(contentid,))
+        data = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+        return data
 #end for Mahmut Lutfullah Özbilen
