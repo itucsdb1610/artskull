@@ -10,7 +10,7 @@ def get_bestplays(getconf):
         init_rating(getconf)
         init_furkanstables(getconf)
 
-        query = """SELECT TITLE, CONTENTPIC, ARTIST FROM CONTENT AS CON, RATING AS RAT WHERE
+        query = """SELECT DISTINCT TITLE, CONTENTPIC, ARTIST FROM CONTENT AS CON, RATING AS RAT WHERE
                 (CON.ID = RAT.CONTENTID) ORDER BY RAT.RATE DESC, CON.TITLE ASC LIMIT 3"""
         
         cursor.execute(query)
@@ -39,7 +39,7 @@ def get_interestplays(getconf, username):
         cursor.execute(query)
 
         query = """SELECT TITLE, DATE, GENRES, CONTENTPIC, GENRE, IMPORTANCE FROM CONTENT, USERGENRES AS UG, RATING AS RAT WHERE
-                    ((ID = CONTENTID) AND (RAT.USERNAME = %s) AND (UG.USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY RATE DESC, TITLE ASC LIMIT 5 """
+                    ((ID = CONTENTID) AND (UG.USERNAME = %s) AND (GENRES = GENRE) AND (IMPORTANCE = 5)) ORDER BY RATE DESC, TITLE ASC LIMIT 5 """
 
         cursor.execute(query, (username, username,))
         alldata = cursor.fetchall()
