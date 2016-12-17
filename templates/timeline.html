@@ -1,16 +1,12 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-
-
-
 		<br/>
 		<div class="container">
 			{% for action in actionList %}
 			<div class="row well">
 				<div class="row">
 					<a href="{{ url_for('profile', username= action[0]) }}"><img max-width="50px" class="col-md-1 col-xs-3 col-sm-3 col-lg-1" src="{{action[8]}}" alt="profilepicture"></a>
-
 					<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
 						<p><a href="{{ url_for('profile', username= action[0]) }}">{{ action[6] }} {{action[7]}}</a>: "{{ action[3] }}"<p>
 						<div class="row">
