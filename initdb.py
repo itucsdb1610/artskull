@@ -1535,6 +1535,16 @@ def  getActionContent(getconf):#for timeline
         cursor.close()
         return content
 
+def getuser_action(getconf,username):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT ACTIONCOMMENT,ACTIONS.DATE,ACTIONS.CONTENTID,TITLE,CONTENTPIC,ARTIST FROM ACTIONS,CONTENT WHERE(ACTIONS.USERNAME = %s)"
+        cursor.execute(query,(username,))
+        data = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+        return data 
+
 def init_criticTable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
@@ -1716,4 +1726,5 @@ def getMetaScore(getconf,contentid):
         connection.commit()
         cursor.close()
         return data
+
 #end for Mahmut Lutfullah Özbilen

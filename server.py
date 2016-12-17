@@ -521,8 +521,8 @@ def profile(username):
     getFollowingCounts = get_following_counts(app.config['dsn'], username)
     isFollowing = is_following(app.config['dsn'],getUsername, username)
     getFollowerCounts = get_followed_counts(app.config['dsn'],username)
-    
-    return render_template('profile.html', user=getUser, genres=getGenres, username=username, followingCounts=getFollowingCounts, followedCounts=getFollowerCounts, follows=isFollowing, same=same, adminedit=adminedit)
+    getAction = getuser_action(app.config['dsn'],username)
+    return render_template('profile.html', user=getUser, genres=getGenres, username=username, followingCounts=getFollowingCounts, followedCounts=getFollowerCounts, follows=isFollowing, same=same, adminedit=adminedit,actions=getAction)
 
 @app.route('/follow/<username>')
 def follow(username):

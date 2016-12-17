@@ -15,42 +15,17 @@
 		<div class="container">
 			<div class="left col-md-8">			
 				<ul class="media-list">
+					{% for action in actions %}
 					<li class="media mt-2">
-						<p> Comment about Play Title #1 </p>
+						<p> {{action[0]}} </p>
     					<div class="media-body">
-      						<h4 class="media-heading">Play Title #1</h4>
-      						Short info about Play Title #1
+      						<h4 class="media-heading">{{action[3]}} from {{action[5]}}</h4>
     					</div>
     					<div class="media-right">
-      						<a href="#">
-       							<img class="media-object" src="{{ url_for('static', filename='trending1.jpg')}}" width=70 alt="Ex1">
-      						</a>
+      						<a href="{{ url_for('contentstatic', contentid= action[2]) }}"><img src="{{action[4]}}" height="200px" width="150px" class="media-object" alt="example play picture"></a>
     					</div>
  					</li>
-					<li class="media mt-2">
-						<p> Comment about Play Title #2 </p>
-    					<div class="media-body">
-      						<h4 class="media-heading">Play Title #2</h4>
-      						Short info about Play Title #2
-    					</div>
-    					<div class="media-right">
-      						<a href="#">
-       							<img class="media-object" src="{{ url_for('static', filename='trending2.jpg')}}" width=70 alt="Ex2">
-      						</a>
-    					</div>
- 					</li>
-					<li class="media mt-2">
-						<p> Comment about Play Title #3 </p>
-    					<div class="media-body">
-      						<h4 class="media-heading">Play Title #3</h4>
-      						Short info about Play Title #3
-    					</div>
-    					<div class="media-right">
-      						<a href="#">
-       							<img class="media-object" src="{{ url_for('static', filename='trending3.jpg')}}" width=70 alt="Ex3">
-      						</a>
-    					</div>
- 					</li>
+					{%endfor%}
 				</ul>
 
 			</div>
