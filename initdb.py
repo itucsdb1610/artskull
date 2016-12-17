@@ -1538,7 +1538,7 @@ def  getActionContent(getconf):#for timeline
 def getuser_action(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        query = "SELECT ACTIONCOMMENT,ACTIONS.DATE,ACTIONS.CONTENTID,TITLE,CONTENTPIC,ARTIST FROM ACTIONS,CONTENT WHERE(ACTIONS.USERNAME = %s)"
+        query = "SELECT ACTIONCOMMENT,ACTIONS.DATE,ACTIONS.CONTENTID,TITLE,CONTENTPIC,ARTIST FROM ACTIONS,CONTENT WHERE(ACTIONS.USERNAME = %s AND CONTENT.ID=ACTIONS.CONTENTID)"
         cursor.execute(query,(username,))
         data = cursor.fetchall()
         connection.commit()
