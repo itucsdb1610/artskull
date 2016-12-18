@@ -544,7 +544,7 @@ def getcomment(getconf,commentid):
 		
         query = """SELECT COMMENTID, USERNAME, COMMENT, ACTIONID, DATE FROM COMMENTS WHERE COMMENTID = %s"""
         cursor.execute(query, (commentid,))
-        outcomment = cursor.fetchall()
+        outcomment = cursor.fetchone()
 
         connection.commit()
         cursor.close()
