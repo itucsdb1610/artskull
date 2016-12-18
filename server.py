@@ -245,7 +245,7 @@ def comment_edit(commentid):
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
         actualcomment = getcomment(app.config['dsn'], commentid)
-        return render_template('commentedit.html', comment=getcomment, commentid=commentid)
+        return render_template('commentedit.html', comment=actualcomment, commentid=commentid)
     else:
         inusername = username_of_comment(app.config['dsn'], commentid)
         incomm = request.form['incomment']
