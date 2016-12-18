@@ -32,6 +32,19 @@
 						<div class="row well">
 							<div class="col-md-9 col-xs-8 col-sm-9 col-lg-9">
 								<h4>{{action[0]}}</h4>
+								<div class="row">
+									<div class="col-md-11 col-xs-9 col-sm-9 col-lg-11">
+										<p class="small"><span class="glyphicon glyphicon-calendar"></span> {{ action[1] }}</p>
+										{%if (action[6]==session['username'])%}
+										<p class="small">
+										<a href="{{ url_for('actionModify', actionid=action[7], username=action[6]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
+										{% endif %}
+										{%if  (action[6]==session['username']) or (adminedit) %}
+										<a href="{{ url_for('deleteAction', actionid=action[7], username=action[6]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>			
+										</p>
+										{% endif %}
+									</div>
+								</div>
 								<a href="{{ url_for('contentstatic', contentid= action[2]) }}"><img src="{{action[4]}}" class="col-md-3 col-xs-4 col-sm-4 col-lg-3" alt="play picture"></a>
 								<p class="col-md-9 col-xs-8 col-sm-8 col-lg-9"><a href="{{ url_for('contentstatic', contentid= action[2]) }}">{{action[3]}}</a> from {{action[5]}}</p>
 							</div>
