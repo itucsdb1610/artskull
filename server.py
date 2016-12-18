@@ -361,7 +361,7 @@ def actionModify(actionid):
             if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
                 if not username == session['username']:
                     return redirect(url_for('timeline'))
-        thisaction = getAction(app.config['dsn'],actionid)
+        thisaction = getEditAction(app.config['dsn'],actionid)
         return render_template('actionModify.html',action = thisaction, actionid = actionid)
     else:
         comment = request.form['inputComment']
