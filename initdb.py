@@ -578,7 +578,7 @@ def getall_commenttable(getconf):
 					PRIMARY KEY (commentid)
                 )"""				
         cursor.execute(query)
-        query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC, DATE FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) """
+        query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC, DATE FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) ORDER BY 7 DESC """
         cursor.execute(query)
         alldata = cursor.fetchall()
 
@@ -1516,6 +1516,16 @@ def getuser_action(getconf,username):
         connection.commit()
         cursor.close()
         return data 
+
+def getEditAction(getconf,actionid):
+    with dbapi2.connect(getconf) as connection:
+        cursor = connection.cursor()
+        query = "SELECT ACTIONCOMMENT FROM ACTIONS WHERE ACTIONID = %s"
+        cursor.execute(query,(actionid,))
+        data = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+        return data
 
 def init_criticTable(getconf):
     with dbapi2.connect(getconf) as connection:
