@@ -626,7 +626,6 @@ def getall_reports(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
         init_reportstable(getconf)
-        cursor.execute(query)
         query = """SELECT REPORTS.ID, REPORTS.REPORTTEXT, REPORTS.COMMENTID, REPORTS.USERNAME, COMMENTS.COMMENT DATE FROM REPORTS, COMMENTS WHERE ( REPORTS.COMMENTID = COMMENTS.COMMENTID )    """
         cursor.execute(query)
         alldata = cursor.fetchall()
