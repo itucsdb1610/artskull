@@ -41,6 +41,9 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
+    init_usertable(app.config['dsn'])
+    init_adminstable(app.config['dsn'])
+
     if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
@@ -48,7 +51,7 @@ def home():
         name = request.form['inputName']
         surname = request.form['inputSurname']
         user = User(username, password, email, name, surname, "http://www.sbsc.in/images/dummy-profile-pic.png")
-        init_usertable(app.config['dsn'], user)
+        insert_userstable(app.config['dsn'], user)
         return redirect(url_for('user_login'))
 
     return render_template('index.html')
@@ -236,14 +239,6 @@ def comment_edit(commentid):
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        username = request.args.get('username')
-        if not isAdmin_userEdit(app.config['dsn'], session['username']):
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-        else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-                if not username == session['username']:
-                    return redirect(url_for('timeline'))
         actualcomment = getcomment(app.config['dsn'], commentid)
         return render_template('commentedit.html', comment=actualcomment, commentid=commentid)
     else:
@@ -264,14 +259,6 @@ def comment_delete(commentid):
         deletefrom_commenttable(app.config['dsn'], commentid)
         return redirect(url_for('timeline'))
     else:
-        username = request.args.get('username')
-        if not isAdmin_userEdit(app.config['dsn'], session['username']):
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-        else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-                if not username == session['username']:
-                    return redirect(url_for('timeline'))
         return render_template('confirmcommentdelete.html', commentid=commentid)
 
 @app.route('/dropcomments')
@@ -292,13 +279,6 @@ def deleteCommentsOfAction(actionid):
         return redirect(url_for('timeline'))
     else:
         username = request.args.get('username')
-        if not isAdmin_userEdit(app.config['dsn'], session['username']):
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-        else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-                if not username == session['username']:
-                    return redirect(url_for('timeline'))
         return render_template('confirmdeleteactioncomments.html', actionid=actionid)    
 
 @app.route('/timeline',methods=['GET', 'POST'])
@@ -307,12 +287,14 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
+        init_usertable(app.config['dsn'])
+        init_adminstable(app.config['dsn'])
         init_furkanstables(app.config['dsn'])
         init_rating(app.config['dsn'])
         init_criticTable(app.config['dsn'])
         init_reviewTable(app.config['dsn'])
-        init_commentTable(app.config['dsn'])
         init_actionTable(app.config['dsn'])
+        init_commentTable(app.config['dsn'])
         init_actortablenoadd(app.config['dsn'])
         init_casting(app.config['dsn'])
         init_reportstable(app.config['dsn'])
@@ -353,14 +335,6 @@ def actionModify(actionid):
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        username = request.args.get('username')
-        if not isAdmin_userEdit(app.config['dsn'], session['username']):
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-        else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 1:
-                if not username == session['username']:
-                    return redirect(url_for('timeline'))
         thisaction = getEditAction(app.config['dsn'],actionid)
         return render_template('actionModify.html',action = thisaction, actionid = actionid)
     else:
@@ -377,14 +351,6 @@ def deleteAction(actionid):
         deleteActionFromTable(app.config['dsn'],actionid)
         return redirect(url_for('timeline'))
     else:
-        username = request.args.get('username')
-        if not isAdmin_userEdit(app.config['dsn'], session['username']):
-            if not username == session['username']:
-                return redirect(url_for('timeline'))
-        else:
-            if getspecific_admistable(app.config['dsn'], session['username'])[1] > 0:
-                if not username == session['username']:
-                    return redirect(url_for('timeline'))
         return render_template('confirmactiondelete.html',actionid=actionid)
 
 @app.route('/critic/<criticid>')

@@ -14,10 +14,10 @@
 								<p class="small"><span class="glyphicon glyphicon-calendar"></span> {{ action[4] }}</p>
 								{%if (action[0]==session['username'])%}
 								<p class="small">
-								<a href="{{ url_for('actionModify', actionid=action[5], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
+								<a href="{{ url_for('actionModify', actionid=action[5]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
 								{% endif %}
 								{%if  (action[0]==session['username']) or (admin) %}
-								<a href="{{ url_for('deleteAction', actionid=action[5], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+								<a href="{{ url_for('deleteAction', actionid=action[5]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 								<a href="{{ url_for('deleteCommentsOfAction', actionid=action[5]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete All Comments</a>					
 								</p>
 								{% endif %}
@@ -58,8 +58,8 @@
 											<p class="small"><span class="glyphicon glyphicon-calendar"></span> {{ comment[7] }}</p>
 											<p class="small">
 											{%if  (comment[1]==session['username']) or (admin) %}
-												<a href="{{ url_for('comment_edit', commentid=comment[0], username = action[0]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
-												<a href="{{ url_for('comment_delete', commentid=comment[0], username=action[0]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+												<a href="{{ url_for('comment_edit', commentid=comment[0]) }}" type="button"><span class="glyphicon glyphicon-pencil"></span> Modify</a>
+												<a href="{{ url_for('comment_delete', commentid=comment[0]) }}" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 											{%endif%}
 											{% if (comment[1] != session['username']) %}
 												<a href="{{ url_for('report_comment', commentid=comment[0]) }}" type="button"><span class="glyphicon glyphicon-sign"></span> Report!</a></p>
