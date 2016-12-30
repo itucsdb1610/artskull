@@ -24,9 +24,9 @@ Create table query is called at very first opening page when there is no content
 
   INSERT INTO CONTENT
            (
-               TITLE,ARTIST,DURATION,DATE,,GENRES,CONTENTPIC)
+               TITLE,ARTIST,DURATION,DATE,GENRES,CONTENTPIC)
                VALUES (%s, %s, %s, %s, %s,%s
-           )
+            )
            
 Insert query is called when new content is added to “Content” table by admin in admin operations section. It automatically assigns an ID to new inserted row.
 
