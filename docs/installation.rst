@@ -84,36 +84,36 @@ Installation on Windows
    :alt: postgrepassword
    :align: center
 	
-	- Enter port “5432”
+- Enter port “5432”
 	
 .. figure:: img/installation4.png
    :scale: 50 %
    :alt: postgresport
    :align: center
    
-	- Then leave every other setting as it is and finish installation.
-	- Open pgAdmin program and double click first server under “Servers” enter password given during installation if prompted (it may 123456)
+- Then leave every other setting as it is and finish installation.
+- Open pgAdmin program and double click first server under “Servers” enter password given during installation if prompted (it may 123456)
 	
 .. figure:: img/installation5.png
    :scale: 50 %
    :alt: postgresinstall
    :align: center
 
-	- Right click on the “Databases” and then click “Create -> Database …”
+- Right click on the “Databases” and then click “Create -> Database …”
 	
 .. figure:: img/installation6.png
    :scale: 50 %
    :alt: postgresinstall
    :align: center
   
-	- Enter “itucsdb1610” into database and leave other settings as it is.
+- Enter “itucsdb1610” into database and leave other settings as it is.
 	
 .. figure:: img/installation7.png
    :scale: 50 %
    :alt: postgresinstall
    :align: center
 	
-	- You can close pgAdmin program.
+- You can close pgAdmin program.
 
 Installation methods may change during time please check official installation documentation from here. But steps for giving a password to admin account of SQL server should be applied properly. If you couldn’t give right password to your admin account or right port of SQL server or you want it to be different you have to change the code of Artskull (we are not recommending that if you want to contribute the project). 
 
@@ -139,8 +139,8 @@ Artskull does not provide an executable installation method. If you want to inst
    :alt: githubzip
    :align: center	
 
-	- After download completes, extract zip file into a folder.
-	- When extraction finishes, make sure that all required 3rd party applications were installed on your system and PostgreSQL server is running in background.
+- After download completes, extract zip file into a folder.
+- When extraction finishes, make sure that all required 3rd party applications were installed on your system and PostgreSQL server is running in background.
 
 Running on Windows
 	- Open command prompt inside where source code was downloaded.
@@ -153,7 +153,7 @@ Running on Windows
    :alt: flaskrun
    :align: center
    
-	- If you see the above screen you can access the application locally from a web browser by going into http://localhost:5000/
+- If you see the above screen you can access the application locally from a web browser by going into http://localhost:5000/
 	
 .. figure:: img/installation11.png
    :scale: 50 %
@@ -179,14 +179,14 @@ Running on Bluemix
    :alt: bluemixnew
    :align: center
 	
-	- Give a name to your application, it does not matter for Artskull and select proper option for you. When you commit into your repository, Bluemix will automatically build the new version. If you want to create a new repository and then push the code inside select “Create New Repository” option. If you already pushed the source code on GitHub select second option.
+- Give a name to your application, it does not matter for Artskull and select proper option for you. When you commit into your repository, Bluemix will automatically build the new version. If you want to create a new repository and then push the code inside select “Create New Repository” option. If you already pushed the source code on GitHub select second option.
 	
 .. figure:: img/installation13.png
    :scale: 50 %
    :alt: connectgithub
    :align: center
 	
-	- After pushing code or linking repositories Bluemix will run on the host defined by Bluemix. You can check status of database and application from console.
+- After pushing code or linking repositories Bluemix will run on the host defined by Bluemix. You can check status of database and application from console.
 
 
 
