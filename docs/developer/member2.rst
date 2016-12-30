@@ -66,7 +66,7 @@ Create table query is called at very first opening page when there is no stage e
 
 .. code-block:: sql
   
-INSERT INTO STAGE
+  INSERT INTO STAGE
           (
                NAME,LOCATION,CAPACITY,STAGEPIC)
                  VALUES (%s, %s, %s, %s
@@ -76,7 +76,7 @@ Insert query is called when new stage is added to “Stage” table by admin in 
 
 .. code-block:: sql
   
-UPDATE STAGE SET
+  UPDATE STAGE SET
                    NAME = %s,
                    LOCATION = %s,
                    CAPACITY = %s,
@@ -113,7 +113,7 @@ Create table query is called at very first opening page when there is no play ex
 
 .. code-block:: sql
   
-INSERT INTO PLAY
+  INSERT INTO PLAY
               (
                    STAGEID,CONTENTID,DATE)
                      VALUES (%s, %s, %s
@@ -124,7 +124,7 @@ Insert query is called when admin adds a new play by combine of stage, content a
 
 .. code-block:: sql
   
-UPDATE PLAY SET
+  UPDATE PLAY SET
                    STAGEID = %s,
                    CONTENTID = %s,
                    DATE = %s
