@@ -9,16 +9,22 @@ In this part of the guide, we will introduce you to how to use Artskull. This pa
 
 Every user that sign ups for first time will be normal user as a standard. Normal users can do the following operations:
 
+   - Sign up to system
+   - Sign in to system
+   - Search for users and contents
+   - Add/edit favorite genres
+   - Following other users
+   - Showing follow list of users
+   - Commenting on other users’ actions
+   - Reporting other user’s comment to admins
+   - Reading reviews of critics
+   - Leaving comments on theatre plays
+   - Rating theatre plays
+   
 .. toctree::
 
-   Sign up to system
-   Sign in to system
-   Search for users and contents
-   Add/edit favorite genres
-   Following other users
-   Showing follow list of users
-   Commenting on other users’ actions
-   Reporting other user’s comment to admins
-   Reading reviews of critics
-   Leaving comments on theatre plays
-   Rating theatre plays
+   member1
+   member2
+   member3
+   member4
+   member5
