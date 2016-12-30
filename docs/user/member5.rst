@@ -1,4 +1,4 @@
 Parts Implemented by Doğay Kamar
 =================================
 
-BEN GAYIM!
+My parts are in "Admin" guide.
