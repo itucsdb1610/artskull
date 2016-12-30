@@ -68,8 +68,10 @@ Select query for all:
 	SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
   
 All actors in the table are returned, this is used when listing all actors in Cast edit or Actor operations page.
+
 Cast Table
 ----------
+
 Create query for Cast Table:
 
 .. code-block:: sql
@@ -123,8 +125,10 @@ Select query for Cast Table:
                     ORDER BY ORD ASC
                     
 This query is used when listing the cast of a specific content. Actors in the cast are ordered by their order, starring actors are listed first.
+
 Rating Table
 ------------
+
 Create query for Rating Table:
 
 .. code-block:: sql
