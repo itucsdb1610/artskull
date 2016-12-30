@@ -31,12 +31,3 @@ Edit/Delete Cast
 Newly added cast is now seen in “Cast of the play” section of the page, ordered by their “Order” attribute. Admin can remove the actor from the cast by clicking the “delete” button shown below ( this does not delete the actor, only removes them from the cast of a specific play ). When clicked, actor is instantly removed from the cast. Admin can also edit the order attribute of an actor/actress by clicking “Edit” button shown below.
 
 After changing the order value, clicking on “Edit” button saves the new “Order” value of the actor in a specific cast of a play.
-
-Cast to Users
-~~~~~~~~~~~~~
-Cast of a play is seen by users in the webpage of a play. Cast of “Eğer Bu Bir Film Olsaydı” is seen in the below page.
-
-Rating
-------
-Users can rate a play from their pages. There are 5 buttons numbered from 1 to 5 in the right side of the page. User can click on any of these buttons to rate the play. The average rating can be seen above the rating buttons, following a star sign. If a user has already rated a play, a message is seen between the average rating and rate buttons, informing what rating user has given to that play. User can update their ratings by clicking one of the 5 buttons, and their vote will be updated, affecting the average rating, too.
-
