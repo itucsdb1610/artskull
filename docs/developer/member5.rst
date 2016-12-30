@@ -3,20 +3,18 @@ Parts Implemented by Doğay Kamar
 Actor Table
 -----------
 Create query for Actors Table:
-Create table query for USERS table:
 
 .. code-block:: sql
-	CREATE TABLE IF NOT EXISTS USERS
+	
+	CREATE TABLE IF NOT EXISTS Actors
                     (
-                        USERNAME TEXT UNIQUE NOT NULL,
-                        SALT TEXT NOT NULL,
-                        HASH TEXT NOT NULL, 
-                        EMAIL TEXT UNIQUE NOT NULL,
+                        ActorID SERIAL NOT NULL,
                         NAME TEXT NOT NULL,
                         SURNAME TEXT NOT NULL,
-                        PROFPIC TEXT,
-                        PRIMARY KEY (USERNAME)
-                    );
+                        BIRTHDAY TEXT NOT NULL,
+                        PRIMARY KEY (ActorID)
+                    )
+
 					
 Name, Surname and Birthday are the personal details of each actor. ActorID is to make every actor in the table unique, so that operations can be done on a single element. 
 
