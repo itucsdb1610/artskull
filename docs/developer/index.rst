@@ -9,6 +9,15 @@ Artskull is an open source web application based on Python and it is using Flask
    member3
    member4
    member5
+   
+ER Diagram
+----------
+In this diagram only referenced and primary keys of tables are showed, not all attributes of tables are listed.
+
+.. figure:: er2.jpg
+   :scale: 50 %
+   :alt: erdiagram
+   :align: center
 
 Source Code Directory Structure
 -------------------------------
