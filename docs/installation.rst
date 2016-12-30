@@ -5,7 +5,7 @@ Artskull is a web based application that needs Python and PostgreSQL to work. So
 Artskull should work on any operating system if the minimum version of required 3rd party applications and packages still supports that operating system.
 
 Installation of 3rd part applications
-=====================================
+-------------------------------------
 You don’t need to install any 3rd party applications if you just want to run the application on Bluemix platform. But you have to install these applications to run Artskull on local computers.
 
 :Python and Required Packages:
