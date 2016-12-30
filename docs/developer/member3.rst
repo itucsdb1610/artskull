@@ -23,6 +23,7 @@ Create query of ACTION table. ACTIONID is the primary key of the table. USERNAME
 Insert into ACTIONS:
 
 .. code-block:: sql
+
 	INSERT INTO ACTIONS
 					(
 						USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
@@ -34,7 +35,8 @@ When user enters a comment insert action query executes and inserts into table.
 Select actions query for timeline:
 
 .. code-block:: sql
-SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID, NAME, SURNAME, PROFPIC FROM ACTIONS, USERS
+
+	SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID, NAME, SURNAME, PROFPIC FROM ACTIONS, USERS
                     WHERE (ACTIONS.USERNAME = %s
                     OR ACTIONS.USERNAME IN (SELECT FOLLOWED FROM USERFOLLOW
                                             WHERE FOLLOWER = %s)) AND ACTIONS.USERNAME = USERS.USERNAME
@@ -45,29 +47,33 @@ When user enters timeline sees the actions of himself/herself or following users
 Select actions query for content:
 
 .. code-block:: sql
-SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE (CONTENTID = %s) AND (ACTIONS.USERNAME=USERS.USERNAME) ORDER BY 5 DESC
+	
+	SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE (CONTENTID = %s) AND (ACTIONS.USERNAME=USERS.USERNAME) ORDER BY 5 DESC
 
 This query is using to list actions of content. Also checking for whom writes this action.
 
 Edit action query:
 
 .. code-block:: sql
-UPDATE ACTIONS SET ACTIONCOMMENT = %s WHERE ACTIONID = %s
+
+	UPDATE ACTIONS SET ACTIONCOMMENT = %s WHERE ACTIONID = %s
 
 This query is used to update query. Only comment can be updated by user.
 
 Get editing action query:
 
 .. code-block:: sql
-SELECT ACTIONCOMMENT FROM ACTIONS WHERE ACTIONID = %s
+
+	SELECT ACTIONCOMMENT FROM ACTIONS WHERE ACTIONID = %s
 
 To show comment to user before updating.
 
 Delete action query:
 
 .. code-block:: sql
-Delete From ACTIONS
-                WHERE ACTIONID = %s
+
+	Delete From ACTIONS
+			WHERE ACTIONID = %s
 				
 Critic Table
 ------------
@@ -75,7 +81,8 @@ Critic Table
 Create table query for CRITIC table:
 
 .. code-block:: sql
-CREATE TABLE IF NOT EXISTS CRITIC
+
+	CREATE TABLE IF NOT EXISTS CRITIC
 				    (
 					CRITICID SERIAL NOT NULL,
 					NAME TEXT NOT NULL,
@@ -90,7 +97,8 @@ CRITICID is the serial primary key for the CRITIC table. NAME and SURNAME attrib
 Add query for CRITIC table:
 
 .. code-block:: sql
-INSERT INTO CRITIC
+
+	INSERT INTO CRITIC
 					(
 						NAME, SURNAME, WORKPLACE,PROFPIC)
 						VALUES(%s, %s, %s,%s
@@ -101,7 +109,8 @@ Admins can add new critic using sufficient information.
 Query to edit CRITIC table:
 
 .. code-block:: sql
-UPDATE CRITIC SET 
+
+	UPDATE CRITIC SET 
                     NAME = %s, 
                     SURNAME = %s,
                     WORKPLACE = %s,
@@ -113,20 +122,23 @@ Admins can edit selected critic. Query checks it by CRITICID.
 Query of deleting CRITIC table:
 
 .. code-block:: sql
-Delete From CRITIC
+
+	Delete From CRITIC
                 WHERE CRITICID = %s
 				
 Select query for critic’s page:
 
 .. code-block:: sql
-SELECT * FROM CRITIC WHERE CRITICID = %s
+
+	SELECT * FROM CRITIC WHERE CRITICID = %s
 
 This using for show information while editing critic and for the critic’s page.
 
 Select query for listing all critics:
 
 .. code-block:: sql
-SELECT NAME, SURNAME, WORKPLACE, CRITICID, PROFPIC FROM CRITIC
+
+	SELECT NAME, SURNAME, WORKPLACE, CRITICID, PROFPIC FROM CRITIC
 
 Review Table
 ------------
@@ -134,7 +146,8 @@ Review Table
 Create query for REVIEW table:
 
 .. code-block:: sql
-CREATE TABLE IF NOT EXISTS REVIEW
+
+	CREATE TABLE IF NOT EXISTS REVIEW
 				(
 					REVIEWID SERIAL NOT NULL,
                     CRITICID INTEGER NOT NULL REFERENCES CRITIC(CRITICID) ON DELETE CASCADE,
@@ -151,7 +164,8 @@ REVIEWID is the serial primary key of table. CRITICID attribute holds id of revi
 Insert query:
 
 .. code-block:: sql
-INSERT INTO REVIEW
+
+	INSERT INTO REVIEW
 					(
 						CRITICID, CONTENTID, REVIEW, DATE,SCORE)
 						VALUES(%s, %s, %s, %s, %s
@@ -160,7 +174,8 @@ INSERT INTO REVIEW
 Update query:
 
 .. code-block:: sql
-UPDATE REVIEW SET 
+
+	UPDATE REVIEW SET 
                     CRITICID = %s, 
                     REVIEW = %s,
                     DATE = %s,
@@ -170,7 +185,8 @@ UPDATE REVIEW SET
 Delete query:
 
 .. code-block:: sql
-Delete From REVIEW
+
+	Delete From REVIEW
                 WHERE REVIEWID = %s
 				
 All this operations are done by admin.
@@ -178,27 +194,31 @@ All this operations are done by admin.
 Select query for updating review:
 
 .. code-block:: sql
-SELECT * FROM REVIEW WHERE REVIEWID = %s
+
+	SELECT * FROM REVIEW WHERE REVIEWID = %s
 
 While updating a review old values can be seen.
 
 Select query for reviews of critic:
 
 .. code-block:: sql
-SELECT REVIEW, REVIEW.DATE,SCORE,ID, TITLE, ARTIST, CONTENTPIC, REVIEWID FROM REVIEW, CONTENT WHERE ((CRITICID = %s) AND (REVIEW.CONTENTID = CONTENT.ID))
+
+	SELECT REVIEW, REVIEW.DATE,SCORE,ID, TITLE, ARTIST, CONTENTPIC, REVIEWID FROM REVIEW, CONTENT WHERE ((CRITICID = %s) AND (REVIEW.CONTENTID = CONTENT.ID))
 
 This query is to show reviews of critic on critic page.
 
 Select reviews of content:
 
 .. code-block:: sql
-"SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID,REVIEW.CRITICID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
+
+	SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID,REVIEW.CRITICID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
 
 Written reviews about content can be seen by users.
 
 Select query for get metascore:
 
 .. code-block:: sql
-SELECT AVG(SCORE) FROM REVIEW WHERE CONTENTID = %s
+
+	SELECT AVG(SCORE) FROM REVIEW WHERE CONTENTID = %s
 
 Metascore is average value of scores given by critics. Users can see metascore on content’s page.
