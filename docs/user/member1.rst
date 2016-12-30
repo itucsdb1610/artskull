@@ -60,7 +60,7 @@ You may notice that password field is empty on edit page. Since we don’t hold 
 You can edit your favorite genres’ list by clicking “Edit genres” button on that page.
 You can permanently delete your account from the system by clicking red button named as “Delete account”. This will delete all of your information from system and your username will be available for new registrations, so be sure about deleting your account.
 
-.. figure:: img/user6.jpg
+.. figure:: imguser/user6.jpg
    :scale: 50 %
    :alt: pythoninstall
    :align: center
