@@ -46,10 +46,12 @@ You can add new genre information by using top part of page. You should select a
 Finding Other Users
 -------------------
 You can find other users by using search box on the top menu bar. You can search users according to their:
+
 - Username
 - Email
 - Name
 - Surname
+
 You don’t have specify anything to the system, you just enter the thing you want to search then hit enter or click search button. A list of users found will be showed. When you click on the user, you will be directed to the profile page of that user.
 
 Following Other Users
