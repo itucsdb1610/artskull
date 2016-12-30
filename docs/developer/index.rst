@@ -2,6 +2,14 @@ Developer Guide
 ===============
 Artskull is an open source web application based on Python and it is using Flask microframework. Artskull’s source code can be found on GitHub at https://github.com/itucsdb1610/itucsdb1610 . You can download the source code and work on it. You can change the parts of the code to make it suitable for your work. In this part this document will help you through understanding the source code and its structure.
 
+.. toctree::
+
+   member1
+   member2
+   member3
+   member4
+   member5
+
 Source Code Directory Structure
 -------------------------------
 When you clone the source code from GitHub, you will face with the following structure
