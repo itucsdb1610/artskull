@@ -21,10 +21,10 @@ Installation on Windows:
    :alt: pythoninstall
    :align: center
 
-	- Open the installation file and you should see a similar screen like that
-	- Make sure that you have selected “Add Python to PATH”
-	- Then click “Install Now”, you may need admin privileges.
-	- After installation finishes restart the computer.
+- Open the installation file and you should see a similar screen like that
+- Make sure that you have selected “Add Python to PATH”
+- Then click “Install Now”, you may need admin privileges.
+- After installation finishes restart the computer.
 	
 Most of the Linux based systems have Python pre-installed. If you want to check if it is installed do the followings:
 
