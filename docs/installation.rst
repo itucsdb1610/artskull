@@ -6,7 +6,7 @@ Artskull should work on any operating system if the minimum version of required 
 
 Installation of 3rd part applications
 -------------------------------------
-You donít need to install any 3rd party applications if you just want to run the application on Bluemix platform. But you have to install these applications to run Artskull on local computers.
+You don‚Äôt need to install any 3rd party applications if you just want to run the application on Bluemix platform. But you have to install these applications to run Artskull on local computers.
 
 **Python and Required Packages**
 
@@ -22,25 +22,25 @@ Installation on Windows:
    :align: center
 
 - Open the installation file and you should see a similar screen like that
-- Make sure that you have selected ìAdd Python to PATHî
-- Then click ìInstall Nowî, you may need admin privileges.
+- Make sure that you have selected ‚ÄúAdd Python to PATH‚Äù
+- Then click ‚ÄúInstall Now‚Äù, you may need admin privileges.
 - After installation finishes restart the computer.
 	
 Most of the Linux based systems have Python pre-installed. If you want to check if it is installed do the followings:
 
 	- Open terminal
-	- Write ìpython3 --versionî
+	- Write ‚Äúpython3 --version‚Äù
 	- Hit enter. If there is a version number returned you have Python installed on your system
 	
 Installation of Python may change during time after this user guide was created. Please check official documentation of Python installation. Also this guide cannot cover installation of the Python for other systems please check official guide again.
 
 **Flask**
 
-Flask is a Python microframework that Artskull needs to work. Since it is an Python microframework you donít need to download an executable to install it but you have to have a Python installation working on your system.
+Flask is a Python microframework that Artskull needs to work. Since it is an Python microframework you don‚Äôt need to download an executable to install it but you have to have a Python installation working on your system.
 
 Installation Windows
 	- Open command prompt
-	- Write ìpython -m pip install Flaskî and hit enter
+	- Write ‚Äúpython -m pip install Flask‚Äù and hit enter
 	
 .. figure:: img/installation2.png
    :scale: 50 %
@@ -49,7 +49,7 @@ Installation Windows
 	
 Installation Linux
 	- Open terminal
-	- Write following command ìpython3 pip install Flaskî
+	- Write following command ‚Äúpython3 pip install Flask‚Äù
 	- Hit enter, Python will install the package
 	
 Installation may change during time, please check official documentation of Flask.
@@ -60,31 +60,31 @@ Psycopg is a Python package that helps to connect PostgreSQL based databases to 
 
 Installation on Windows
 	- Open command prompt
-	- Write ìpython -m pip install psycopg2î and hit enter
+	- Write ‚Äúpython -m pip install psycopg2‚Äù and hit enter
 
 
 
 Installation on Linux
 	- Open terminal, terminal commands may change according to your Linux distribution
-	- Write ìpython3 pip install psycopg2î and hit enter
+	- Write ‚Äúpython3 pip install psycopg2‚Äù and hit enter
 
 Installation may change during time, please check official documentation of psycopg.
 
 **PostgreSQL**
 
-PostgreSQL is a database management system that Artskull needs it to work on a local system. Before installation of PostgreSQL we are suggesting that you should check minimum system requirements first. Because performance of your local computer will affect the query speed and this will affect the Artskullís performance. If your computer fits into system requirements, please follow the steps.
+PostgreSQL is a database management system that Artskull needs it to work on a local system. Before installation of PostgreSQL we are suggesting that you should check minimum system requirements first. Because performance of your local computer will affect the query speed and this will affect the Artskull‚Äôs performance. If your computer fits into system requirements, please follow the steps.
 
 Installation on Windows
 	- Download required executable files from PostgreSQL website.
 	- Open the installation file
-	- Enter both password fields with ì123456î.
+	- Enter both password fields with ‚Äú123456‚Äù.
 
 .. figure:: img/installation3.png
    :scale: 50 %
    :alt: postgrepassword
    :align: center
 	
-- Enter port ì5432î
+- Enter port ‚Äú5432‚Äù
 	
 .. figure:: img/installation4.png
    :scale: 50 %
@@ -92,21 +92,21 @@ Installation on Windows
    :align: center
    
 - Then leave every other setting as it is and finish installation.
-- Open pgAdmin program and double click first server under ìServersî enter password given during installation if prompted (it may 123456)
+- Open pgAdmin program and double click first server under ‚ÄúServers‚Äù enter password given during installation if prompted (it may 123456)
 	
 .. figure:: img/installation5.png
    :scale: 50 %
    :alt: postgresinstall
    :align: center
 
-- Right click on the ìDatabasesî and then click ìCreate -> Database Öî
+- Right click on the ‚ÄúDatabases‚Äù and then click ‚ÄúCreate -> Database ‚Ä¶‚Äù
 	
 .. figure:: img/installation6.png
    :scale: 50 %
    :alt: postgresinstall
    :align: center
   
-- Enter ìitucsdb1610î into database and leave other settings as it is.
+- Enter ‚Äúitucsdb1610‚Äù into database and leave other settings as it is.
 	
 .. figure:: img/installation7.png
    :scale: 50 %
@@ -115,24 +115,24 @@ Installation on Windows
 	
 - You can close pgAdmin program.
 
-Installation methods may change during time please check official installation documentation from here. But steps for giving a password to admin account of SQL server should be applied properly. If you couldnít give right password to your admin account or right port of SQL server or you want it to be different you have to change the code of Artskull (we are not recommending that if you want to contribute the project). 
+Installation methods may change during time please check official installation documentation from here. But steps for giving a password to admin account of SQL server should be applied properly. If you couldn‚Äôt give right password to your admin account or right port of SQL server or you want it to be different you have to change the code of Artskull (we are not recommending that if you want to contribute the project). 
 
 **Changing Server Information Inside Artskull Code**
-After you downloaded the code from GitHub, you should open ìserver.pyî file with your favorite text editor. Go to the end of the file(it should be in line 1068) and change the value inside the single quotes that are next to ìpassword=î according to your current password. You can also change the username if default admin username of PostgreSQL is changed during time. You can change ìportî from here, also. This changes will only affect local installation.
+After you downloaded the code from GitHub, you should open ‚Äúserver.py‚Äù file with your favorite text editor. Go to the end of the file(it should be in line 1068) and change the value inside the single quotes that are next to ‚Äúpassword=‚Äù according to your current password. You can also change the username if default admin username of PostgreSQL is changed during time. You can change ‚Äúport‚Äù from here, also. This changes will only affect local installation.
 
-.. figure:: img/installation8.png
+.. figure:: img/installation8.jpg
    :scale: 50 %
    :alt: changeinfo
    :align: center
 
-NOTE: Artskull will run in debug mode automatically in local computers, but on Bluemix platform it will run on release mode. So if you want to close debug mode on local systems make sure that at ìdebug=Falseî at line 1069 instead of ìdebug=debugî
+NOTE: Artskull will run in debug mode automatically in local computers, but on Bluemix platform it will run on release mode. So if you want to close debug mode on local systems make sure that at ‚Äúdebug=False‚Äù at line 1069 instead of ‚Äúdebug=debug‚Äù
 
 **Artskull**
-Artskull does not provide an executable installation method. If you want to install the Artskull on your local computer you have to get the source code from GitHub. You can get the code by using ìgitî program or directly from the GitHub page. This guide will show the steps for getting code from GitHub page.
+Artskull does not provide an executable installation method. If you want to install the Artskull on your local computer you have to get the source code from GitHub. You can get the code by using ‚Äúgit‚Äù program or directly from the GitHub page. This guide will show the steps for getting code from GitHub page.
 
 	- Open a web browser and go to the https://github.com/itucsdb1610/itucsdb1610
-	- From that page you should see a green button named as ìClone or downloadî
-	- Click it and a popup menu should be opened. Click on ìDownload ZIPî button.
+	- From that page you should see a green button named as ‚ÄúClone or download‚Äù
+	- Click it and a popup menu should be opened. Click on ‚ÄúDownload ZIP‚Äù button.
 
 .. figure:: img/installation9.png
    :scale: 50 %
@@ -145,43 +145,43 @@ Artskull does not provide an executable installation method. If you want to inst
 Running on Windows
 	- Open command prompt inside where source code was downloaded.
 	- You can do that by right clicking on folder while pressing shift button on keyboard.
-	- You should see ìOpen command prompt hereî menu there.
-	- Write the following command: ìpy server.pyî
+	- You should see ‚ÄúOpen command prompt here‚Äù menu there.
+	- Write the following command: ‚Äúpy server.py‚Äù
 	
-.. figure:: img/installation10.png
+.. figure:: img/installation10.jpg
    :scale: 50 %
    :alt: flaskrun
    :align: center
    
 - If you see the above screen you can access the application locally from a web browser by going into http://localhost:5000/
 	
-.. figure:: img/installation11.png
+.. figure:: img/installation11.jpg
    :scale: 50 %
    :alt: browserview
    :align: center
    
 Running on Linux
 
-	- Open terminal and change direction to the Artskullís code directory
-	- Then write ìpython3 server.pyî to the terminal and hit enter.
+	- Open terminal and change direction to the Artskull‚Äôs code directory
+	- Then write ‚Äúpython3 server.py‚Äù to the terminal and hit enter.
 	- If you see the above screen, open a browser and go to the http://localhost:5000/
 
 Running on Bluemix
-	Artskull source code comes with required files and settings for Bluemix platform already. You donít need to set things again for Artskull but you need to create an Bluemix account to work with Bluemix.
+	Artskull source code comes with required files and settings for Bluemix platform already. You don‚Äôt need to set things again for Artskull but you need to create an Bluemix account to work with Bluemix.
 
 	- Register for a Bluemix account from here.
 	- Log in with your account from Jazz Hub
-	- After following steps and logging in to application get into ìMy Projectsî tab.
-	- Click on ìnew projectî link
+	- After following steps and logging in to application get into ‚ÄúMy Projects‚Äù tab.
+	- Click on ‚Äúnew project‚Äù link
 	
-.. figure:: img/installation12.png
+.. figure:: img/installation12.jpg
    :scale: 50 %
    :alt: bluemixnew
    :align: center
 	
-- Give a name to your application, it does not matter for Artskull and select proper option for you. When you commit into your repository, Bluemix will automatically build the new version. If you want to create a new repository and then push the code inside select ìCreate New Repositoryî option. If you already pushed the source code on GitHub select second option.
+- Give a name to your application, it does not matter for Artskull and select proper option for you. When you commit into your repository, Bluemix will automatically build the new version. If you want to create a new repository and then push the code inside select ‚ÄúCreate New Repository‚Äù option. If you already pushed the source code on GitHub select second option.
 	
-.. figure:: img/installation13.png
+.. figure:: img/installation13.jpg
    :scale: 50 %
    :alt: connectgithub
    :align: center
