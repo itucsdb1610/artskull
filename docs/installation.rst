@@ -16,7 +16,7 @@ Installation on Windows:
 
 .. _here: http://www.python.org/
 
-.. image:: img/installation1.png
+.. figure:: img/installation1.png
    :scale: 50 %
    :alt: pythoninstall
    :align: center
