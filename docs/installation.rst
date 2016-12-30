@@ -16,6 +16,11 @@ Installation on Windows:
 
 .. _here: http://www.python.org/
 
+.. image:: img/installation1.png
+   :scale: 50 %
+   :alt: pythoninstall
+   :align: center
+
 	- Open the installation file and you should see a similar screen like that
 	- Make sure that you have selected “Add Python to PATH”
 	- Then click “Install Now”, you may need admin privileges.
