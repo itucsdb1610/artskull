@@ -6,15 +6,15 @@ Comments Table
 Create table query of COMMENTS table:
 
 .. code-block:: sql
-              CREATE TABLE IF NOT EXISTS COMMENTS
+CREATE TABLE IF NOT EXISTS COMMENTS
 				(
 					COMMENTID SERIAL NOT NULL,
 					COMMENT TEXT NOT NULL,
 					ACTIONID INT NOT NULL REFERENCES ACTIONS (actionid) ON DELETE CASCADE,
 					USERNAME TEXT NOT NULL REFERENCES USERS (username) ON DELETE CASCADE,
-                              DATE TIMESTAMP NOT NULL,
+                             		DATE TIMESTAMP NOT NULL,
 					PRIMARY KEY (commentid)
-          );
+				)
           
           
 Comments table uses references of Actions and Users table. Action ID determines where the comment is written. Comment ID is the primary key of table.
@@ -22,11 +22,11 @@ Comments table uses references of Actions and Users table. Action ID determines 
 Insert to comments table:
 
 .. code-block:: sql
-      INSERT INTO COMMENTS
+INSERT INTO COMMENTS
                 (
 						COMMENT, ACTIONID, USERNAME, DATE)
 						VALUES(%s, %s, %s, %s
-	    ) RETURNING COMMENTID;
+	    ) RETURNING COMMENTID
       
 Returning value is needed in timeline to insert to Notifications table.
 
@@ -40,8 +40,7 @@ Users table is added to this query since name and surname of commenter user will
 Select a comment with comment id query:
 
 .. code-block:: sql
-SELECT COMMENTID, USERNAME, COMMENT, ACTIONID, DATE FROM COMMENTS
-        WHERE COMMENTID = %s
+SELECT COMMENTID, USERNAME, COMMENT, ACTIONID, DATE FROM COMMENTS WHERE COMMENTID = %s
 
 Username of commenter is selected with this query:
 
@@ -54,10 +53,10 @@ Update query of comments table:
 
 .. code-block:: sql
 UPDATE COMMENTS SET
-        USERNAME=%s,
-				COMMENT=%s,
-				ACTIONID=%s
-        WHERE COMMENTID = %s
+                        USERNAME=%s,
+			COMMENT=%s,
+			ACTIONID=%s
+                        WHERE COMMENTID = %s
         
 Delete a comment with its comment id query:
 
@@ -93,8 +92,7 @@ Reports table uses references of comments and users table. Comment ID is used fo
 Get all query for reports table: 
 
 .. code-block:: sql
-SELECT REPORTS.ID, REPORTS.REPORTTEXT, REPORTS.COMMENTID, REPORTS.USERNAME, COMMENTS.COMMENT DATE FROM REPORTS, COMMENTS 
-WHERE ( REPORTS.COMMENTID = COMMENTS.COMMENTID )
+SELECT REPORTS.ID, REPORTS.REPORTTEXT, REPORTS.COMMENTID, REPORTS.USERNAME, COMMENTS.COMMENT DATE FROM REPORTS, COMMENTS WHERE ( REPORTS.COMMENTID = COMMENTS.COMMENTID )
 
 Comments table is added since comment text will be printed in reports list page. 
 
@@ -139,8 +137,8 @@ Select notifications query:
 .. code-block:: sql
 SELECT USERS.NAME, USERS.SURNAME, COMMENTS.COMMENT, ACTIONID, NOTIFICATIONS.DATE, ISREAD, NOTIFICATIONS.ID, 
         RECEIVER, COMMENTER
-        FROM NOTIFICATIONS, COMMENTS, USERS WHERE USERS.USERNAME = COMMENTER AND  COMMENTS.COMMENTID = NOTIFICATIONS.COMMENTID AND     
-        RECEIVER != COMMENTER AND RECEIVER = %s
+        FROM NOTIFICATIONS, COMMENTS, USERS WHERE USERS.USERNAME = COMMENTER AND  COMMENTS.COMMENTID = NOTIFICATIONS.COMMENTID AND RECEIVER != COMMENTER
+            AND RECEIVER = %s
         ORDER BY NOTIFICATIONS.DATE DESC 
 
 Select query is designed to show notifications to user which notifications he/she must is taken. 
