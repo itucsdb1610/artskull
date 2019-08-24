@@ -1054,17 +1054,21 @@ def markallread(username):
         return redirect(url_for('user_login'))
     make_all_read(app.config['dsn'],session['username'])
     return redirect(url_for('notifications'))    
-if __name__ == '__main__':
-    VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
-    if VCAP_APP_PORT is not None:
-        port, debug = int(VCAP_APP_PORT), False
-    else:
-        port, debug = 5000, True
 
+def init_all_db():
     VCAP_SERVICES = os.getenv('VCAP_SERVICES')
     if VCAP_SERVICES is not None:
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='postgres' password='123456' host='localhost' port=5432 dbname='itucsdb1610'"""
     app.run(host='0.0.0.0', port=port, debug=debug)
+
+if __name__ == '__main__':
+    VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
+    if VCAP_APP_PORT is not None:
+        port, debug = int(VCAP_APP_PORT), False
+    else:
+        port, debug = 5000, True
+	
+    init_all_db()
     
