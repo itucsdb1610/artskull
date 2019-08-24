@@ -55,7 +55,7 @@ def insert_adminstable(getconf, username, order):
 
 def remove_adminstable(getconf, username):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
         cursor = connection.cursor()
 
         query = """DELETE FROM ADMINS WHERE (ADMINUSERNAME = %s)"""
@@ -65,7 +65,7 @@ def remove_adminstable(getconf, username):
 
 def update_adminstable(getconf, username, order):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
         cursor = connection.cursor()
 
         query = """UPDATE ADMINS SET
@@ -77,7 +77,7 @@ def update_adminstable(getconf, username, order):
 
 def getall_adminstable(getconf):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
 
         cursor = connection.cursor()
 
@@ -93,7 +93,7 @@ def getall_adminstable(getconf):
 
 def getspecific_admistable(getconf, username):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
 
         cursor = connection.cursor()
 
@@ -109,7 +109,7 @@ def getspecific_admistable(getconf, username):
 
 def isAdmin_userEdit(getconf, username):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
 
         cursor = connection.cursor()
         print(username)
@@ -143,7 +143,7 @@ def init_usertable(getconf):
 def insert_userstable(getconf, user):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_usertable(getconf)
+        #init_usertable(getconf)
         query = """INSERT INTO USERS
                     (
                         USERNAME, SALT, HASH, EMAIL, NAME, SURNAME, PROFPIC)
@@ -484,7 +484,7 @@ def delete_genreTable(getconf, username, genre):
 def init_commentTable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         cursor = connection.cursor()
         query = """CREATE TABLE IF NOT EXISTS COMMENTS
 				(
@@ -517,7 +517,7 @@ def insert_commenttable(getconf,comment):
 def getall_commenttable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_commentTable(getconf)
+        #init_commentTable(getconf)
         query = """SELECT COMMENTID, COMMENTS.USERNAME, COMMENT, ACTIONID, NAME, SURNAME ,PROFPIC, DATE FROM COMMENTS,USERS WHERE (COMMENTS.USERNAME=USERS.USERNAME) ORDER BY 7 DESC """
         cursor.execute(query)
         alldata = cursor.fetchall()
@@ -613,7 +613,7 @@ def init_reportstable(getconf):
 def insert_reports(getconf,report):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reportstable(getconf)
+        #init_reportstable(getconf)
         query="""INSERT INTO REPORTS
                     (
                         REPORTTEXT, COMMENTID, USERNAME, DATE)
@@ -625,7 +625,7 @@ def insert_reports(getconf,report):
 def getall_reports(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reportstable(getconf)
+        #init_reportstable(getconf)
         query = """SELECT REPORTS.ID, REPORTS.REPORTTEXT, REPORTS.COMMENTID, REPORTS.USERNAME, COMMENTS.COMMENT DATE FROM REPORTS, COMMENTS WHERE ( REPORTS.COMMENTID = COMMENTS.COMMENTID )    """
         cursor.execute(query)
         alldata = cursor.fetchall()
@@ -638,7 +638,7 @@ def getall_reports(getconf):
 def deleteFromReport(getconf, id):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reportstable(getconf)
+        #init_reportstable(getconf)
         query = "DELETE FROM REPORTS WHERE ID = %s"
         cursor.execute(query,(id,))
         connection.commit()
@@ -653,7 +653,7 @@ def drop_reports(getconf):
 def username_of_action(getconf, actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = "SELECT USERNAME FROM ACTIONS WHERE ACTIONID = %s"    
         cursor.execute(query,(actionid,))
         username = cursor.fetchall()
@@ -683,7 +683,7 @@ def init_notifications(getconf):
 def insert_notifications(getconf, notification):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_notifications(getconf)
+        #init_notifications(getconf)
         query="""INSERT INTO NOTIFICATIONS
                     (
                         COMMENTID, COMMENTER, RECEIVER, DATE)
@@ -695,7 +695,7 @@ def insert_notifications(getconf, notification):
 def get_notifications(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_notifications(getconf)
+        #init_notifications(getconf)
         query="""SELECT USERS.NAME, USERS.SURNAME, COMMENTS.COMMENT, ACTIONID, NOTIFICATIONS.DATE, ISREAD, NOTIFICATIONS.ID, 
         RECEIVER, COMMENTER
         FROM NOTIFICATIONS, COMMENTS, USERS WHERE USERS.USERNAME = COMMENTER AND  COMMENTS.COMMENTID = NOTIFICATIONS.COMMENTID AND RECEIVER != COMMENTER
@@ -710,7 +710,7 @@ def get_notifications(getconf, username):
 def make_read(getconf,id):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_notifications(getconf)
+        #init_notifications(getconf)
         query = """UPDATE NOTIFICATIONS SET
                         ISREAD = true
                         WHERE ID = %s"""
@@ -721,7 +721,7 @@ def make_read(getconf,id):
 def make_all_read(getconf, username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_notifications(getconf)
+        #init_notifications(getconf)
         query = """UPDATE NOTIFICATIONS SET
                         ISREAD = true
                         WHERE RECEIVER = %s"""
@@ -781,7 +781,7 @@ def init_contenttable(getconf, content):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
 
         query = """INSERT INTO CONTENT
                     (
@@ -795,7 +795,7 @@ def init_contenttable(getconf, content):
 def getall_contenttable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT"""
         cursor.execute(query)
         allcontents = cursor.fetchall()
@@ -808,7 +808,7 @@ def getall_contenttable(getconf):
 def deletefrom_contenttable(getconf, contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """DELETE FROM CONTENT WHERE ID = %s"""
         cursor.execute(query, (contentid,))
         connection.commit()
@@ -817,7 +817,7 @@ def deletefrom_contenttable(getconf, contentid):
 def getcontent_contenttable(getconf, contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT WHERE ID = %s"""
         cursor.execute(query, (contentid,))
         getcontent = cursor.fetchone()
@@ -830,7 +830,7 @@ def getcontent_contenttable(getconf, contentid):
 def edit_content(getconf, contentid,content):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """UPDATE CONTENT SET
                         TITLE = %s,
                         ARTIST = %s,
@@ -848,7 +848,7 @@ def init_stagetable(getconf, stage):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
 
         query = """INSERT INTO STAGE
                    (
@@ -863,7 +863,7 @@ def init_stagetable(getconf, stage):
 def getall_stagestable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT STAGEID,NAME,LOCATION,CAPACITY,STAGEPIC FROM STAGE"""
         cursor.execute(query)
         allstages = cursor.fetchall()
@@ -876,7 +876,7 @@ def getall_stagestable(getconf):
 def deletefrom_stagetable(getconf, stageid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """DELETE FROM STAGE WHERE STAGEID = %s"""
         cursor.execute(query, (stageid,))
         connection.commit()
@@ -885,7 +885,7 @@ def deletefrom_stagetable(getconf, stageid):
 def getstage_stagetable(getconf, stageid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT STAGEID,NAME,LOCATION,CAPACITY,STAGEPIC FROM STAGE WHERE STAGEID = %s"""
         cursor.execute(query, (stageid,))
         getstage = cursor.fetchone()
@@ -898,7 +898,7 @@ def getstage_stagetable(getconf, stageid):
 def edit_stage(getconf, stageid, stage):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """UPDATE STAGE SET
                             NAME = %s,
                             LOCATION = %s,
@@ -916,7 +916,7 @@ def init_playtable(getconf, stageid,contentid,date):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
 
         query = """INSERT INTO PLAY
                        (
@@ -931,7 +931,7 @@ def init_playtable(getconf, stageid,contentid,date):
 def getall_playstable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT PLAY.STAGEID,PLAY.CONTENTID,PLAY.DATE,STAGE.NAME,CONTENT.TITLE FROM PLAY,CONTENT,STAGE WHERE (PLAY.CONTENTID=CONTENT.ID) AND (STAGE.STAGEID=PLAY.STAGEID);"""
         cursor.execute(query)
         allplays = cursor.fetchall()
@@ -944,7 +944,7 @@ def getall_playstable(getconf):
 def deletefrom_playtable(getconf, stageid,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """DELETE FROM PLAY WHERE (STAGEID = %s) AND (CONTENTID = %s)"""
         cursor.execute(query, (stageid,contentid,))
         connection.commit()
@@ -953,7 +953,7 @@ def deletefrom_playtable(getconf, stageid,contentid):
 def getplay_playtable(getconf, stageid,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT STAGEID,CONTENTID,DATE FROM PLAY WHERE (STAGEID = %s) AND (CONTENTID= %s) """
         cursor.execute(query, (stageid,contentid,))
         getplay = cursor.fetchone()
@@ -966,7 +966,7 @@ def getplay_playtable(getconf, stageid,contentid):
 def edit_play(getconf, stageid,contentid,stageidn,contentidn,date):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """UPDATE PLAY SET
                             STAGEID = %s,
                             CONTENTID = %s,
@@ -981,7 +981,7 @@ def edit_play(getconf, stageid,contentid,stageidn,contentidn,date):
 def findstages(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT NAME,LOCATION,CAPACITY,STAGEPIC,PLAY.STAGEID,PLAY.DATE FROM CONTENT,PLAY,STAGE
         WHERE ((CONTENT.ID=PLAY.CONTENTID) AND (STAGE.STAGEID=PLAY.STAGEID) AND (CONTENT.ID=%s));
                          """
@@ -996,7 +996,7 @@ def findstages(getconf,contentid):
 def search_content_table(getconf, keyword):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         keyword = '%' + keyword + '%'
         query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT WHERE ( (LOWER(TITLE) LIKE LOWER(%s)) OR
                         (LOWER(ARTIST) LIKE LOWER(%s)) OR (LOWER(GENRES) LIKE LOWER(%s))) ORDER BY TITLE"""
@@ -1030,7 +1030,7 @@ def init_actortable(getconf, name, surname, birthday):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
 
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
 
         query = """INSERT INTO Actors
                     (
@@ -1045,7 +1045,7 @@ def init_actortable(getconf, name, surname, birthday):
 def deleteactor(getconf, deleteID):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
         query = """DELETE FROM Actors
         WHERE ActorID = %s"""
         cursor.execute(query, (deleteID,))
@@ -1056,7 +1056,7 @@ def deleteactor(getconf, deleteID):
 def editactor(getconf, ID, actortoedit):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
         query = """UPDATE Actors SET
                         NAME = %s,
                         SURNAME = %s,
@@ -1070,7 +1070,7 @@ def editactor(getconf, ID, actortoedit):
 def searchactor(getconf, actortosearch):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
                     WHERE NAME = %s OR SURNAME = %s"""
         cursor.execute(query, (actortosearch, actortosearch,))
@@ -1084,7 +1084,7 @@ def searchactor(getconf, actortosearch):
 def searchactor_byid(getconf, actorid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors
                     WHERE ActorID = %s"""
         cursor.execute(query, (actorid,))
@@ -1098,7 +1098,7 @@ def searchactor_byid(getconf, actorid):
 def getall_actortable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actortablenoadd(getconf)
+        #init_actortablenoadd(getconf)
         query = """SELECT NAME, SURNAME, BIRTHDAY, ActorID FROM Actors"""
         cursor.execute(query)
         alldata = cursor.fetchall()
@@ -1128,7 +1128,7 @@ def init_casting(getconf):
 def insert_casting(getconf, actorid, contentid, ord):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_casting(getconf)
+        #init_casting(getconf)
         query = """INSERT INTO CASTING
                             (
                                 ActorID, ContentID, ORD)
@@ -1142,7 +1142,7 @@ def insert_casting(getconf, actorid, contentid, ord):
 def deletecast(getconf, deleteIDa, deleteIDc):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_casting(getconf)
+        #init_casting(getconf)
         query = """DELETE FROM CASTING
         WHERE ActorID = %s AND ContentID = %s"""
         cursor.execute(query, (deleteIDa, deleteIDc,))
@@ -1153,7 +1153,7 @@ def deletecast(getconf, deleteIDa, deleteIDc):
 def editcast(getconf, actorid, contentid, ord):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_casting(getconf)
+        #init_casting(getconf)
         query = """UPDATE CASTING SET
                         ORD = %s
                         WHERE ActorID = %s AND ContentID = %s"""
@@ -1165,7 +1165,7 @@ def editcast(getconf, actorid, contentid, ord):
 def searchcast(getconf, casttosearch):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_casting(getconf)
+        #init_casting(getconf)
         query = """SELECT NAME, SURNAME, BIRTHDAY, Actors.ActorID, ORD FROM Actors, CASTING
                     WHERE (ContentID = %s AND Actors.ActorID = CASTING.ActorID)
                     ORDER BY ORD ASC"""
@@ -1196,7 +1196,7 @@ def init_rating(getconf):
 def insert_rating(getconf, user, contentid, rate):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """INSERT INTO RATING
                             (
                                 Username, ContentID, Rate)
@@ -1209,7 +1209,7 @@ def insert_rating(getconf, user, contentid, rate):
 def deleterating(getconf, deleteuser, deleteID):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """DELETE FROM RATING
         WHERE Username = %s AND ContentID = %s"""
         cursor.execute(query, (deleteuser, deleteID,))
@@ -1219,7 +1219,7 @@ def deleterating(getconf, deleteuser, deleteID):
 def editrating(getconf, user, contentid, rate):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """UPDATE RATING SET
                         Rate = %s
                         WHERE Username = %s AND ContentID = %s"""
@@ -1229,7 +1229,7 @@ def editrating(getconf, user, contentid, rate):
 def israted(getconf, user, contentid):
      with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """SELECT COUNT(*) FROM RATING
                         WHERE (Username = %s AND ContentID = %s)"""
         cursor.execute(query, (user, contentid,))
@@ -1243,7 +1243,7 @@ def israted(getconf, user, contentid):
 def countvotes(getconf, contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """SELECT COUNT(*) FROM RATING
                         WHERE ContentID = %s"""
         cursor.execute(query, (contentid,))
@@ -1255,7 +1255,7 @@ def countvotes(getconf, contentid):
 def getvotes(getconf, contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """SELECT Rate FROM RATING
                         WHERE ContentID = %s"""
         cursor.execute(query, (contentid,))
@@ -1267,7 +1267,7 @@ def getvotes(getconf, contentid):
 def getonevote(getconf, user, contentid):
      with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_rating(getconf)
+        #init_rating(getconf)
         query = """SELECT Rate FROM RATING
                         WHERE (Username = %s AND ContentID = %s)"""
         cursor.execute(query, (user, contentid,))
@@ -1284,7 +1284,7 @@ def getonevote(getconf, user, contentid):
 def init_actionTable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """CREATE TABLE IF NOT EXISTS ACTIONS
 				(
 					ACTIONID SERIAL NOT NULL,
@@ -1302,7 +1302,7 @@ def init_actionTable(getconf):
 def insert_actionTable(getconf,action):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query="""INSERT INTO ACTIONS
 					(
 						USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE)
@@ -1323,7 +1323,7 @@ def dropActionTable(getconf):
 def getAllActions(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = "SELECT USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE FROM ACTIONS"
         cursor.execute(query)
         alldata = cursor.fetchall()
@@ -1335,7 +1335,7 @@ def getAllActions(getconf):
 def getAction(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         initonly_followUserUser(getconf)
 
         query = """SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE, ACTIONID, NAME, SURNAME, PROFPIC FROM ACTIONS, USERS
@@ -1353,7 +1353,7 @@ def getAction(getconf,username):
 def edit_Action(getconf,comment,actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = """UPDATE ACTIONS SET ACTIONCOMMENT = %s WHERE ACTIONID = %s"""
         cursor.execute(query, (comment,actionid,))
         connection.commit()
@@ -1362,7 +1362,7 @@ def edit_Action(getconf,comment,actionid):
 def deleteActionFromTable(getconf,actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = """Delete From ACTIONS
                 WHERE ACTIONID = %s"""
         cursor.execute(query,(actionid,))
@@ -1372,7 +1372,7 @@ def deleteActionFromTable(getconf,actionid):
 def getcontent_action(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = "SELECT ACTIONS.USERNAME, CONTENTID, ACTIONTYPE, ACTIONCOMMENT, DATE,NAME,SURNAME,PROFPIC FROM ACTIONS,USERS WHERE (CONTENTID = %s) AND (ACTIONS.USERNAME=USERS.USERNAME) ORDER BY 5 DESC"
         cursor.execute(query, (contentid,))
         action = cursor.fetchall()
@@ -1383,7 +1383,7 @@ def getcontent_action(getconf,contentid):
 def  getActionContent(getconf):#for timeline
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
+        #init_furkanstables(getconf)
         query = """SELECT ID, TITLE, ARTIST, DURATION, DATE, CONTENTPIC, GENRES FROM CONTENT"""
         cursor.execute(query)
         content = cursor.fetchall()
@@ -1394,8 +1394,8 @@ def  getActionContent(getconf):#for timeline
 def getuser_action(getconf,username):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_furkanstables(getconf)
-        init_actionTable(getconf)
+        #init_furkanstables(getconf)
+        #init_actionTable(getconf)
         query = "SELECT ACTIONCOMMENT,ACTIONS.DATE,ACTIONS.CONTENTID,TITLE,CONTENTPIC,ARTIST, ACTIONS.USERNAME, ACTIONID FROM ACTIONS,CONTENT WHERE(ACTIONS.USERNAME = %s AND CONTENT.ID=ACTIONS.CONTENTID)"
         cursor.execute(query,(username,))
         data = cursor.fetchall()
@@ -1406,7 +1406,7 @@ def getuser_action(getconf,username):
 def getEditAction(getconf,actionid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_actionTable(getconf)
+        #init_actionTable(getconf)
         query = "SELECT ACTIONCOMMENT FROM ACTIONS WHERE ACTIONID = %s"
         cursor.execute(query,(actionid,))
         data = cursor.fetchone()
@@ -1433,7 +1433,7 @@ def init_criticTable(getconf):
 def insert_criticTable(getconf,criticname,criticsurname,criticworkplace,criticprofpic):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = """INSERT INTO CRITIC
 					(
 						NAME, SURNAME, WORKPLACE,PROFPIC)
@@ -1446,7 +1446,7 @@ def insert_criticTable(getconf,criticname,criticsurname,criticworkplace,criticpr
 def getall_critictable(getconf):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = "SELECT NAME, SURNAME, WORKPLACE, CRITICID, PROFPIC FROM CRITIC"
         cursor.execute(query)
         alldata = cursor.fetchall()
@@ -1458,7 +1458,7 @@ def getall_critictable(getconf):
 def edit_critic(getconf,criticid,criticname,criticsurname,criticworkplace,criticprofpic):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = """UPDATE CRITIC SET 
                     NAME = %s, 
                     SURNAME = %s,
@@ -1472,7 +1472,7 @@ def edit_critic(getconf,criticid,criticname,criticsurname,criticworkplace,critic
 def deleteCriticFromTable(getconf,criticid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = """Delete From CRITIC
                 WHERE CRITICID = %s"""
         cursor.execute(query,(criticid,))
@@ -1500,7 +1500,7 @@ def init_reviewTable(getconf):
 def insert_reviewTable(getconf,criticid,contentid,review,date,score):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """INSERT INTO REVIEW
 					(
 						CRITICID, CONTENTID, REVIEW, DATE,SCORE)
@@ -1515,7 +1515,7 @@ def insert_reviewTable(getconf,criticid,contentid,review,date,score):
 def getreview_content(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """SELECT NAME, SURNAME, WORKPLACE, REVIEW, DATE,SCORE,PROFPIC,REVIEWID,REVIEW.CRITICID FROM REVIEW, CRITIC WHERE ((CONTENTID = %s) AND (REVIEW.CRITICID = CRITIC.CRITICID))
         
         """
@@ -1528,7 +1528,7 @@ def getreview_content(getconf,contentid):
 def edit_reviewTable(getconf,criticid,review,date,score,reviewid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """UPDATE REVIEW SET 
                     CRITICID = %s, 
                     REVIEW = %s,
@@ -1542,7 +1542,7 @@ def edit_reviewTable(getconf,criticid,review,date,score,reviewid):
 def deleteReviewFromTable(getconf,reviewid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """Delete From REVIEW
                 WHERE REVIEWID = %s"""
         cursor.execute(query,(reviewid,))
@@ -1552,7 +1552,7 @@ def deleteReviewFromTable(getconf,reviewid):
 def getcriticfromtable(getconf,criticid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = """SELECT * FROM CRITIC WHERE CRITICID = %s"""
 
         cursor.execute(query, (criticid,))
@@ -1578,7 +1578,7 @@ def getReviewofCritic(getconf,criticid):
 def getCurrentcritic(getconf,criticid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_criticTable(getconf)
+        #init_criticTable(getconf)
         query = """SELECT * FROM CRITIC WHERE CRITICID = %s"""
         cursor.execute(query,(criticid,))
         data = cursor.fetchone()
@@ -1589,7 +1589,7 @@ def getCurrentcritic(getconf,criticid):
 def getCurrentReview(getconf,reviewid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """SELECT * FROM REVIEW WHERE REVIEWID = %s"""
         cursor.execute(query,(reviewid,))
         data = cursor.fetchone()
@@ -1600,7 +1600,7 @@ def getCurrentReview(getconf,reviewid):
 def getMetaScore(getconf,contentid):
     with dbapi2.connect(getconf) as connection:
         cursor = connection.cursor()
-        init_reviewTable(getconf)
+        #init_reviewTable(getconf)
         query = """SELECT AVG(SCORE) FROM REVIEW WHERE CONTENTID = %s"""
         cursor.execute(query,(contentid,))
         data = cursor.fetchone()
