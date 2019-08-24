@@ -41,7 +41,7 @@ def insert_firstadmin(getconf):
 
 def insert_adminstable(getconf, username, order):
     with dbapi2.connect(getconf) as connection:
-        init_adminstable(getconf)
+        #init_adminstable(getconf)
         cursor = connection.cursor()
         
         query = """INSERT INTO ADMINS
