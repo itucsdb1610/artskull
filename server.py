@@ -41,9 +41,6 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
-    #init_usertable(app.config['dsn'])
-    #init_adminstable(app.config['dsn'])
-
     if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
@@ -287,20 +284,6 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        '''
-	init_usertable(app.config['dsn'])
-        init_adminstable(app.config['dsn'])
-        init_furkanstables(app.config['dsn'])
-        init_rating(app.config['dsn'])
-        init_criticTable(app.config['dsn'])
-        init_reviewTable(app.config['dsn'])
-        init_actionTable(app.config['dsn'])
-        init_commentTable(app.config['dsn'])
-        init_actortablenoadd(app.config['dsn'])
-        init_casting(app.config['dsn'])
-        init_reportstable(app.config['dsn'])
-        init_notifications(app.config['dsn'])
-	''''
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
