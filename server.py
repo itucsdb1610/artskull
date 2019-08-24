@@ -287,7 +287,8 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        init_usertable(app.config['dsn'])
+        '''
+	init_usertable(app.config['dsn'])
         init_adminstable(app.config['dsn'])
         init_furkanstables(app.config['dsn'])
         init_rating(app.config['dsn'])
@@ -299,6 +300,7 @@ def timeline():
         init_casting(app.config['dsn'])
         init_reportstable(app.config['dsn'])
         init_notifications(app.config['dsn'])
+	''''
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
