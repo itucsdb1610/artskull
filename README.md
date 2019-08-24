@@ -2,7 +2,7 @@
 
 Web app is currently working on IBM|Bluemix platform. If you want to access the application please click the following link:
 
-[Access Artskull Project on Bluemix!](http://itucsdb1610.mybluemix.net/)
+[Access Artskull Project on Heroku!](http://artskull.herokuapp.com/)
 
 [Access Artskull Document on Readthedocs.org](http://itucsdb1610.readthedocs.io/en/latest/)
 
