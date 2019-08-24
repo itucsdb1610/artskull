@@ -41,8 +41,8 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
-    init_usertable(app.config['dsn'])
-    init_adminstable(app.config['dsn'])
+    #init_usertable(app.config['dsn'])
+    #init_adminstable(app.config['dsn'])
 
     if request.method == 'POST':
         username = request.form['inputUsername']
