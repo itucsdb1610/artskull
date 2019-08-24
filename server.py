@@ -1061,7 +1061,6 @@ def init_all_db():
         app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
     else:
         app.config['dsn'] = """user='postgres' password='123456' host='localhost' port=5432 dbname='itucsdb1610'"""
-    app.run(host='0.0.0.0', port=port, debug=debug)
 
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
@@ -1071,4 +1070,5 @@ if __name__ == '__main__':
         port, debug = 5000, True
 	
     init_all_db()
+    app.run(host='0.0.0.0', port=port, debug=debug)
     
