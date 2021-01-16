@@ -41,9 +41,6 @@ def home():
     if 'username' in session:
         return redirect(url_for('timeline'))
 
-    init_usertable(app.config['dsn'])
-    init_adminstable(app.config['dsn'])
-
     if request.method == 'POST':
         username = request.form['inputUsername']
         password = request.form['inputPassword']
@@ -287,18 +284,6 @@ def timeline():
         return redirect(url_for('user_login'))
 
     if request.method == 'GET':
-        init_usertable(app.config['dsn'])
-        init_adminstable(app.config['dsn'])
-        init_furkanstables(app.config['dsn'])
-        init_rating(app.config['dsn'])
-        init_criticTable(app.config['dsn'])
-        init_reviewTable(app.config['dsn'])
-        init_actionTable(app.config['dsn'])
-        init_commentTable(app.config['dsn'])
-        init_actortablenoadd(app.config['dsn'])
-        init_casting(app.config['dsn'])
-        init_reportstable(app.config['dsn'])
-        init_notifications(app.config['dsn'])
         getallcontent = getActionContent(app.config['dsn'])
         getall = getAction(app.config['dsn'],session['username'])
         getallcomments = getall_commenttable(app.config['dsn'])
@@ -1054,17 +1039,23 @@ def markallread(username):
         return redirect(url_for('user_login'))
     make_all_read(app.config['dsn'],session['username'])
     return redirect(url_for('notifications'))    
+
+def init_all_db():
+    VCAP_SERVICES = os.getenv('VCAP_SERVICES')
+    if VCAP_SERVICES is not None:
+        app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
+    else:
+        app.config['dsn'] = """user='postgres' password='123456' host='localhost' port=5432 dbname='itucsdb1610'"""
+	
+    return app
+
 if __name__ == '__main__':
     VCAP_APP_PORT = os.getenv('VCAP_APP_PORT')
     if VCAP_APP_PORT is not None:
         port, debug = int(VCAP_APP_PORT), False
     else:
         port, debug = 5000, True
-
-    VCAP_SERVICES = os.getenv('VCAP_SERVICES')
-    if VCAP_SERVICES is not None:
-        app.config['dsn'] = get_elephantsql_dsn(VCAP_SERVICES)
-    else:
-        app.config['dsn'] = """user='postgres' password='123456' host='localhost' port=5432 dbname='itucsdb1610'"""
+	
+    init_all_db()
     app.run(host='0.0.0.0', port=port, debug=debug)
     
